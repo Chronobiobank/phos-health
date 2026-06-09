@@ -30,7 +30,7 @@ export function Nav() {
           <Link href="/" aria-label="PHOS home" style={{ display: 'inline-flex' }}>
             <Wordmark />
           </Link>
-          <span className="label nav-sub">Photonic Operating System</span>
+          <span className="label nav-sub">Photonic OS</span>
         </div>
 
         <Link href="/research/photonic-age" className="btn btn--outline">
