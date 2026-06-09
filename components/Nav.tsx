@@ -6,13 +6,15 @@ export function Nav() {
   return (
     <nav
       style={{
-        position: 'sticky',
+        position: 'fixed',
         top: 0,
+        left: 0,
+        right: 0,
         zIndex: 100,
-        background: 'var(--void)',
-        borderBottom: '1px solid var(--rule)',
-        backdropFilter: 'blur(12px)',
-        WebkitBackdropFilter: 'blur(12px)',
+        background: 'rgba(255, 255, 255, 0.45)',
+        borderBottom: '1px solid rgba(220, 220, 232, 0.5)',
+        backdropFilter: 'blur(14px)',
+        WebkitBackdropFilter: 'blur(14px)',
       }}
     >
       <div

@@ -69,8 +69,22 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-snap-type: y proximity;
   /* Fluid root: 16px at 360px viewport, 18px at 1440px+ */
   font-size: clamp(16px, 15.33px + 0.185vw, 18px);
+}
+
+/* Full-viewport snapping sections */
+.snap-section {
+  scroll-snap-align: start;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.snap-end {
+  scroll-snap-align: end;
 }
 
 body {
@@ -537,6 +551,7 @@ a:hover { color: var(--photon); }
 .hero {
   position: relative;
   overflow: hidden;
+  /* Top padding clears the fixed glass nav; video runs underneath it */
   padding: clamp(96px, 12vh, 150px) 0 clamp(64px, 9vh, 110px);
 }
 

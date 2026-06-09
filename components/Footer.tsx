@@ -2,7 +2,7 @@ import Wordmark from '@/components/Wordmark'
 
 export function Footer() {
   return (
-    <footer style={{ borderTop: '1px solid var(--rule)' }}>
+    <footer className="snap-end" style={{ borderTop: '1px solid var(--rule)' }}>
       <div
         className="container--wide"
         style={{

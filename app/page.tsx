@@ -31,7 +31,7 @@ export default function Home() {
       <Nav />
 
       {/* ── Hero ── */}
-      <section className="fade-in hero">
+      <section className="fade-in hero snap-section">
         <video
           className="hero__video"
           autoPlay
@@ -71,7 +71,7 @@ export default function Home() {
       <hr style={{ border: 'none', borderTop: '1px solid var(--rule)', margin: 0 }} />
 
       {/* ── 01 · The Biology ── */}
-      <section className="fade-in" style={{ paddingTop: '80px', paddingBottom: '64px' }}>
+      <section className="fade-in snap-section" style={{ paddingTop: '80px', paddingBottom: '64px' }}>
         <div className="container">
           <p className="section-number">01</p>
           <h2 className="section-title">Three facts your organisation has not been told</h2>
@@ -126,7 +126,7 @@ export default function Home() {
       </section>
 
       {/* ── 02 · Photonic Age ── */}
-      <section style={{ background: 'var(--cosmos)' }}>
+      <section className="snap-section" style={{ background: 'var(--cosmos)' }}>
         <div className="fade-in container" style={{ paddingTop: '80px' }}>
           <p className="section-number">02</p>
           <h2 className="section-title">Photonic Age</h2>
@@ -155,7 +155,7 @@ export default function Home() {
       </section>
 
       {/* ── 03 · The Commercial Case ── */}
-      <section className="fade-in" style={{ paddingTop: '80px', paddingBottom: '80px' }}>
+      <section className="fade-in snap-section" style={{ paddingTop: '80px', paddingBottom: '80px' }}>
         <div className="container">
           <p className="section-number">03</p>
           <h2 className="section-title">What Lost Light Years costs your firm</h2>
@@ -234,7 +234,7 @@ export default function Home() {
 
       {/* ── 04 · White Paper ── */}
       <section
-        className="fade-in"
+        className="fade-in snap-section"
         style={{ background: 'var(--cosmos)', paddingTop: '80px', paddingBottom: '80px' }}
       >
         <div className="container">
