@@ -11,23 +11,23 @@ const STEPS = [
   {
     label: '02 — Score',
     icon: '◎',
-    title: 'BodyCloQ —',
-    titleEm: 'your circadian score',
-    body: 'CloQ analyses your sleep architecture, HRV, and circadian phase to generate your BodyCloQ score — a single number that captures when your biology is at its best and where it needs support.',
+    title: 'Photonic Age —',
+    titleEm: 'your light-age metric',
+    body: 'PHOS analyses your light/dark cycle exposure, sleep architecture, and circadian phase to calculate your Photonic Age — a single number that names what you are missing, not just what you have lost.',
   },
   {
-    label: '03 — Optimise',
+    label: '03 — Quantify',
     icon: '◉',
-    title: 'Q —',
-    titleEm: 'daily circadian cues',
-    body: 'Q delivers one personalised cue each day. When to take your first light. When your cognitive window opens. When to schedule the meeting that matters. Three sentences. Always actionable.',
+    title: 'Lost Light Years —',
+    titleEm: 'the gap that matters',
+    body: 'The difference between your Chronological Age and Photonic Age is your Lost Light Years deficit. For an individual, it is personal and motivating. For a company, it is a balance sheet entry.',
   },
   {
     label: '04 — Act',
     icon: '◈',
-    title: 'Specialists + Shop —',
-    titleEm: 'specialists and nootropics',
-    body: 'Where your score suggests specialist support, Q privately routes you to UK specialists. Where optimisation is the goal, the CloQ Shop delivers circadian nootropics — supplements and devices timed to your biology.',
+    title: 'PHOS Platform —',
+    titleEm: 'measure and close the gap',
+    body: 'PHOS measures both ages, quantifies the deficit across your workforce, and delivers the interventions — light protocols, specialist routing, and circadian nootropics — to close the gap.',
   },
 ] as const
 
@@ -36,13 +36,13 @@ export function HowItWorksSection() {
     <section id="how-it-works" className="section section--off-white">
       <div className="container">
         <Reveal>
-          <p className="label section-intro__eyebrow">The CloQ Method</p>
+          <p className="label section-intro__eyebrow">The PHOS Method</p>
           <h2 className="display-section section-intro__headline section-intro__headline--relaxed">
             Three nights.
             <br />
-            One score.
+            One metric.
             <br />
-            <em>Daily cues for life.</em>
+            <em>Close the gap.</em>
           </h2>
         </Reveal>
 
@@ -65,7 +65,7 @@ export function HowItWorksSection() {
 
         <Reveal delay={0.16} className="section-cta">
           <a href="#cta" className="btn btn--primary">
-            Order TipTraQ — get your BodyCloQ score →
+            Order TipTraQ — get your Photonic Age →
           </a>
           <p className="note section-cta__note">
             TipTraQ assessment from £95 · Results in 48 hours

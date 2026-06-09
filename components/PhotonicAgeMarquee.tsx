@@ -1,18 +1,18 @@
 const MARQUEE_ITEMS = [
-  'BodyCloQ Score',
+  'Photonic Age',
+  'Lost Light Years',
+  'Light/Dark Cycle Exposure',
   'Circadian Amplitude',
   'Cognitive Peak Window',
   'Sleep Architecture',
   'HRV Overnight',
   'Social Jet Lag',
   'Recovery Index',
-  'Circadian Phase',
-  'Daily Q Cue',
   'TipTraQ Baseline',
   'Chronotype Mapping',
   'Light Protocol',
-  'Travel Recovery',
-  'Nootropic Timing',
+  'UK Biobank Methodology',
+  'Workforce Photonic Deficit',
 ] as const
 
 function MarqueeContent() {
@@ -30,7 +30,7 @@ function MarqueeContent() {
   )
 }
 
-export function BodyCloQMarquee() {
+export function PhotonicAgeMarquee() {
   return (
     <div className="marquee" aria-hidden>
       <div className="marquee__track">

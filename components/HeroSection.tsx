@@ -83,15 +83,16 @@ export function HeroSection() {
       <FresnelLensOverlay />
 
       <div className="container hero__inner">
-        <h1 className="display-hero hero__headline">Make time count.</h1>
+        <h1 className="display-hero hero__headline">Light matters.</h1>
 
         <p className="body-base hero__support">
-          CloQ delivers daily cues that sharpen cognitive function when your people need it most.
+          PHOS Health measures Photonic Age across your workforce — and quantifies the Lost Light
+          Years costing you.
         </p>
 
         <div className="hero__actions">
           <a href="#cta" className="btn btn--primary">
-            Pilot CloQ for your team →
+            Pilot PHOS for your team →
           </a>
         </div>
       </div>

@@ -16,15 +16,15 @@ const dmMono = DM_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'CloQ Health — Make Time Count',
+  title: 'PHOS Health — Light Matters',
   description:
-    'BodyCloQ measures your circadian rhythm across three nights and turns it into a score, daily cue, and action plan for peak cognitive performance.',
+    'PHOS Health measures Photonic Age across three nights of TipTraQ data — quantifying Lost Light Years and the cost of circadian misalignment for individuals and teams.',
   openGraph: {
-    title: 'CloQ Health — Make Time Count',
+    title: 'PHOS Health — Light Matters',
     description:
-      'BodyCloQ measures your circadian rhythm and turns it into a score, daily cue, and action plan.',
-    url: 'https://cloq.health',
-    siteName: 'CloQ Health',
+      'Photonic Age quantifies the cost of lost light. PHOS measures it and closes the gap.',
+    url: 'https://phos.health',
+    siteName: 'PHOS Health',
     locale: 'en_GB',
     type: 'website',
   },

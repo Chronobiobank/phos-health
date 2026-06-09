@@ -10,7 +10,7 @@ export function Nav() {
     <>
       <nav className="nav">
         <a href="#" className="nav__wordmark">
-          Clo<span className="q">Q</span>
+          PH<span className="o">O</span>S
         </a>
 
         <ul className="nav__links">
@@ -26,7 +26,7 @@ export function Nav() {
           </li>
           <li>
             <a href="#cta" className="btn btn--primary">
-              Get your score
+              Get your Photonic Age
             </a>
           </li>
         </ul>
@@ -86,7 +86,7 @@ export function Nav() {
               className="btn btn--primary"
               onClick={() => setMenuOpen(false)}
             >
-              Get your score
+              Get your Photonic Age
             </a>
           </motion.div>
         )}

@@ -12,7 +12,7 @@ const PRODUCTS = [
   {
     category: 'Cognitive Window',
     title: 'Focus + Flow Stack',
-    body: 'Formulated for delivery at your BodyCloQ cognitive peak. Supports sustained attention, working memory, and processing speed during your biological prime time.',
+    body: 'Formulated for delivery at your Photonic Age cognitive peak. Supports sustained attention, working memory, and processing speed during your biological prime time.',
   },
   {
     category: 'Evening Recovery',
@@ -43,7 +43,7 @@ export function ShopSection() {
             <em>not against it.</em>
           </h2>
           <p className="body-base section-intro__support copy-medium">
-            Every supplement in the CloQ Shop is timed to your BodyCloQ score. The right
+            Every supplement in the PHOS Shop is timed to your Photonic Age. The right
             compound. The right dose. The right time.
           </p>
         </Reveal>
