@@ -2,6 +2,8 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 
+import { FresnelLensOverlay } from '@/components/FresnelLensOverlay'
+
 const HERO_VIDEOS = [
   { src: '/hero/first-light.mp4', poster: '/hero/standardised.jpg' },
   { src: '/hero/dosing.mp4', poster: '/hero/featured-platform.jpg' },
@@ -78,11 +80,7 @@ export function HeroSection() {
         )}
       </div>
 
-      <div className="ripple-container" aria-hidden>
-        <div className="ripple-c" />
-        <div className="ripple-a" />
-        <div className="ripple-b" />
-      </div>
+      <FresnelLensOverlay />
 
       <div className="container hero__inner">
         <h1 className="display-hero hero__headline">Make time count.</h1>

@@ -333,105 +333,118 @@ body {
   pointer-events: none;
 }
 
-/* Layer 3 — circular diffraction ripples (circular analogue of diagonal light shards) */
+/* Layer 3 — Fresnel lighthouse lens (CSS gradient rings) */
 .ripple-container {
   position: absolute;
   inset: 0;
   z-index: 2;
   pointer-events: none;
   overflow: hidden;
-  filter: blur(0.35px);
 }
 
-.ripple-a,
-.ripple-b,
-.ripple-c {
+.fresnel-rings {
   position: absolute;
-  inset: -20%;
-  pointer-events: none;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  transform-origin: var(--ripple-fx) var(--ripple-fy);
-  will-change: transform, opacity;
-}
-
-/* Lilac interference rings — sharp bands like a diagonal light shard, but radial */
-.ripple-a {
-  mix-blend-mode: screen;
+  inset: 0;
   background: repeating-radial-gradient(
     circle at var(--ripple-fx) var(--ripple-fy),
-    transparent 0,
+    transparent 0px,
+    transparent 24px,
+    rgba(200, 162, 200, 0.07) 24px,
+    rgba(200, 162, 200, 0.07) 26px,
     transparent 26px,
-    rgba(200, 162, 200, 0.24) 27px,
-    rgba(200, 162, 200, 0.08) 30px,
-    transparent 31px,
-    transparent 54px
+    transparent 46px,
+    rgba(200, 162, 200, 0.06) 46px,
+    rgba(200, 162, 200, 0.06) 48px,
+    transparent 48px,
+    transparent 65px,
+    rgba(200, 162, 200, 0.05) 65px,
+    rgba(200, 162, 200, 0.05) 67px,
+    transparent 67px,
+    transparent 81px,
+    rgba(200, 162, 200, 0.04) 81px,
+    rgba(200, 162, 200, 0.04) 83px,
+    transparent 83px,
+    transparent 94px,
+    rgba(200, 162, 200, 0.03) 94px,
+    rgba(200, 162, 200, 0.03) 96px,
+    transparent 96px,
+    transparent 106px,
+    rgba(200, 162, 200, 0.025) 106px,
+    rgba(200, 162, 200, 0.025) 108px,
+    transparent 108px,
+    transparent 117px,
+    rgba(200, 162, 200, 0.02) 117px,
+    rgba(200, 162, 200, 0.02) 119px,
+    transparent 119px,
+    transparent 127px,
+    rgba(200, 162, 200, 0.015) 127px,
+    rgba(200, 162, 200, 0.015) 129px
   );
-  animation: ripple-diffraction 7s ease-in-out infinite;
+  animation: fresnel-rotate 90s linear infinite;
+  transform-origin: var(--ripple-fx) var(--ripple-fy);
+  pointer-events: none;
 }
 
-/* Specular white rings — offset phase, thinner bands */
-.ripple-b {
-  mix-blend-mode: screen;
-  background: repeating-radial-gradient(
-    circle at var(--ripple-fx) var(--ripple-fy),
-    transparent 0,
-    transparent 36px,
-    rgba(255, 255, 255, 0.14) 37px,
-    rgba(255, 255, 255, 0.05) 39px,
-    transparent 40px,
-    transparent 72px
-  );
-  animation: ripple-diffraction 7s ease-in-out 3.5s infinite;
-}
-
-/* Centre bloom — bright leading edge of the diagonal sweep, as a radial source */
-.ripple-c {
-  mix-blend-mode: soft-light;
+.fresnel-glow {
+  position: absolute;
+  inset: 0;
   background: radial-gradient(
     circle at var(--ripple-fx) var(--ripple-fy),
-    rgba(255, 255, 255, 0.12) 0%,
-    rgba(200, 162, 200, 0.14) 8%,
-    rgba(200, 162, 200, 0.05) 18%,
-    transparent 38%
+    rgba(255, 255, 255, 0.18) 0%,
+    rgba(200, 162, 200, 0.1) 4%,
+    rgba(200, 162, 200, 0.04) 8%,
+    transparent 16%
   );
-  animation: ripple-bloom 7s ease-in-out infinite;
+  animation: glow-pulse 4s ease-in-out infinite;
+  pointer-events: none;
 }
 
-@keyframes ripple-diffraction {
-  0% {
-    transform: scale(0.86);
-    opacity: 0.35;
+.fresnel-prism {
+  position: absolute;
+  inset: 0;
+  background: repeating-radial-gradient(
+    circle at var(--ripple-fx) var(--ripple-fy),
+    transparent 0px,
+    transparent 23px,
+    rgba(180, 140, 220, 0.03) 23px,
+    rgba(140, 180, 220, 0.03) 25px,
+    rgba(220, 180, 140, 0.02) 26px,
+    transparent 27px,
+    transparent 45px,
+    rgba(180, 140, 220, 0.025) 45px,
+    rgba(140, 180, 220, 0.025) 47px,
+    transparent 48px
+  );
+  opacity: 0.6;
+  animation: fresnel-rotate 90s linear infinite;
+  transform-origin: var(--ripple-fx) var(--ripple-fy);
+  pointer-events: none;
+}
+
+@keyframes fresnel-rotate {
+  from {
+    transform: rotate(0deg);
   }
-  50% {
-    transform: scale(1.14);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(0.86);
-    opacity: 0.35;
+  to {
+    transform: rotate(360deg);
   }
 }
 
-@keyframes ripple-bloom {
+@keyframes glow-pulse {
   0%,
   100% {
-    transform: scale(0.94);
-    opacity: 0.45;
+    opacity: 0.7;
   }
   50% {
-    transform: scale(1.06);
-    opacity: 0.95;
+    opacity: 1;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ripple-a,
-  .ripple-b,
-  .ripple-c {
+  .fresnel-rings,
+  .fresnel-prism,
+  .fresnel-glow {
     animation: none;
-    opacity: 0.5;
-    transform: scale(1);
   }
 }
 
@@ -1370,6 +1383,71 @@ input[type='range']::-moz-range-thumb {
   .hero {
     --ripple-fx: 50%;
     --ripple-fy: 40%;
+  }
+
+  .fresnel-rings {
+    background: repeating-radial-gradient(
+      circle at var(--ripple-fx) var(--ripple-fy),
+      transparent 0px,
+      transparent 24px,
+      rgba(200, 162, 200, 0.042) 24px,
+      rgba(200, 162, 200, 0.042) 26px,
+      transparent 26px,
+      transparent 46px,
+      rgba(200, 162, 200, 0.036) 46px,
+      rgba(200, 162, 200, 0.036) 48px,
+      transparent 48px,
+      transparent 65px,
+      rgba(200, 162, 200, 0.03) 65px,
+      rgba(200, 162, 200, 0.03) 67px,
+      transparent 67px,
+      transparent 81px,
+      rgba(200, 162, 200, 0.024) 81px,
+      rgba(200, 162, 200, 0.024) 83px,
+      transparent 83px,
+      transparent 94px,
+      rgba(200, 162, 200, 0.018) 94px,
+      rgba(200, 162, 200, 0.018) 96px,
+      transparent 96px,
+      transparent 106px,
+      rgba(200, 162, 200, 0.015) 106px,
+      rgba(200, 162, 200, 0.015) 108px,
+      transparent 108px,
+      transparent 117px,
+      rgba(200, 162, 200, 0.012) 117px,
+      rgba(200, 162, 200, 0.012) 119px,
+      transparent 119px,
+      transparent 127px,
+      rgba(200, 162, 200, 0.009) 127px,
+      rgba(200, 162, 200, 0.009) 129px
+    );
+  }
+
+  .fresnel-glow {
+    background: radial-gradient(
+      circle at var(--ripple-fx) var(--ripple-fy),
+      rgba(255, 255, 255, 0.108) 0%,
+      rgba(200, 162, 200, 0.06) 4%,
+      rgba(200, 162, 200, 0.024) 8%,
+      transparent 16%
+    );
+  }
+
+  .fresnel-prism {
+    background: repeating-radial-gradient(
+      circle at var(--ripple-fx) var(--ripple-fy),
+      transparent 0px,
+      transparent 23px,
+      rgba(180, 140, 220, 0.018) 23px,
+      rgba(140, 180, 220, 0.018) 25px,
+      rgba(220, 180, 140, 0.012) 26px,
+      transparent 27px,
+      transparent 45px,
+      rgba(180, 140, 220, 0.015) 45px,
+      rgba(140, 180, 220, 0.015) 47px,
+      transparent 48px
+    );
+    opacity: 0.36;
   }
 
   .nav__links {
