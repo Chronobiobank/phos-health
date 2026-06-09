@@ -1,96 +1,42 @@
-'use client'
+import Link from 'next/link'
 
-import { useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import Wordmark from '@/components/Wordmark'
 
 export function Nav() {
-  const [menuOpen, setMenuOpen] = useState(false)
-
   return (
-    <>
-      <nav className="nav">
-        <a href="#" className="nav__wordmark">
-          PH<span className="o">O</span>S
-        </a>
+    <nav
+      style={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 100,
+        background: 'var(--void)',
+        borderBottom: '1px solid var(--rule)',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
+      }}
+    >
+      <div
+        className="container--wide"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: 'var(--space-sm)',
+          paddingTop: '14px',
+          paddingBottom: '14px',
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: '14px' }}>
+          <Link href="/" aria-label="PHOS home" style={{ display: 'inline-flex' }}>
+            <Wordmark />
+          </Link>
+          <span className="label nav-sub">Photonic Operating System</span>
+        </div>
 
-        <ul className="nav__links">
-          <li>
-            <a href="#how-it-works" className="nav__link">
-              How it works
-            </a>
-          </li>
-          <li>
-            <a href="#cta" className="nav__link">
-              For teams
-            </a>
-          </li>
-          <li>
-            <a href="#cta" className="btn btn--primary">
-              Get your Photonic Age
-            </a>
-          </li>
-        </ul>
-
-        <button
-          type="button"
-          className="nav__menu-btn"
-          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-          aria-expanded={menuOpen}
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
-            {menuOpen ? (
-              <path
-                d="M6 6l12 12M18 6L6 18"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="square"
-              />
-            ) : (
-              <path
-                d="M4 8h16M4 16h16"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="square"
-              />
-            )}
-          </svg>
-        </button>
-      </nav>
-
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            className="nav__overlay"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-          >
-            <a
-              href="#how-it-works"
-              className="nav__overlay-link"
-              onClick={() => setMenuOpen(false)}
-            >
-              How it works
-            </a>
-            <a
-              href="#cta"
-              className="nav__overlay-link"
-              onClick={() => setMenuOpen(false)}
-            >
-              For teams
-            </a>
-            <a
-              href="#cta"
-              className="btn btn--primary"
-              onClick={() => setMenuOpen(false)}
-            >
-              Get your Photonic Age
-            </a>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+        <Link href="/research/photonic-age" className="btn btn--outline">
+          Download white paper →
+        </Link>
+      </div>
+    </nav>
   )
 }
