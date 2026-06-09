@@ -48,11 +48,11 @@ export default function Home() {
           <p className="label">Photonic OS</p>
 
           <h1 className="display-xl" style={{ marginTop: '28px' }}>
-            Lost
+            Reclaim
             <br />
-            <span className="text-spectrum">Light</span>
-            <br />
-            Years
+            <span className="text-spectrum" style={{ whiteSpace: 'nowrap' }}>
+              Lost&nbsp;Time
+            </span>
           </h1>
 
           <p className="display-sm" style={{ marginTop: '24px', maxWidth: '520px' }}>
@@ -223,19 +223,18 @@ export default function Home() {
           <h2 className="section-title">The methodology, published</h2>
 
           <div className="callout">
-            <p className="display-sm" style={{ fontStyle: 'italic', marginBottom: '16px' }}>
+            <p className="paper-title">
               Photonic Age: A Methodology for Measuring Lost Light Years and the Hidden Cost of
               Circadian Misalignment
             </p>
-            <div className="prose">
-              <p>
-                The full methodology: scientific foundations, a worked clinical example, and the
-                commercial translation into revenue impact.
-              </p>
-            </div>
-            <p className="label" style={{ marginTop: '20px' }}>
-              Grant Munro · NIHI Fellow, University of Auckland · The Circadian Foundation ·
-              Auckland, New Zealand · June 2026
+            <p style={{ marginTop: '18px' }}>
+              The full methodology: scientific foundations, a worked clinical example, and the
+              commercial translation into revenue impact.
+            </p>
+            <p className="byline" style={{ marginTop: '22px' }}>
+              <strong>Grant Munro</strong> · NIHI Fellow, University of Auckland
+              <br />
+              The Circadian Foundation · Auckland, New Zealand · June 2026
             </p>
           </div>
 
