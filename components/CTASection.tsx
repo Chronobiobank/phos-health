@@ -13,22 +13,21 @@ const DETAILS = [
 export function CTASection() {
   return (
     <section id="cta" className="section section--black">
-      <div className="container grid grid-cols-1 gap-16 lg:grid-cols-2 lg:gap-20">
+      <div className="container two-col">
         <Reveal>
-          <p className="label mb-10 text-silver">Get started</p>
-          <h2 className="display-section mb-8 text-[64px] text-white max-lg:text-[44px]">
+          <p className="label section-intro__eyebrow">Get started</p>
+          <h2 className="display-section display-section--lg cta__headline">
             Three nights.
             <br />
             One score.
             <br />
             <em>Make time count.</em>
           </h2>
-          <p className="body-base mb-10 max-w-md text-white/45">
-            Order your TipTraQ assessment. Receive your
-            BodyCloQ score in 48 hours. Let Q deliver
-            your first cue the same day.
+          <p className="body-base cta__support">
+            Order your TipTraQ assessment. Receive your BodyCloQ score in 48 hours. Let Q
+            deliver your first cue the same day.
           </p>
-          <div className="flex flex-wrap gap-8">
+          <div className="cta__actions">
             <a href="mailto:hello@cloq.health" className="btn btn--primary">
               Order TipTraQ →
             </a>
@@ -36,7 +35,7 @@ export function CTASection() {
               Request team pricing
             </a>
           </div>
-          <p className="mt-8 font-mono text-[10px] text-silver">
+          <p className="note note--xs cta__note">
             Assessment from £95 · Delivered to your door · UK only
           </p>
         </Reveal>

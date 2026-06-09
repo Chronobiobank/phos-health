@@ -1,5 +1,7 @@
 import { Nav } from '@/components/Nav'
 import { HeroSection } from '@/components/HeroSection'
+import { ProblemSection } from '@/components/ProblemSection'
+import { StatStrip } from '@/components/StatStrip'
 import { HowItWorksSection } from '@/components/HowItWorksSection'
 import { BodyCloQSection } from '@/components/BodyCloQSection'
 import { ShopSection } from '@/components/ShopSection'
@@ -11,6 +13,8 @@ export default function Home() {
     <main>
       <Nav />
       <HeroSection />
+      <ProblemSection />
+      <StatStrip />
       <HowItWorksSection />
       <BodyCloQSection />
       <ShopSection />

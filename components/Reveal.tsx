@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import type { ReactNode } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
 
 interface RevealProps {
   children: ReactNode
@@ -10,6 +10,16 @@ interface RevealProps {
 }
 
 export function Reveal({ children, className, delay = 0 }: RevealProps) {
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) {
+    return <div className={className}>{children}</div>
+  }
+
   return (
     <motion.div
       className={className}

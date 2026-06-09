@@ -19,7 +19,7 @@ function MarqueeContent() {
   return (
     <span className="marquee__content">
       {MARQUEE_ITEMS.map((item) => (
-        <span key={item} className="inline-flex items-center gap-6">
+        <span key={item} className="marquee__item">
           {item}
           <span className="marquee__dot" aria-hidden>
             ·

@@ -1,89 +1,102 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
-const STATS = [
-  { number: '£103bn', label: 'Annual UK presenteeism cost' },
-  { number: '44', label: 'Productivity days lost per employee per year' },
-  { number: '6hrs', label: 'Variation in biological peak time between individuals' },
-  { number: '0', label: 'Wellness platforms that measure your body clock' },
+const HERO_VIDEOS = [
+  { src: '/hero/first-light.mp4', poster: '/hero/standardised.jpg' },
+  { src: '/hero/dosing.mp4', poster: '/hero/featured-platform.jpg' },
 ] as const
 
-const fadeUp = (delay: number) => ({
-  initial: { opacity: 0, y: 24 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6, ease: [0, 0, 0.2, 1] as const, delay },
-})
+const ROTATE_MS = 9000
 
 export function HeroSection() {
+  const [activeIndex, setActiveIndex] = useState(0)
+  const [reduceMotion, setReduceMotion] = useState(false)
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([])
+
+  const playActive = useCallback(
+    (index: number) => {
+      videoRefs.current.forEach((video, i) => {
+        if (!video) return
+        if (i === index) {
+          video.currentTime = 0
+          void video.play().catch(() => undefined)
+        } else {
+          video.pause()
+        }
+      })
+    },
+    [],
+  )
+
+  useEffect(() => {
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    setReduceMotion(prefersReduced)
+    if (!prefersReduced) playActive(0)
+  }, [playActive])
+
+  useEffect(() => {
+    if (reduceMotion || HERO_VIDEOS.length < 2) return
+
+    const timer = window.setInterval(() => {
+      setActiveIndex((current) => {
+        const next = (current + 1) % HERO_VIDEOS.length
+        playActive(next)
+        return next
+      })
+    }, ROTATE_MS)
+
+    return () => window.clearInterval(timer)
+  }, [playActive, reduceMotion])
+
   return (
-    <>
-      <section className="section--black min-h-screen pt-[var(--nav-height)]">
-        <div className="container grid min-h-[calc(100vh-var(--nav-height))] grid-cols-1 items-center gap-12 py-16 lg:grid-cols-[3fr_2fr] lg:py-24">
-          <div>
-            <motion.p
-              className="label mb-10 text-silver"
-              {...fadeUp(0)}
+    <section className="hero section--black">
+      <div className="hero__media" aria-hidden>
+        {reduceMotion ? (
+          <div
+            className="hero__poster is-active"
+            style={{ backgroundImage: `url(${HERO_VIDEOS[0].poster})` }}
+          />
+        ) : (
+          HERO_VIDEOS.map((item, index) => (
+            <video
+              key={item.src}
+              ref={(el) => {
+                videoRefs.current[index] = el
+              }}
+              className={`hero__video${index === activeIndex ? ' is-active' : ''}`}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              poster={item.poster}
             >
-              Circadian Nootropics · CloQ Health
-            </motion.p>
-
-            <motion.h1
-              className="display-hero mb-8 text-white"
-              {...fadeUp(0.08)}
-            >
-              Your body has
-              <br />
-              a clock.
-              <br />
-              Most people
-              <br />
-              <em>ignore it.</em>
-            </motion.h1>
-
-            <motion.p
-              className="body-base mb-12 max-w-[460px] text-silver"
-              {...fadeUp(0.16)}
-            >
-              BodyCloQ measures your circadian rhythm
-              <br className="hidden sm:block" />
-              across three nights — and turns it into a
-              <br className="hidden sm:block" />
-              score, a daily cue, and a clear action plan
-              <br className="hidden sm:block" />
-              for peak cognitive performance.
-            </motion.p>
-
-            <motion.div
-              className="flex flex-wrap gap-4"
-              {...fadeUp(0.24)}
-            >
-              <a href="#cta" className="btn btn--primary">
-                Get your BodyCloQ score →
-              </a>
-              <a href="#how-it-works" className="btn btn--ghost">
-                See how it works
-              </a>
-            </motion.div>
-          </div>
-
-          <div className="relative flex flex-col items-end justify-end overflow-hidden">
-            <span className="hero-ghost" aria-hidden>
-              3
-            </span>
-            <p className="label relative z-10 text-silver">Nights to your score</p>
-          </div>
-        </div>
-      </section>
-
-      <div className="stat-strip">
-        {STATS.map((stat) => (
-          <div key={stat.label} className="stat-strip__item">
-            <span className="stat-strip__number">{stat.number}</span>
-            <span className="stat-strip__label">{stat.label}</span>
-          </div>
-        ))}
+              <source src={item.src} type="video/mp4" />
+            </video>
+          ))
+        )}
       </div>
-    </>
+
+      <div className="ripple-container" aria-hidden>
+        <div className="ripple-c" />
+        <div className="ripple-a" />
+        <div className="ripple-b" />
+      </div>
+
+      <div className="container hero__inner">
+        <h1 className="display-hero hero__headline">Make time count.</h1>
+
+        <p className="body-base hero__support">
+          CloQ delivers daily cues that sharpen cognitive function when your people need it most.
+        </p>
+
+        <div className="hero__actions">
+          <a href="#cta" className="btn btn--primary">
+            Pilot CloQ for your team →
+          </a>
+        </div>
+      </div>
+    </section>
   )
 }

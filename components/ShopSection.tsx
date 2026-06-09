@@ -34,31 +34,30 @@ export function ShopSection() {
     <section id="shop" className="section section--white">
       <div className="container">
         <Reveal>
-          <p className="label mb-10 text-silver">Circadian Nootropics</p>
-          <h2 className="display-section mb-6 max-w-[640px] text-eggplant">
+          <p className="label section-intro__eyebrow">Circadian Nootropics</p>
+          <h2 className="display-section section-intro__headline copy-wide">
             Supplements that
             <br />
             work with your clock,
             <br />
             <em>not against it.</em>
           </h2>
-          <p className="body-base mb-16 max-w-[480px] text-silver md:mb-20">
-            Every supplement in the CloQ Shop is timed
-            to your BodyCloQ score. The right compound.
-            The right dose. The right time.
+          <p className="body-base section-intro__support copy-medium">
+            Every supplement in the CloQ Shop is timed to your BodyCloQ score. The right
+            compound. The right dose. The right time.
           </p>
         </Reveal>
 
         <Reveal delay={0.08}>
-          <div className="mb-16 grid gap-px bg-silver md:grid-cols-3 md:mb-20">
+          <div className="card-grid">
             {PRODUCTS.map((product) => (
-              <article key={product.title} className="card">
-                <span className="badge badge--coming-soon mb-6">Coming soon</span>
-                <p className="label mb-4 text-silver">{product.category}</p>
-                <h3 className="display-card mb-4 text-eggplant">
+              <article key={product.title} className="card card-grid__item">
+                <span className="badge badge--coming-soon card__badge">Coming soon</span>
+                <p className="label card__category">{product.category}</p>
+                <h3 className="display-card card__title">
                   <em>{product.title}</em>
                 </h3>
-                <p className="body-sm mb-8 flex-1 text-silver">{product.body}</p>
+                <p className="body-sm card__body">{product.body}</p>
                 <button type="button" className="btn btn--ghost-dark">
                   Notify me
                 </button>
@@ -68,17 +67,14 @@ export function ShopSection() {
         </Reveal>
 
         <Reveal delay={0.16}>
-          <div className="bg-off-white px-8 py-12 text-center md:px-12 md:py-14">
-            <p className="label mb-6 text-silver">Be first to know when the shop opens</p>
+          <div className="email-capture">
+            <p className="label email-capture__eyebrow">Be first to know when the shop opens</p>
             {submitted ? (
-              <p className="font-mono text-[14px] text-eggplant">
+              <p className="email-capture__thanks">
                 Thank you — we&apos;ll notify you when the shop is live.
               </p>
             ) : (
-              <form
-                onSubmit={handleSubmit}
-                className="flex flex-col items-center justify-center gap-4 sm:flex-row"
-              >
+              <form onSubmit={handleSubmit} className="email-capture__form">
                 <input
                   type="email"
                   className="input"
@@ -93,7 +89,7 @@ export function ShopSection() {
                 </button>
               </form>
             )}
-            <p className="mt-4 font-mono text-[10px] text-silver">
+            <p className="note note--xs email-capture__note">
               No spam. One email when the shop is live.
             </p>
           </div>

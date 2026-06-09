@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import { motion, useSpring, useMotionValueEvent, AnimatePresence } from 'framer-motion'
+import { TICK_MARKS } from '@/app/components/tick-marks-data'
 
 interface MetricState {
   circadian_amplitude: number
@@ -144,35 +145,25 @@ function getCognitivePeakWindow(score: number): { start: string; end: string } {
 }
 
 const RADIUS = 120
-const CIRCUMFERENCE = 2 * Math.PI * RADIUS
+const CIRCUMFERENCE = 753.98
 const CX = 160
 const CY = 160
 
 function TickMarks() {
   return (
     <g>
-      {Array.from({ length: 60 }, (_, i) => {
-        const angle = (i * 6 - 90) * (Math.PI / 180)
-        const isMajor = i % 10 === 0
-        const innerR = 108
-        const outerR = innerR + (isMajor ? 8 : 4)
-        const x1 = CX + innerR * Math.cos(angle)
-        const y1 = CY + innerR * Math.sin(angle)
-        const x2 = CX + outerR * Math.cos(angle)
-        const y2 = CY + outerR * Math.sin(angle)
-        return (
-          <line
-            key={i}
-            x1={x1}
-            y1={y1}
-            x2={x2}
-            y2={y2}
-            stroke="white"
-            strokeWidth={1}
-            opacity={isMajor ? 0.3 : 0.15}
-          />
-        )
-      })}
+      {TICK_MARKS.map((tick) => (
+        <line
+          key={tick.key}
+          x1={tick.x1}
+          y1={tick.y1}
+          x2={tick.x2}
+          y2={tick.y2}
+          stroke="white"
+          strokeWidth={1}
+          opacity={tick.opacity}
+        />
+      ))}
     </g>
   )
 }
@@ -221,8 +212,8 @@ export default function BodyCloQScore() {
   return (
     <section className="section section--eggplant bodycloq-score" id="bodycloq-score">
       <div className="container">
-        <p className="label mb-10 text-lilac">The BodyCloQ Score</p>
-        <h2 className="display-section mb-16 max-w-xl text-white md:mb-20">
+        <p className="label section-intro__eyebrow">The BodyCloQ Score</p>
+        <h2 className="display-section section-intro__headline section-intro__headline--relaxed copy-wide">
           One number.
           <br />
           Everything your body clock
@@ -230,15 +221,10 @@ export default function BodyCloQScore() {
           is <em>trying to tell you.</em>
         </h2>
 
-        <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-[2fr_3fr] lg:gap-16">
-          {/* LEFT — Score ring */}
-          <div className="mx-auto w-full max-w-[320px] lg:mx-0">
-            <div className="relative mx-auto h-[260px] w-[260px] min-h-[260px] sm:h-[320px] sm:w-[320px] sm:min-h-[320px]">
-              <svg
-                viewBox="0 0 320 320"
-                className="h-full w-full"
-                aria-hidden
-              >
+        <div className="bodycloq-score__layout">
+          <div className="bodycloq-score__ring-wrap">
+            <div className="bodycloq-score__ring">
+              <svg viewBox="0 0 320 320" aria-hidden>
                 <defs>
                   <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stopColor="#c8a2c8" />
@@ -281,33 +267,30 @@ export default function BodyCloQScore() {
                 />
               </svg>
 
-              <div className="absolute inset-0 flex flex-col items-center justify-center">
+              <div className="bodycloq-score__ring-center">
                 <span
-                  className="font-display text-[72px] italic leading-none text-white tabular-nums sm:text-[88px]"
+                  className="bodycloq-score__number"
                   aria-live="polite"
                   aria-label={`BodyCloQ score ${displayScore}`}
                 >
                   {displayScore}
                 </span>
-                <span className="label mt-2 text-lilac">BodyCloQ Score</span>
-                <div className="mt-3 flex items-center gap-2">
+                <span className="label bodycloq-score__score-label">BodyCloQ Score</span>
+                <div className="bodycloq-score__band">
                   <span
-                    className="h-1.5 w-1.5 rounded-full transition-colors duration-300"
+                    className="bodycloq-score__band-dot"
                     style={{ backgroundColor: band.color }}
                     aria-hidden
                   />
-                  <span
-                    className="font-mono text-[11px] uppercase tracking-wider transition-colors duration-300"
-                    style={{ color: band.color }}
-                  >
+                  <span className="bodycloq-score__band-label" style={{ color: band.color }}>
                     {band.label}
                   </span>
                 </div>
               </div>
             </div>
 
-            <div className="mt-6 w-full bg-black/20 px-5 py-4">
-              <p className="label mb-2 text-lilac">Cognitive Peak Window Today</p>
+            <div className="bodycloq-score__peak">
+              <p className="label bodycloq-score__peak-label">Cognitive Peak Window Today</p>
               <AnimatePresence mode="wait">
                 <motion.p
                   key={`${peak.start}-${peak.end}`}
@@ -315,18 +298,15 @@ export default function BodyCloQScore() {
                   animate={{ opacity: 1 }}
                   exit={hasInteracted ? { opacity: 0 } : undefined}
                   transition={{ duration: 0.4 }}
-                  className="font-display text-[24px] italic text-white sm:text-[28px]"
+                  className="bodycloq-score__peak-time"
                 >
                   {peak.start} — {peak.end}
                 </motion.p>
               </AnimatePresence>
-              <p className="mt-1 font-mono text-[11px] uppercase tracking-wider text-white/40">
-                Your biological prime time
-              </p>
+              <p className="bodycloq-score__peak-sub">Your biological prime time</p>
             </div>
           </div>
 
-          {/* RIGHT — Metric sliders */}
           <div>
             {METRICS.map((metric) => {
               const value = values[metric.id]
@@ -334,8 +314,8 @@ export default function BodyCloQScore() {
               return (
                 <div key={metric.id} className="metric-row">
                   <div className="metric-label-row">
-                    <span className="font-mono text-[11px] text-white">{metric.label}</span>
-                    <span className="font-mono text-[11px] text-lilac">{metric.format(value)}</span>
+                    <span className="metric-label">{metric.label}</span>
+                    <span className="metric-value">{metric.format(value)}</span>
                   </div>
                   <input
                     type="range"
@@ -346,7 +326,7 @@ export default function BodyCloQScore() {
                     style={{ '--fill-pct': fillPct } as React.CSSProperties}
                     onChange={(e) => handleSliderChange(metric.id, Number(e.target.value))}
                   />
-                  <p className="mt-2 font-mono text-[10px] text-white/30">{metric.sublabel}</p>
+                  <p className="metric-sublabel">{metric.sublabel}</p>
                 </div>
               )
             })}
@@ -357,13 +337,13 @@ export default function BodyCloQScore() {
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, ease: [0, 0, 0.2, 1] }}
-                  className="mt-8 flex flex-col gap-6 border-t border-white/[0.08] pt-6 sm:flex-row sm:items-center sm:justify-between"
+                  className="bodycloq-score__cta"
                 >
-                  <p className="max-w-sm font-mono text-[12px] leading-relaxed text-white/50">
+                  <p className="bodycloq-score__cta-copy">
                     Your real BodyCloQ score requires 3 nights of TipTraQ data. This is a
                     simulated preview.
                   </p>
-                  <a href="mailto:hello@cloq.health" className="btn btn--primary shrink-0">
+                  <a href="mailto:hello@cloq.health" className="btn btn--primary">
                     Get your real score →
                   </a>
                 </motion.div>

@@ -36,8 +36,8 @@ export function HowItWorksSection() {
     <section id="how-it-works" className="section section--off-white">
       <div className="container">
         <Reveal>
-          <p className="label mb-10 text-silver">The CloQ Method</p>
-          <h2 className="display-section mb-16 max-w-[640px] text-black md:mb-20">
+          <p className="label section-intro__eyebrow">The CloQ Method</p>
+          <h2 className="display-section section-intro__headline section-intro__headline--relaxed">
             Three nights.
             <br />
             One score.
@@ -51,10 +51,10 @@ export function HowItWorksSection() {
             {STEPS.map((step) => (
               <article key={step.label} className="step">
                 <span className="step__label">{step.label}</span>
-                <span className="step__icon text-eggplant" aria-hidden>
+                <span className="step__icon" aria-hidden>
                   {step.icon}
                 </span>
-                <h3 className="step__title text-black">
+                <h3 className="step__title">
                   {step.title} <em>{step.titleEm}</em>
                 </h3>
                 <p className="step__body">{step.body}</p>
@@ -63,11 +63,11 @@ export function HowItWorksSection() {
           </div>
         </Reveal>
 
-        <Reveal delay={0.16} className="mt-16 flex flex-col items-center text-center md:mt-20">
+        <Reveal delay={0.16} className="section-cta">
           <a href="#cta" className="btn btn--primary">
             Order TipTraQ — get your BodyCloQ score →
           </a>
-          <p className="mt-4 font-mono text-[11px] text-silver">
+          <p className="note section-cta__note">
             TipTraQ assessment from £95 · Results in 48 hours
           </p>
         </Reveal>
