@@ -71,7 +71,7 @@ export default function Home() {
       <hr style={{ border: 'none', borderTop: '1px solid var(--rule)', margin: 0 }} />
 
       {/* ── 01 · The Biology ── */}
-      <section className="fade-in snap-section" style={{ paddingTop: '80px', paddingBottom: '64px' }}>
+      <section className="fade-in snap-section" style={{ paddingTop: 'clamp(48px, 8vh, 80px)', paddingBottom: 'clamp(40px, 6vh, 64px)' }}>
         <div className="container">
           <p className="section-number">01</p>
           <h2 className="section-title">Three facts your organisation has not been told</h2>
@@ -83,10 +83,9 @@ export default function Home() {
             </h3>
             <div className="prose" style={{ marginTop: '16px' }}>
               <p>
-                The suprachiasmatic nucleus — 20,000 neurons in the hypothalamus — receives light
-                signals from the retina every morning and uses them to time almost every biological
-                process in the body. Cortisol. Melatonin. Insulin. Core body temperature. Immune
-                activation. All of it runs on the schedule that light sets.
+                20,000 neurons in the hypothalamus time every process in the body by morning
+                light. Cortisol, melatonin, insulin, immunity: all of it runs on the schedule
+                light sets.
               </p>
             </div>
           </div>
@@ -98,11 +97,8 @@ export default function Home() {
             </h3>
             <div className="prose" style={{ marginTop: '16px' }}>
               <p>
-                Artificial lighting at night delays circadian phase. Insufficient bright light
-                during the day fails to entrain the master clock. Irregular schedules and global
-                travel force the body to run on times that bear no relationship to local solar
-                time. The result is chronic misalignment: not acute, not dramatic, but persistent
-                and silent.
+                Bright screens at night, dim days indoors, irregular schedules. The body runs on
+                the wrong time: chronically, silently.
               </p>
             </div>
           </div>
@@ -114,11 +110,8 @@ export default function Home() {
             </h3>
             <div className="prose" style={{ marginTop: '16px' }}>
               <p>
-                When the circadian signal is suppressed, the body reduces amplitude across every
-                downstream system. Cognitive performance. Immune response. Metabolic regulation.
-                The organism runs in a lower gear. This is the biology of hibernation. It is not
-                metaphor. It is what chronic light misalignment does to your workforce, every
-                working day.
+                A suppressed signal turns every system down a gear: cognition, immunity,
+                metabolism. This is what misalignment does to your workforce, every working day.
               </p>
             </div>
           </div>
@@ -127,47 +120,37 @@ export default function Home() {
 
       {/* ── 02 · Photonic Age ── */}
       <section className="snap-section" style={{ background: 'var(--cosmos)' }}>
-        <div className="fade-in container" style={{ paddingTop: '80px' }}>
+        <div className="fade-in container" style={{ paddingTop: 'clamp(48px, 8vh, 80px)' }}>
           <p className="section-number">02</p>
           <h2 className="section-title">Photonic Age</h2>
 
-          <div className="prose">
-            <p>
-              Photonic Age is a biographical metric that quantifies an individual&apos;s
-              accumulated deficit of circadian-aligned light exposure, expressed as an age offset
-              from their chronological age. The gap between the two is their Lost Light Years.
-            </p>
-          </div>
+          <p className="lede">
+            Your age, measured in light. The gap from your calendar age is your Lost Light Years.
+          </p>
         </div>
 
         <PhotonicAgeScroll />
 
-        <div className="fade-in container" style={{ paddingBottom: '80px' }}>
+        <div className="fade-in container" style={{ paddingBottom: 'clamp(48px, 8vh, 80px)' }}>
           <div className="prose">
             <p>
-              PHOS calculates Photonic Age from three domains: circadian phase alignment, social
-              jet lag, and personal light exposure. The primary measurement instrument is TipTraQ,
-              a three-to-seven-night home sleep study device. No blood tests. No clinical
-              appointment. Three nights at home.
+              Measured across three domains with TipTraQ, at home, in three nights. No blood
+              tests. No clinic.
             </p>
           </div>
         </div>
       </section>
 
       {/* ── 03 · The Commercial Case ── */}
-      <section className="fade-in snap-section" style={{ paddingTop: '80px', paddingBottom: '80px' }}>
+      <section className="fade-in snap-section" style={{ paddingTop: 'clamp(48px, 8vh, 80px)', paddingBottom: 'clamp(48px, 8vh, 80px)' }}>
         <div className="container">
           <p className="section-number">03</p>
           <h2 className="section-title">What Lost Light Years costs your firm</h2>
 
-          <div className="prose">
-            <p>
-              Lost Light Years are not merely a biological metric. They are a commercial one.
-              Using Hafner et al. (2016) productivity data published by RAND Europe, each Lost
-              Light Year corresponds to an estimated 15 to 20 percent reduction in sustained
-              cognitive performance on executive function tasks.
-            </p>
-          </div>
+          <p className="lede">
+            Lost Light Years are a commercial metric. Each one costs an estimated 15 percent of
+            sustained cognitive performance.
+          </p>
 
           <div className="formula-box">
             <div className="formula-label">Corporate cost formula</div>
@@ -223,10 +206,8 @@ export default function Home() {
 
           <div className="prose" style={{ marginTop: '32px' }}>
             <p>
-              This estimate is conservative. It excludes healthcare costs, talent attrition, and
-              the compounding effect of cognitive impairment on high-stakes decision-making. The
-              full commercial case for circadian health intervention at organisational scale is
-              substantially larger than the direct productivity figure alone.
+              This is conservative. It excludes healthcare costs, attrition, and the compounding
+              cost of impaired decisions.
             </p>
           </div>
         </div>
@@ -235,7 +216,7 @@ export default function Home() {
       {/* ── 04 · White Paper ── */}
       <section
         className="fade-in snap-section"
-        style={{ background: 'var(--cosmos)', paddingTop: '80px', paddingBottom: '80px' }}
+        style={{ background: 'var(--cosmos)', paddingTop: 'clamp(48px, 8vh, 80px)', paddingBottom: 'clamp(48px, 8vh, 80px)' }}
       >
         <div className="container">
           <p className="section-number">04</p>
@@ -248,10 +229,8 @@ export default function Home() {
             </p>
             <div className="prose">
               <p>
-                This paper presents the three-domain methodology underpinning Photonic Age, its
-                scientific foundations in published chronobiology and epidemiology, a worked
-                clinical example, and the commercial translation of Lost Light Years into
-                organisational revenue impact.
+                The full methodology: scientific foundations, a worked clinical example, and the
+                commercial translation into revenue impact.
               </p>
             </div>
             <p className="label" style={{ marginTop: '20px' }}>
