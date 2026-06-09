@@ -31,9 +31,21 @@ export default function Home() {
       <Nav />
 
       {/* ── Hero ── */}
-      <section className="fade-in" style={{ paddingTop: '100px', paddingBottom: '80px' }}>
-        <div className="container">
-          <p className="label">Photonic Operating System · phos.org.uk</p>
+      <section className="fade-in hero">
+        <video
+          className="hero__video"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          aria-hidden="true"
+        >
+          <source src="/hero/first-light.mp4" type="video/mp4" />
+        </video>
+        <div className="hero__veil" aria-hidden="true" />
+        <div className="container hero__content">
+          <p className="label">Photonic OS</p>
 
           <h1 className="display-xl" style={{ marginTop: '28px' }}>
             Lost
@@ -44,8 +56,8 @@ export default function Home() {
           </h1>
 
           <p className="display-sm" style={{ marginTop: '24px', maxWidth: '520px' }}>
-            You are a seasonal organism. You evolved on cosmic energy. Modern life interrupted the
-            signal. PHOS measures what that has cost you.
+            Light deprivation is costing you years. PHOS measures exactly how many, and shows you
+            how to reclaim them.
           </p>
 
           <div style={{ marginTop: '40px' }}>

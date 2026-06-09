@@ -26,12 +26,9 @@ export function Nav() {
           paddingBottom: '14px',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: '14px' }}>
-          <Link href="/" aria-label="PHOS home" style={{ display: 'inline-flex' }}>
-            <Wordmark />
-          </Link>
-          <span className="label nav-sub">Photonic OS</span>
-        </div>
+        <Link href="/" aria-label="PHOS home" style={{ display: 'inline-flex' }}>
+          <Wordmark />
+        </Link>
 
         <Link href="/research/photonic-age" className="btn btn--outline">
           Download white paper →
