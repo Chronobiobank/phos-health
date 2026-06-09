@@ -18,20 +18,32 @@ export function Nav() {
       <div
         className="container--wide"
         style={{
-          display: 'flex',
+          display: 'grid',
+          gridTemplateColumns: '1fr auto 1fr',
           alignItems: 'center',
-          justifyContent: 'space-between',
           gap: 'var(--space-sm)',
           paddingTop: '14px',
           paddingBottom: '14px',
         }}
       >
-        <Link href="/" aria-label="PHOS home" style={{ display: 'inline-flex' }}>
+        <Link
+          href="/"
+          aria-label="PHOS home"
+          style={{ display: 'inline-flex', justifySelf: 'start' }}
+        >
           <Wordmark />
         </Link>
 
-        <Link href="/research/photonic-age" className="btn btn--outline">
-          Download white paper →
+        <span className="nav-sub" style={{ justifySelf: 'center' }}>
+          Circadian Health
+        </span>
+
+        <Link
+          href="/research/photonic-age"
+          className="btn btn--outline"
+          style={{ justifySelf: 'end' }}
+        >
+          Why PHOS?
         </Link>
       </div>
     </nav>

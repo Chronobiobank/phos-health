@@ -118,8 +118,16 @@ a:hover { color: var(--photon); }
 .wordmark {
   font-family: var(--font-logo);
   font-weight: 500;
-  font-size: 22px;
+  font-size: clamp(17px, 1vw + 14px, 22px);
   letter-spacing: 0.06em;
+}
+
+.nav-sub {
+  font-family: var(--font-mono);
+  font-size: clamp(11.5px, 0.35vw + 10px, 15px);
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  white-space: nowrap;
 }
 
 /* ── LAYOUT ──────────────────────────────────────────────── */
@@ -776,7 +784,8 @@ a:hover { color: var(--photon); }
 }
 
 @media (max-width: 600px) {
-  .nav-sub { display: none; }
+  nav .container--wide { padding: 0 14px; }
+  nav .btn { padding: 8px 12px; font-size: 11px; }
   .callout { padding: 24px 22px; }
   .pull-quote { padding: 20px 22px; }
   .formula-content { padding: 20px; }
