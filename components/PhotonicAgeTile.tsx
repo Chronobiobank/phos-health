@@ -31,7 +31,7 @@ export function PhotonicAgeTile() {
         <div className="impact-card__loss">
           <p className="impact-card__eyebrow">Annual financial loss</p>
           <p className="impact-card__loss-value">£18,000</p>
-          <p className="impact-card__cite">per person · Hafner et al., RAND Europe 2016</p>
+          <p className="impact-card__cite">per person · Hafner et al. 2016</p>
         </div>
 
         <footer className="impact-card__firm">

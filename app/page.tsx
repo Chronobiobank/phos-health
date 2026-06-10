@@ -45,8 +45,8 @@ export default function Home() {
         </video>
         <div className="hero__veil" aria-hidden="true" />
         <div className="container hero__content">
-          <h1 className="display-xl" style={{ maxWidth: '18ch' }}>
-            Most staff underwrite £18,000 losses a year.
+          <h1 className="display-xl" style={{ maxWidth: '22ch' }}>
+            Even your top performers leak ~£20k losses p/a.
           </h1>
 
           <p className="display-sm" style={{ marginTop: '24px', maxWidth: '520px' }}>
@@ -71,7 +71,7 @@ export default function Home() {
 
           <div className="fact-tiles">
             <article className="fact-tile">
-              <h3 className="fact-tile__head">Light powers every cell.</h3>
+              <h3 className="fact-tile__head">Sunlight powers every cell.</h3>
               <p className="fact-tile__support">
                 20,000 neurons set the body&apos;s entire schedule by morning light.
               </p>
@@ -102,7 +102,7 @@ export default function Home() {
       >
         <div className="container photonic-age-panel__content">
           <p className="section-number">02</p>
-          <h2 className="section-title">Photonic Age</h2>
+          <h2 className="section-title">Loss in Light Years</h2>
           <PhotonicAgeTile />
         </div>
       </section>
