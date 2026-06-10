@@ -20,9 +20,9 @@ export function Footer() {
         }}
       >
         <div>
-          <span className="footer-mark" aria-label="PHOS">
+          <Link href="/#hero" className="footer-mark" aria-label="PHOS home">
             ʘ
-          </span>
+          </Link>
           <p className="display-sm" style={{ marginTop: '10px' }}>
             Circadian Health
           </p>

@@ -31,7 +31,7 @@ export default function Home() {
       <Nav />
 
       {/* ── Hero ── */}
-      <section className="fade-in hero snap-section" data-nav-theme="dark">
+      <section id="hero" className="fade-in hero snap-section" data-nav-theme="dark">
         <video
           className="hero__video"
           autoPlay

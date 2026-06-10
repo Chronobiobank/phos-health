@@ -129,6 +129,11 @@ a:hover { color: var(--photon); }
   line-height: 1;
   color: var(--corona);
   display: block;
+  text-decoration: none;
+}
+
+.footer-mark:hover {
+  color: var(--photon);
 }
 
 .wordmark {

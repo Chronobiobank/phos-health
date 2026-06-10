@@ -108,7 +108,7 @@ export function Nav() {
       <div ref={barRef} className="nav__bar">
         <div className="container">
           <div className="nav__inner">
-            <Link href="/" aria-label="PHOS home" className="nav__logo">
+            <Link href="/#hero" aria-label="PHOS home" className="nav__logo">
               <Wordmark />
             </Link>
 
