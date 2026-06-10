@@ -181,10 +181,7 @@ export default function Home() {
           <h2 className="section-title" style={{ marginTop: '12px' }}>
             Turn off hibernation
           </h2>
-          <p className="lede" style={{ marginTop: '20px' }}>
-            Professional infrastructure for firms that measure people.
-          </p>
-          <p className="support" style={{ marginTop: '16px' }}>
+          <p className="support" style={{ marginTop: '20px' }}>
             Ninety days or your money back. Book a free demo.
           </p>
           <div style={{ marginTop: '36px' }}>
