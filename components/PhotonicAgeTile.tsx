@@ -43,9 +43,6 @@ export function PhotonicAgeTile() {
         </footer>
       </article>
 
-      <p className="support photonic-age-panel__guarantee">
-        Reclaim lost productivity in 90 days or your money back.
-      </p>
       <p className="support photonic-age-panel__cred">
         Developed with Prof. Russell Foster, Oxford Sleep and Circadian Neuroscience Institute.
       </p>

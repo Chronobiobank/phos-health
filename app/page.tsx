@@ -46,7 +46,7 @@ export default function Home() {
         <div className="hero__veil" aria-hidden="true" />
         <div className="container hero__content">
           <h1 className="display-xl" style={{ maxWidth: '18ch' }}>
-            Your fee earners are losing £18,000 a year.
+            Most staff underwrite £18,000 losses a year.
           </h1>
 
           <p className="display-sm" style={{ marginTop: '24px', maxWidth: '520px' }}>
