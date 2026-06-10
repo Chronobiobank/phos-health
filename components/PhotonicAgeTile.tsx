@@ -1,64 +1,72 @@
 import Link from 'next/link'
 
+import { PhotonDepletionArc } from '@/components/PhotonDepletionArc'
+import { formatGbp } from '@/lib/format-gbp'
+
+const ANNUAL_COST_PER_PERSON = 18_000
+const FIRM_HEADCOUNT = 150
+const FIRM_ANNUAL_COST = ANNUAL_COST_PER_PERSON * FIRM_HEADCOUNT
+
 type PhotonicAgeTileProps = {
   ctaHref?: string
   ctaLabel?: string
-  compact?: boolean
+  ctaOutside?: boolean
 }
 
 export function PhotonicAgeTile({
   ctaHref = '/tiptraq',
   ctaLabel = 'How we measure it →',
-  compact = false,
+  ctaOutside = true,
 }: PhotonicAgeTileProps) {
-  if (compact) {
-    return (
-      <article
-        className="impact-card impact-card--compact loss-metric-card"
-        aria-label="4.2 lost light years, 276 hours lost, £18,000 annual cost per person."
-      >
-        <div className="impact-card__metric impact-card__metric--solo impact-card__metric--compact">
-          <p className="impact-card__eyebrow">Lost light years</p>
-          <p className="impact-card__figure">4.2</p>
-          <p className="impact-card__summary">276 hrs · £18,000</p>
-        </div>
-      </article>
-    )
-  }
+  const cta = (
+    <Link href={ctaHref} className="btn btn--primary impact-card__cta">
+      {ctaLabel}
+    </Link>
+  )
+
+  const annualCost = formatGbp(ANNUAL_COST_PER_PERSON)
+  const firmAnnualCost = formatGbp(FIRM_ANNUAL_COST)
 
   return (
-    <div className="photonic-age-panel__tile">
+    <div className="photonic-age-panel__tile photonic-age-panel__tile--worked">
       <article
-        className="impact-card"
-        aria-label="Senior professional in London, age 43. 4.2 lost light years, 276 hours lost, £18,000 annual cost per person. Across 150 professionals, £2.7 million annually."
+        className="impact-card impact-card--worked impact-card--evidence dash-card dash-card--featured"
+        aria-label={`Night-shift A&E registrar in London, age 43. 4.2 lost light years, 276 working hours lost, ${annualCost} annual cost per person. ${FIRM_HEADCOUNT} professionals, ${firmAnnualCost} per year.`}
       >
-        <header className="impact-card__header">Senior professional · London · age 43</header>
+        <header className="impact-card__header impact-card__header--evidence">
+          <span className="impact-card__subject">Night-shift A&E registrar</span>
+          <span className="impact-card__meta">London · age 43 · 3 nights</span>
+        </header>
 
-        <div className="impact-card__split impact-card__split--triple">
-          <div className="impact-card__metric">
-            <p className="impact-card__eyebrow">Lost light years</p>
-            <p className="impact-card__figure">4.2</p>
+        <div className="impact-card__evidence-body">
+          <div className="impact-card__hero">
+            <div className="photon-dial">
+              <PhotonDepletionArc value={4.2} />
+              <p className="photon-dial__value">4.2</p>
+            </div>
+            <p className="dash-card__label impact-card__eyebrow--evidence">Lost light years</p>
           </div>
-          <div className="impact-card__metric">
-            <p className="impact-card__eyebrow">Hours lost</p>
-            <p className="impact-card__figure impact-card__figure--compact">276</p>
-            <p className="impact-card__sub">hrs</p>
-          </div>
-          <div className="impact-card__metric">
-            <p className="impact-card__eyebrow">Annual cost</p>
-            <p className="impact-card__figure impact-card__figure--compact">£18,000</p>
+
+          <div className="impact-card__cascade">
+            <div className="impact-card__cascade-row">
+              <p className="dash-card__metric impact-card__cascade-figure">276</p>
+              <p className="dash-card__support impact-card__cascade-label">Working hours lost</p>
+            </div>
+            <div className="impact-card__cascade-row">
+              <p className="dash-card__metric impact-card__cascade-figure impact-card__cascade-figure--money">
+                {annualCost}
+              </p>
+              <p className="dash-card__support impact-card__cascade-label">Annual cost per person</p>
+            </div>
           </div>
         </div>
 
-        <p className="impact-card__cite impact-card__cite--centered">per person · Hafner et al. 2016</p>
-
-        <footer className="impact-card__firm">
-          <p className="impact-card__firm-stats">150 professionals · £2.7M annually</p>
-          <Link href={ctaHref} className="btn btn--primary impact-card__cta">
-            {ctaLabel}
-          </Link>
-        </footer>
+        <p className="impact-card__firm-stats impact-card__firm-stats--evidence">
+          {FIRM_HEADCOUNT} professionals · {firmAnnualCost} p/a
+        </p>
       </article>
+
+      {ctaOutside && <div className="impact-card__cta-outside">{cta}</div>}
     </div>
   )
 }

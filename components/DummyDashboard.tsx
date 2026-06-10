@@ -22,29 +22,39 @@ export function DummyDashboard() {
             key={item.label}
             className={[
               'dummy-dashboard__stat',
-              'highlight' in item && item.highlight ? 'dummy-dashboard__stat--hero' : '',
+              'dash-card',
+              'highlight' in item && item.highlight ? 'dash-card--featured' : '',
               'accent' in item && item.accent ? 'dummy-dashboard__stat--accent' : '',
             ]
               .filter(Boolean)
               .join(' ')}
           >
-            <p className="dummy-dashboard__stat-value">{item.value}</p>
-            <p className="dummy-dashboard__stat-label">{item.label}</p>
+            <p
+              className={[
+                'dash-card__metric',
+                'highlight' in item && item.highlight ? 'dash-card__metric--xl' : 'dash-card__metric--lg',
+              ]
+                .filter(Boolean)
+                .join(' ')}
+            >
+              {item.value}
+            </p>
+            <p className="dash-card__label dummy-dashboard__stat-label">{item.label}</p>
           </div>
         ))}
       </div>
 
       <div className="dummy-dashboard__grid">
         {METRICS.map((metric) => (
-          <div key={metric.label} className="dummy-dashboard__metric">
-            <p className="dummy-dashboard__metric-value">{metric.value}</p>
-            <p className="dummy-dashboard__metric-label">{metric.label}</p>
-            <p className="dummy-dashboard__metric-note">{metric.note}</p>
+          <div key={metric.label} className="dummy-dashboard__metric dash-card">
+            <p className="dash-card__metric">{metric.value}</p>
+            <p className="dash-card__label dummy-dashboard__metric-label">{metric.label}</p>
+            <p className="dash-card__support dummy-dashboard__metric-note">{metric.note}</p>
           </div>
         ))}
       </div>
 
-      <p className="support dummy-dashboard__sample">Sample data from a three-night TipTraQ study.</p>
+      <p className="dash-card__support dummy-dashboard__sample">Sample data from a three-night TipTraQ study.</p>
     </div>
   )
 }

@@ -47,7 +47,7 @@ export default function Home() {
         <div className="hero__veil" aria-hidden="true" />
         <div className="container hero__content">
           <h1 className="display-xl" style={{ maxWidth: '22ch' }}>
-            Your firm is running dark.
+            Your firm is in the dark
           </h1>
 
           <p className="display-sm" style={{ marginTop: '24px', maxWidth: '44ch' }}>
@@ -55,8 +55,8 @@ export default function Home() {
           </p>
 
           <div style={{ marginTop: '40px' }}>
-            <Link href="/loss-in-light-years" className="btn btn--primary">
-              See the cost →
+            <Link href="/research/photonic-age" className="btn btn--primary">
+              Read the report →
             </Link>
           </div>
         </div>

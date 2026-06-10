@@ -2,11 +2,7 @@
 
 import { useState } from 'react'
 
-const gbp = new Intl.NumberFormat('en-GB', {
-  style: 'currency',
-  currency: 'GBP',
-  maximumFractionDigits: 0,
-})
+import { formatGbp } from '@/lib/format-gbp'
 
 export function CostCalculator() {
   const [headcount, setHeadcount] = useState(150)
@@ -17,7 +13,7 @@ export function CostCalculator() {
   const perPerson = salary * 0.15
 
   return (
-    <div className="calc">
+    <div className="calc dash-card">
       <div className="calc__body">
         <div className="calc__inputs">
           <div className="calc__field">
@@ -39,7 +35,7 @@ export function CostCalculator() {
           <div className="calc__field">
             <div className="calc__field-row">
               <span className="label">Average annual salary</span>
-              <span className="calc__field-value">{gbp.format(salary)}</span>
+              <span className="calc__field-value">{formatGbp(salary)}</span>
             </div>
             <input
               type="range"
@@ -53,12 +49,14 @@ export function CostCalculator() {
           </div>
         </div>
 
-        <div className="calc__output">
-          <span className="label">Estimated annual cost</span>
-          <span className="calc__figure">{gbp.format(annualCost)}</span>
-          <span className="calc__note">
-            {gbp.format(perPerson)} per person · Hafner et al. 2016
-          </span>
+        <div className="calc__result">
+          <div className="calc__output dash-card__nest">
+            <span className="label">Estimated annual cost</span>
+            <span className="calc__figure">{formatGbp(annualCost)}</span>
+            <span className="calc__note">
+              {formatGbp(perPerson)} per person · Hafner et al. 2016
+            </span>
+          </div>
         </div>
       </div>
     </div>

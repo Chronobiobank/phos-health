@@ -122,14 +122,10 @@ export default function PhotonicAgePaper() {
       </section>
 
       {/* ── 02 · Worked example ── */}
-      <section style={{ paddingTop: '64px', paddingBottom: '64px' }}>
+      <section className="worked-example-section">
         <div className="container">
           <p className="section-number">02</p>
           <h2 className="section-title">Worked example</h2>
-
-          <p className="lede">
-            A 43-year-old senior professional in London, measured over three nights.
-          </p>
 
           <PhotonicAgeTile ctaHref="/tiptraq" ctaLabel="How we measure it →" />
         </div>

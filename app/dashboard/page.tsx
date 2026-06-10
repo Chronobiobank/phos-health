@@ -19,7 +19,7 @@ export default function DashboardPage() {
         <div className="container dashboard-page__content">
           <p className="section-number">Sample dashboard</p>
           <h1 className="section-title">Your Photonic Age</h1>
-          <p className="support">London professional, age 43 · three nights of TipTraQ data.</p>
+          <p className="support">Night-shift A&E registrar, London · age 43 · three nights of TipTraQ data.</p>
 
           <DummyDashboard />
 
