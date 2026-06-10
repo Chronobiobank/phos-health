@@ -47,11 +47,11 @@ export default function Home() {
         <div className="hero__veil" aria-hidden="true" />
         <div className="container hero__content">
           <h1 className="display-xl" style={{ maxWidth: '22ch' }}>
-            Reclaim what your building steals.
+            Your firm leaks output every working day.
           </h1>
 
           <p className="display-sm" style={{ marginTop: '24px', maxWidth: '36ch' }}>
-            Output drops every working day.
+            Indoor light breaks the clock behind it.
           </p>
 
           <div style={{ marginTop: '40px' }}>
@@ -66,7 +66,7 @@ export default function Home() {
       <section id="biology" className="fade-in snap-section biology-panel" data-nav-theme="dark">
         <div className="container biology-panel__content">
           <p className="section-number">01</p>
-          <h2 className="section-title">The biology</h2>
+          <h2 className="section-title">Every cell runs on light</h2>
 
           <BiologyFacts />
 
