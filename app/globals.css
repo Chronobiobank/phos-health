@@ -851,7 +851,14 @@ a:hover { color: var(--photon); }
   padding-bottom: clamp(80px, 10vh, 120px);
 }
 
-.tiptraq-panel .section-title,
+.tiptraq-panel .section-title {
+  font-size: clamp(38px, 3.2vw + 28px, 72px);
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  max-width: 16ch;
+  color: #ffffff;
+}
+
 .tiptraq-panel .lede {
   color: #ffffff;
 }
@@ -927,6 +934,61 @@ a:hover { color: var(--photon); }
 
 .model-firm-panel .calc {
   margin-top: 28px;
+}
+
+/* ── BIOLOGY PANEL — section 01 fact tiles ───────────────── */
+.biology-panel {
+  background: linear-gradient(
+    180deg,
+    var(--void) 0%,
+    color-mix(in srgb, var(--stellar) 4%, var(--cosmos)) 100%
+  );
+}
+
+.biology-panel__content {
+  padding-top: clamp(48px, 8vh, 80px);
+  padding-bottom: clamp(40px, 6vh, 64px);
+}
+
+.biology-panel .section-title {
+  margin-top: 12px;
+}
+
+.fact-tiles {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-top: clamp(28px, 4vh, 40px);
+}
+
+.fact-tile {
+  background: var(--void);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--stellar);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  padding: clamp(20px, 4vw, 28px) clamp(20px, 4vw, 28px) clamp(20px, 4vw, 28px)
+    clamp(22px, 4.5vw, 30px);
+}
+
+.fact-tile__head {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 0.9vw + 17px, 28px);
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--stellar);
+}
+
+.fact-tile__support {
+  font-family: var(--font-body);
+  font-size: clamp(17px, 0.3vw + 15px, 18px);
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--corona);
+  margin-top: 12px;
+  margin-left: 4px;
+  padding-left: 16px;
+  border-left: 2px solid color-mix(in srgb, var(--stellar) 28%, var(--rule));
+  max-width: 48ch;
 }
 
 /* ── PHOTONIC AGE PANEL — section 02 ─────────────────────── */
@@ -1193,6 +1255,15 @@ a:hover { color: var(--photon); }
   .calc__inputs {
     padding: 20px;
     gap: 20px;
+  }
+
+  .fact-tile {
+    padding: 18px 18px 18px 20px;
+  }
+
+  .fact-tile__support {
+    padding-left: 14px;
+    margin-top: 10px;
   }
 
   .nav__inner {

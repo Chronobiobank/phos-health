@@ -67,41 +67,32 @@ export default function Home() {
       <hr style={{ border: 'none', borderTop: '1px solid var(--rule)', margin: 0 }} />
 
       {/* ── 01 · The Biology ── */}
-      <section
-        id="biology"
-        className="fade-in snap-section"
-        data-nav-theme="light"
-        style={{ paddingTop: 'clamp(48px, 8vh, 80px)', paddingBottom: 'clamp(40px, 6vh, 64px)' }}
-      >
-        <div className="container">
+      <section id="biology" className="fade-in snap-section biology-panel" data-nav-theme="light">
+        <div className="container biology-panel__content">
           <p className="section-number">01</p>
           <h2 className="section-title">Unspoken facts</h2>
 
-          <div style={{ padding: '32px 0', borderBottom: '1px solid var(--rule)' }}>
-            <h3 className="display-md">
-              Light powers every human cell.
-            </h3>
-            <p className="support" style={{ marginTop: '14px' }}>
-              20,000 neurons set the body&apos;s entire schedule by morning light.
-            </p>
-          </div>
+          <div className="fact-tiles">
+            <article className="fact-tile">
+              <h3 className="fact-tile__head">Light powers every human cell.</h3>
+              <p className="fact-tile__support">
+                20,000 neurons set the body&apos;s entire schedule by morning light.
+              </p>
+            </article>
 
-          <div style={{ padding: '32px 0', borderBottom: '1px solid var(--rule)' }}>
-            <h3 className="display-md">
-              Modern life broke the signal.
-            </h3>
-            <p className="support" style={{ marginTop: '14px' }}>
-              Bright nights, dim days, irregular hours. The body runs on the wrong time.
-            </p>
-          </div>
+            <article className="fact-tile">
+              <h3 className="fact-tile__head">Modern life broke the signal.</h3>
+              <p className="fact-tile__support">
+                Bright nights, dim days, irregular hours. The body runs on the wrong time.
+              </p>
+            </article>
 
-          <div style={{ padding: '32px 0' }}>
-            <h3 className="display-md">
-              Hibernation is what follows.
-            </h3>
-            <p className="support" style={{ marginTop: '14px' }}>
-              Cognition, immunity, and metabolism drop a gear, every working day.
-            </p>
+            <article className="fact-tile">
+              <h3 className="fact-tile__head">Hibernation is what follows.</h3>
+              <p className="fact-tile__support">
+                Cognition, immunity, and metabolism drop a gear, every working day.
+              </p>
+            </article>
           </div>
         </div>
       </section>
