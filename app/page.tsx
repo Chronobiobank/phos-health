@@ -47,16 +47,16 @@ export default function Home() {
         <div className="hero__veil" aria-hidden="true" />
         <div className="container hero__content">
           <h1 className="display-xl" style={{ maxWidth: '22ch' }}>
-            Your firm leaks output every working day.
+            Your firm is running dark.
           </h1>
 
-          <p className="display-sm" style={{ marginTop: '24px', maxWidth: '36ch' }}>
-            Indoor light breaks the clock behind it.
+          <p className="display-sm" style={{ marginTop: '24px', maxWidth: '44ch' }}>
+            That darkness costs £18,000 per professional, per year.
           </p>
 
           <div style={{ marginTop: '40px' }}>
-            <Link href="/biology" className="btn btn--primary">
-              Why light matters →
+            <Link href="/loss-in-light-years" className="btn btn--primary">
+              See the cost →
             </Link>
           </div>
         </div>
@@ -66,13 +66,13 @@ export default function Home() {
       <section id="biology" className="fade-in snap-section biology-panel" data-nav-theme="dark">
         <div className="container biology-panel__content">
           <p className="section-number">01</p>
-          <h2 className="section-title">Every cell runs on light</h2>
+          <h2 className="section-title">Why light matters</h2>
 
           <BiologyFacts />
 
           <div style={{ marginTop: '36px' }}>
-            <Link href="/loss-in-light-years" className="btn btn--primary">
-              See the cost →
+            <Link href="/biology" className="btn btn--primary">
+              Why light matters →
             </Link>
           </div>
         </div>
@@ -86,7 +86,7 @@ export default function Home() {
       >
         <div className="container photonic-age-panel__content">
           <p className="section-number">02</p>
-          <h2 className="section-title">Loss in Light Years</h2>
+          <h2 className="section-title">How we quantify loss</h2>
           <PhotonicAgeTile ctaHref="/tiptraq" ctaLabel="How we measure it →" />
         </div>
       </section>
@@ -105,11 +105,11 @@ export default function Home() {
             03
           </p>
           <h2 className="section-title" style={{ marginTop: '12px' }}>
-            TipTraQ at home
+            Sleep tests give us deep insight
           </h2>
 
           <p className="support" style={{ marginTop: '20px' }}>
-            Dashboard in 48 hours.
+            TipTraQ maps lost light from three nights at home, not a lab.
           </p>
 
           <div style={{ marginTop: '36px' }}>
@@ -171,9 +171,9 @@ export default function Home() {
             Ninety days or your money back.
           </p>
           <div style={{ marginTop: '36px' }}>
-            <a href="mailto:hello@phos.org.uk?subject=Book%20free%20demo" className="btn btn--primary">
-              Book free demo →
-            </a>
+            <Link href="/contact" className="btn btn--primary">
+              Contact us →
+            </Link>
           </div>
         </div>
       </section>

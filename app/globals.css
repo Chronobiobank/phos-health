@@ -905,7 +905,7 @@ a:hover { color: var(--photon); }
   font-size: clamp(38px, 3.2vw + 28px, 72px);
   line-height: 1.06;
   letter-spacing: -0.02em;
-  max-width: 16ch;
+  max-width: 24ch;
   color: #ffffff;
 }
 

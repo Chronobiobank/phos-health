@@ -6,7 +6,7 @@ import { Footer } from '@/components/Footer'
 import { Nav } from '@/components/Nav'
 
 export const metadata: Metadata = {
-  title: 'Every cell runs on light · PHOS Circadian Health',
+  title: 'Why light matters · PHOS Circadian Health',
   description: 'Why morning light sets every schedule and modern work breaks the signal.',
 }
 
@@ -18,7 +18,7 @@ export default function BiologyPage() {
       <section id="biology" className="detail-page biology-page biology-panel">
         <div className="container detail-page__content">
           <p className="section-number">01</p>
-          <h1 className="section-title">Every cell runs on light</h1>
+          <h1 className="section-title">Why light matters</h1>
 
           <BiologyFacts />
 
