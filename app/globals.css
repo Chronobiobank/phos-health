@@ -138,7 +138,7 @@ a:hover { color: var(--photon); }
 
 .nav-sub {
   font-family: var(--font-mono);
-  font-size: clamp(11.5px, 0.35vw + 10px, 15px);
+  font-size: clamp(13px, 0.45vw + 11px, 18px);
   letter-spacing: 0.08em;
   color: var(--muted);
   white-space: nowrap;
@@ -629,14 +629,17 @@ a:hover { color: var(--photon); }
 
 /* White veil keeps dark editorial type legible over the footage,
    dissolving to solid page white at the bottom edge. */
+/* Light at the top so the footage reads through the glass nav,
+   denser in the middle where the headline sits, solid at the foot. */
 .hero__veil {
   position: absolute;
   inset: 0;
   z-index: 1;
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0.92) 0%,
-    rgba(255, 255, 255, 0.78) 45%,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.78) 28%,
+    rgba(255, 255, 255, 0.82) 60%,
     var(--void) 100%
   );
 }

@@ -18,7 +18,7 @@ export function Footer() {
         <div>
           <Wordmark />
           <p className="display-sm" style={{ marginTop: '10px' }}>
-            Photonic Operating System
+            Circadian Health
           </p>
           <p className="label" style={{ color: 'var(--dim)', marginTop: '8px' }}>
             Reclaim Lost Time

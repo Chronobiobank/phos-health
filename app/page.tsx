@@ -78,7 +78,7 @@ export default function Home() {
 
           <div style={{ padding: '32px 0', borderBottom: '1px solid var(--rule)' }}>
             <h3 className="display-md">
-              Light powers every cell in your firm.
+              Light powers every human cell.
             </h3>
             <p className="support" style={{ marginTop: '14px' }}>
               20,000 neurons set the body&apos;s entire schedule by morning light.

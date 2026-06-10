@@ -11,10 +11,10 @@ export function Nav() {
         left: 0,
         right: 0,
         zIndex: 100,
-        background: 'rgba(255, 255, 255, 0.45)',
-        borderBottom: '1px solid rgba(220, 220, 232, 0.5)',
-        backdropFilter: 'blur(14px)',
-        WebkitBackdropFilter: 'blur(14px)',
+        background: 'rgba(255, 255, 255, 0.18)',
+        borderBottom: '1px solid rgba(220, 220, 232, 0.4)',
+        backdropFilter: 'blur(10px)',
+        WebkitBackdropFilter: 'blur(10px)',
       }}
     >
       <div
@@ -42,7 +42,7 @@ export function Nav() {
 
         <Link
           href="/research/photonic-age"
-          className="btn btn--outline"
+          className="btn btn--primary"
           style={{ justifySelf: 'end' }}
         >
           Why PHOS?
