@@ -1,0 +1,37 @@
+---
+description: Kawasaki concision rules for all PHOS copy and typography
+alwaysApply: true
+---
+
+# PHOS Kawasaki Copy Rules
+
+All marketing pages follow Guy Kawasaki density: big type, few words, one idea per block.
+
+## Copy limits
+
+- Section opener: one `.lede` sentence, never a paragraph
+- Statement blocks: one `.display-md` claim + at most one `.support` line (max 15 words)
+- No paragraph over 25 words on any landing page
+- Detail belongs in tables, figures, the calculator, or the white paper, never in prose
+- No em dashes, en dashes, or bullet points in copy
+- All headings are sentence case, never title case (proper nouns like Photonic Age and TipTraQ keep their capitals; cited paper titles keep title case)
+
+## Type classes (defined in app/globals.css)
+
+- `.lede` — single-sentence serif section opener, 21 to 30px fluid
+- `.support` — muted one-line support text under a statement, 44ch max
+- `.prose` — ledes and captions only, 17px minimum, 58ch measure
+- Never set body copy below 17px
+
+## Example
+
+```tsx
+// ❌ BAD — paragraph of explanation
+<div className="prose"><p>The suprachiasmatic nucleus, 20,000 neurons in the
+hypothalamus, receives light signals from the retina every morning and uses
+them to time almost every biological process in the body...</p></div>
+
+// ✅ GOOD — statement + one support line
+<h3 className="display-md">Every cell in your organisation runs on light.</h3>
+<p className="support">20,000 neurons set the body's entire schedule by morning light.</p>
+```

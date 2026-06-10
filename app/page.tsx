@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 import { Nav } from '@/components/Nav'
 import { Footer } from '@/components/Footer'
-import { PhotonicAgeScroll } from '@/components/PhotonicAgeScroll'
+import { PhotonicAgeTile } from '@/components/PhotonicAgeTile'
 import { CostCalculator } from '@/components/CostCalculator'
 
 export default function Home() {
@@ -50,9 +50,9 @@ export default function Home() {
           <h1 className="display-xl" style={{ marginTop: '28px' }}>
             Reclaim
             <br />
-            <span className="text-spectrum" style={{ whiteSpace: 'nowrap' }}>
-              Lost&nbsp;Time
-            </span>
+            <em className="text-spectrum" style={{ whiteSpace: 'nowrap' }}>
+              lost&nbsp;time
+            </em>
           </h1>
 
           <p className="display-sm" style={{ marginTop: '24px', maxWidth: '520px' }}>
@@ -74,70 +74,55 @@ export default function Home() {
       <section className="fade-in snap-section" style={{ paddingTop: 'clamp(48px, 8vh, 80px)', paddingBottom: 'clamp(40px, 6vh, 64px)' }}>
         <div className="container">
           <p className="section-number">01</p>
-          <h2 className="section-title">Three facts your organisation has not been told</h2>
+          <h2 className="section-title">Unspoken facts</h2>
 
           <div style={{ padding: '32px 0', borderBottom: '1px solid var(--rule)' }}>
-            <p className="label">01</p>
-            <h3 className="display-md" style={{ marginTop: '10px' }}>
-              Every cell in your organisation runs on light.
+            <h3 className="display-md">
+              Light powers every cell in your firm.
             </h3>
-            <div className="prose" style={{ marginTop: '16px' }}>
-              <p>
-                20,000 neurons in the hypothalamus time every process in the body by morning
-                light. Cortisol, melatonin, insulin, immunity: all of it runs on the schedule
-                light sets.
-              </p>
-            </div>
+            <p className="support" style={{ marginTop: '14px' }}>
+              20,000 neurons set the body&apos;s entire schedule by morning light.
+            </p>
           </div>
 
           <div style={{ padding: '32px 0', borderBottom: '1px solid var(--rule)' }}>
-            <p className="label">02</p>
-            <h3 className="display-md" style={{ marginTop: '10px' }}>
+            <h3 className="display-md">
               Modern life broke the signal.
             </h3>
-            <div className="prose" style={{ marginTop: '16px' }}>
-              <p>
-                Bright screens at night, dim days indoors, irregular schedules. The body runs on
-                the wrong time: chronically, silently.
-              </p>
-            </div>
+            <p className="support" style={{ marginTop: '14px' }}>
+              Bright nights, dim days, irregular hours. The body runs on the wrong time.
+            </p>
           </div>
 
           <div style={{ padding: '32px 0' }}>
-            <p className="label">03</p>
-            <h3 className="display-md" style={{ marginTop: '10px' }}>
+            <h3 className="display-md">
               Hibernation is what follows.
             </h3>
-            <div className="prose" style={{ marginTop: '16px' }}>
-              <p>
-                A suppressed signal turns every system down a gear: cognition, immunity,
-                metabolism. This is what misalignment does to your workforce, every working day.
-              </p>
-            </div>
+            <p className="support" style={{ marginTop: '14px' }}>
+              Cognition, immunity, and metabolism drop a gear, every working day.
+            </p>
           </div>
         </div>
       </section>
 
       {/* ── 02 · Photonic Age ── */}
       <section className="snap-section" style={{ background: 'var(--cosmos)' }}>
-        <div className="fade-in container" style={{ paddingTop: 'clamp(48px, 8vh, 80px)' }}>
+        <div
+          className="fade-in container"
+          style={{ paddingTop: 'clamp(48px, 8vh, 80px)', paddingBottom: 'clamp(48px, 8vh, 80px)' }}
+        >
           <p className="section-number">02</p>
           <h2 className="section-title">Photonic Age</h2>
 
           <p className="lede">
             Your age, measured in light. The gap from your calendar age is your Lost Light Years.
           </p>
-        </div>
 
-        <PhotonicAgeScroll />
+          <PhotonicAgeTile />
 
-        <div className="fade-in container" style={{ paddingBottom: 'clamp(48px, 8vh, 80px)' }}>
-          <div className="prose">
-            <p>
-              Measured across three domains with TipTraQ, at home, in three nights. No blood
-              tests. No clinic.
-            </p>
-          </div>
+          <p className="support" style={{ marginTop: '32px' }}>
+            Measured with TipTraQ, at home, in three nights. No blood tests. No clinic.
+          </p>
         </div>
       </section>
 
@@ -204,12 +189,9 @@ export default function Home() {
 
           <CostCalculator />
 
-          <div className="prose" style={{ marginTop: '32px' }}>
-            <p>
-              This is conservative. It excludes healthcare costs, attrition, and the compounding
-              cost of impaired decisions.
-            </p>
-          </div>
+          <p className="support" style={{ marginTop: '28px' }}>
+            This is conservative. It excludes healthcare, attrition, and impaired decisions.
+          </p>
         </div>
       </section>
 

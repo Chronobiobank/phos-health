@@ -17,18 +17,16 @@ export function Footer() {
       >
         <div>
           <Wordmark />
-          <p className="display-sm" style={{ fontStyle: 'italic', marginTop: '10px' }}>
+          <p className="display-sm" style={{ marginTop: '10px' }}>
             Photonic Operating System
           </p>
           <p className="label" style={{ color: 'var(--dim)', marginTop: '8px' }}>
-            Light Matters
+            Reclaim Lost Time
           </p>
         </div>
 
         <div className="label" style={{ color: 'var(--dim)', textAlign: 'right', lineHeight: 2 }}>
-          © 2026 The Circadian Foundation
-          <br />
-          Auckland, New Zealand
+          © 2026 PHOS
           <br />
           phos.org.uk
         </div>

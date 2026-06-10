@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Unbounded, Cormorant_Garamond, DM_Sans, DM_Mono } from 'next/font/google'
+import { Unbounded, Source_Serif_4, Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 
 const unbounded = Unbounded({
@@ -9,7 +9,7 @@ const unbounded = Unbounded({
   display: 'swap',
 })
 
-const cormorant = Cormorant_Garamond({
+const sourceSerif = Source_Serif_4({
   subsets: ['latin'],
   weight: ['400', '600'],
   style: ['normal', 'italic'],
@@ -17,17 +17,14 @@ const cormorant = Cormorant_Garamond({
   display: 'swap',
 })
 
-const dmSans = DM_Sans({
+const geist = Geist({
   subsets: ['latin'],
-  weight: ['300', '400', '500'],
-  style: ['normal', 'italic'],
   variable: '--font-body',
   display: 'swap',
 })
 
-const dmMono = DM_Mono({
+const geistMono = Geist_Mono({
   subsets: ['latin'],
-  weight: ['300', '400', '500'],
   variable: '--font-mono',
   display: 'swap',
 })
@@ -55,7 +52,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${unbounded.variable} ${cormorant.variable} ${dmSans.variable} ${dmMono.variable}`}
+        className={`${unbounded.variable} ${sourceSerif.variable} ${geist.variable} ${geistMono.variable}`}
       >
         {children}
       </body>

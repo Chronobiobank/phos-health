@@ -26,21 +26,21 @@
   /* Spectrum — the visible light gradient
      Use via .text-spectrum or var(--spectrum) only.
      NEVER apply to body text. */
+  /* Neon aqua → lilac → magenta, always 45deg.
+     Apply via .text-spectrum to LARGE display type only —
+     never labels, notes, or any text under display scale. */
   --spectrum: linear-gradient(
-    90deg,
-    #9B30FF 0%,
-    #4169E1 20%,
-    #00CED1 40%,
-    #3CB371 60%,
-    #FFD700 80%,
-    #FF4500 100%
+    45deg,
+    #00D4C8 0%,
+    #B388FF 50%,
+    #FF2EA6 100%
   );
 
   /* Typography */
   --font-logo:    'Unbounded', system-ui, sans-serif;
-  --font-display: 'Cormorant Garamond', Georgia, serif;
-  --font-body:    'DM Sans', system-ui, sans-serif;
-  --font-mono:    'DM Mono', 'Courier New', monospace;
+  --font-display: 'Source Serif 4', Georgia, serif;
+  --font-body:    'Geist', system-ui, sans-serif;
+  --font-mono:    'Geist Mono', 'Courier New', monospace;
 
   /* Spacing scale */
   --space-xs:  8px;
@@ -164,12 +164,13 @@ a:hover { color: var(--photon); }
 }
 
 /* ── TYPOGRAPHY SCALE — fluid, Utopia-style ──────────────── */
+/* Headers set upright in Source Serif 4 — true italics available.
+   Italicise emphasised words only, via <em> inside the heading. */
 .display-xl {
   font-family: var(--font-display);
   font-size: clamp(56px, 4vw + 42px, 124px);
   font-weight: 400;
-  font-style: italic;
-  line-height: 0.95;
+  line-height: 1;
   letter-spacing: -0.02em;
   color: var(--corona);
 }
@@ -177,7 +178,7 @@ a:hover { color: var(--photon); }
 .display-lg {
   font-family: var(--font-display);
   font-size: clamp(34px, 2.4vw + 26px, 68px);
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1.08;
   letter-spacing: -0.01em;
   color: var(--corona);
@@ -186,17 +187,25 @@ a:hover { color: var(--photon); }
 
 .display-md {
   font-family: var(--font-display);
-  font-size: clamp(26px, 1.4vw + 21px, 44px);
+  font-size: clamp(22px, 0.9vw + 19px, 33px);
   font-weight: 600;
-  line-height: 1.15;
+  line-height: 1.25;
   color: var(--corona);
 }
 
+.display-xl em,
+.display-lg em,
+.display-md em,
+.section-title em,
+.paper-title em {
+  font-style: italic;
+}
+
 .display-sm {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: clamp(19px, 0.6vw + 17px, 27px);
   font-weight: 400;
-  line-height: 1.45;
+  line-height: 1.5;
   color: var(--muted);
 }
 
@@ -247,18 +256,19 @@ a:hover { color: var(--photon); }
 
 .section-title {
   font-family: var(--font-display);
-  font-size: clamp(26px, 1.4vw + 21px, 44px);
+  font-size: clamp(32px, 2vw + 25px, 56px);
   font-weight: 600;
-  line-height: 1.15;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
   color: var(--corona);
   margin-bottom: var(--space-md);
   max-width: 22ch;
 }
 
 .section-subtitle {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: clamp(20px, 3vw, 26px);
-  font-weight: 600;
+  font-weight: 500;
   color: var(--corona);
   margin: 36px 0 16px;
   opacity: 0.9;
@@ -278,12 +288,28 @@ a:hover { color: var(--photon); }
 
 .prose p:last-child { margin-bottom: 0; }
 
+/* ── KAWASAKI COPY SYSTEM ────────────────────────────────────
+   Every section follows statement-first density:
+   1. One .section-title or .display-md statement (the claim)
+   2. At most one .support line beneath it (max ~15 words)
+   3. Detail lives in tables, figures, or the white paper,
+      never in paragraphs. .prose is for ledes and captions only.
+   ──────────────────────────────────────────────────────────── */
+.support {
+  font-family: var(--font-body);
+  font-size: clamp(16px, 0.3vw + 15px, 18px);
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--muted);
+  max-width: 44ch;
+}
+
 /* ── LEDE — single-sentence section openers ──────────────── */
 .lede {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: clamp(21px, 1vw + 17px, 30px);
-  font-weight: 400;
-  line-height: 1.45;
+  font-weight: 300;
+  line-height: 1.5;
   color: var(--corona);
   max-width: 36ch;
 }
@@ -312,9 +338,8 @@ a:hover { color: var(--photon); }
 .paper-title {
   font-family: var(--font-display);
   font-size: clamp(23px, 1.2vw + 18px, 32px);
-  font-weight: 600;
-  font-style: italic;
-  line-height: 1.3;
+  font-weight: 400;
+  line-height: 1.35;
   letter-spacing: 0;
   color: var(--corona);
   max-width: 28ch;
@@ -625,84 +650,103 @@ a:hover { color: var(--photon); }
   .hero__video { display: none; }
 }
 
-/* ── PHOTONIC AGE SCROLLYTELLING ─────────────────────────── */
-.scrolly {
-  position: relative;
-  height: 320vh;
+/* ── PHOTONIC AGE TILE ───────────────────────────────────── */
+.age-tile {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: clamp(16px, 3vw, 40px);
+  background: var(--void);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  padding: clamp(28px, 4vw, 48px) clamp(20px, 3vw, 40px);
 }
 
-.scrolly__stage {
-  position: sticky;
-  top: 0;
-  height: 100vh;
+.age-tile__cycle {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  padding: 0 var(--space-md);
+  gap: 6px;
+  text-align: center;
 }
 
-.scrolly__caption {
+.age-tile__cycle-value {
   font-family: var(--font-display);
-  font-size: clamp(19px, 0.8vw + 16px, 28px);
-  font-style: italic;
+  font-size: clamp(34px, 2vw + 26px, 56px);
+  font-weight: 600;
+  line-height: 1;
+  color: var(--corona);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.age-tile__cycle-unit {
+  font-size: 0.45em;
+  font-weight: 400;
   color: var(--muted);
-  text-align: center;
-  max-width: 34ch;
-  min-height: 2.6em;
-  transition: opacity 0.45s ease;
+  margin-left: 2px;
 }
 
-.scrolly__columns {
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
-  width: 100%;
-  max-width: 880px;
-  margin-top: clamp(28px, 4vh, 56px);
-}
-
-.scrolly__col {
-  flex: 1;
+.age-tile__centre {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
-  padding: clamp(16px, 3vw, 40px) clamp(8px, 2vw, 24px);
+  gap: 6px;
   text-align: center;
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-.scrolly__col--mid {
+  padding: 0 clamp(20px, 3vw, 48px);
   border-left: 1px solid var(--rule);
   border-right: 1px solid var(--rule);
 }
 
-.scrolly__value {
+.age-tile__primary {
   font-family: var(--font-display);
-  font-size: clamp(48px, 5vw + 28px, 110px);
+  font-size: clamp(64px, 4vw + 44px, 120px);
   font-weight: 600;
-  line-height: 1;
+  line-height: 0.95;
   letter-spacing: -0.02em;
+  color: var(--stellar);
   font-variant-numeric: lining-nums tabular-nums;
 }
 
-.scrolly__footnote {
-  margin-top: clamp(24px, 4vh, 48px);
-  text-align: center;
-  transition: opacity 0.45s ease;
+.age-tile__secondary {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 1.4vw + 26px, 48px);
+  font-weight: 600;
+  line-height: 1;
+  color: var(--corona);
+  font-variant-numeric: lining-nums tabular-nums;
 }
 
-/* Static fallback (reduced motion / no JS) */
-.scrolly--static {
-  height: auto;
+.age-tile__note {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
 }
 
-.scrolly--static .scrolly__stage {
-  position: static;
-  height: auto;
-  padding: 40px 0;
+.age-tile__rule {
+  width: 72px;
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin: 14px 0;
+}
+
+@media (max-width: 720px) {
+  .age-tile {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      'centre centre'
+      'light dark';
+    row-gap: 28px;
+  }
+  .age-tile__centre {
+    grid-area: centre;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 24px;
+  }
+  .age-tile__cycle:first-child { grid-area: light; }
+  .age-tile__cycle:last-child { grid-area: dark; }
 }
 
 /* ── COST CALCULATOR ─────────────────────────────────────── */
@@ -846,14 +890,6 @@ a:hover { color: var(--photon); }
   .domain-key { padding: 12px; font-size: 10px; }
   .domain-val { padding: 12px 14px; font-size: 13.5px; }
   .data-table th, .data-table td { padding: 10px 14px; }
-  .scrolly { height: 260vh; }
-  .scrolly__columns { flex-direction: column; max-width: 320px; }
-  .scrolly__col--mid {
-    border-left: none;
-    border-right: none;
-    border-top: 1px solid var(--rule);
-    border-bottom: 1px solid var(--rule);
-  }
 }
 
 /* ── PRINT ───────────────────────────────────────────────── */
