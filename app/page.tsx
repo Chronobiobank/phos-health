@@ -3,6 +3,7 @@
 import { useEffect } from 'react'
 import Link from 'next/link'
 
+import { BiologyFacts } from '@/components/BiologyFacts'
 import { Nav } from '@/components/Nav'
 import { Footer } from '@/components/Footer'
 import { PhotonicAgeTile } from '@/components/PhotonicAgeTile'
@@ -45,17 +46,17 @@ export default function Home() {
         </video>
         <div className="hero__veil" aria-hidden="true" />
         <div className="container hero__content">
-          <h1 className="display-xl" style={{ maxWidth: '26ch' }}>
-            Reclaim lost time your building steals.
+          <h1 className="display-xl" style={{ maxWidth: '22ch' }}>
+            Reclaim what your building steals.
           </h1>
 
-          <p className="display-sm" style={{ marginTop: '24px', maxWidth: '520px' }}>
-            Exclusive TipTraQ. Dashboard in 48 hours. Ninety day guarantee.
+          <p className="display-sm" style={{ marginTop: '24px', maxWidth: '36ch' }}>
+            Output drops every working day.
           </p>
 
           <div style={{ marginTop: '40px' }}>
-            <Link href="/#photonic-age" className="btn btn--primary">
-              What rivals will measure →
+            <Link href="/biology" className="btn btn--primary">
+              Why light matters →
             </Link>
           </div>
         </div>
@@ -67,27 +68,12 @@ export default function Home() {
           <p className="section-number">01</p>
           <h2 className="section-title">The biology</h2>
 
-          <div className="fact-tiles">
-            <article className="fact-tile">
-              <h3 className="fact-tile__head">Sunlight powers every cell.</h3>
-              <p className="fact-tile__support">
-                20,000 neurons set the body&apos;s entire schedule by morning light.
-              </p>
-            </article>
+          <BiologyFacts />
 
-            <article className="fact-tile">
-              <h3 className="fact-tile__head">Modern life broke the signal.</h3>
-              <p className="fact-tile__support">
-                Bright nights, dim days, irregular hours throw the body off sync.
-              </p>
-            </article>
-
-            <article className="fact-tile">
-              <h3 className="fact-tile__head">Hibernation is what follows.</h3>
-              <p className="fact-tile__support">
-                Cognition, immunity, and metabolism drop every working day.
-              </p>
-            </article>
+          <div style={{ marginTop: '36px' }}>
+            <Link href="/loss-in-light-years" className="btn btn--primary">
+              See the cost →
+            </Link>
           </div>
         </div>
       </section>
@@ -101,7 +87,7 @@ export default function Home() {
         <div className="container photonic-age-panel__content">
           <p className="section-number">02</p>
           <h2 className="section-title">Loss in Light Years</h2>
-          <PhotonicAgeTile />
+          <PhotonicAgeTile ctaHref="/tiptraq" ctaLabel="How we measure it →" />
         </div>
       </section>
 
@@ -119,16 +105,16 @@ export default function Home() {
             03
           </p>
           <h2 className="section-title" style={{ marginTop: '12px' }}>
-            Sleep tests offer deep insight
+            TipTraQ at home
           </h2>
 
-          <p className="lede" style={{ marginTop: '20px' }}>
-            Three nights at home on TipTraQ, clinical analysis, HR dashboard in 48 hours.
+          <p className="support" style={{ marginTop: '20px' }}>
+            Dashboard in 48 hours.
           </p>
 
           <div style={{ marginTop: '36px' }}>
             <Link href="/dashboard" className="btn btn--primary">
-              How we measure it →
+              View demo dashboard →
             </Link>
           </div>
         </div>
@@ -144,9 +130,15 @@ export default function Home() {
           <p className="section-number">04</p>
           <h2 className="section-title">Model your firm</h2>
           <p className="support">
-            Set headcount and salary. PHOS deploys from £495 per professional.
+            From £495 per professional.
           </p>
           <CostCalculator />
+
+          <div style={{ marginTop: '36px' }}>
+            <Link href="/contact" className="btn btn--primary">
+              Book free demo →
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -167,7 +159,7 @@ export default function Home() {
         >
           <source src="/first-light.mp4" type="video/mp4" />
         </video>
-        <div className="hero__veil" aria-hidden="true" />
+        <div className="hibernation-panel__veil" aria-hidden="true" />
         <div className="container hibernation-panel__content">
           <p className="section-number" style={{ color: 'rgba(255, 255, 255, 0.72)' }}>
             05
@@ -176,7 +168,7 @@ export default function Home() {
             Turn off hibernation
           </h2>
           <p className="support" style={{ marginTop: '20px' }}>
-            Ninety days or your money back. Book a free demo.
+            Ninety days or your money back.
           </p>
           <div style={{ marginTop: '36px' }}>
             <a href="mailto:hello@phos.org.uk?subject=Book%20free%20demo" className="btn btn--primary">

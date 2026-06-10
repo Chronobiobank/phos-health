@@ -27,7 +27,7 @@ export default function PrivacyPage() {
             <a href="mailto:hello@phos.org.uk">hello@phos.org.uk</a>
           </p>
           <div style={{ marginTop: '32px' }}>
-            <Link href="/#hero" className="btn btn--outline">
+            <Link href="/" className="btn btn--outline">
               Back to home
             </Link>
           </div>

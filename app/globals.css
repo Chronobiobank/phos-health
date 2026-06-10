@@ -94,6 +94,15 @@ html {
   justify-content: center;
 }
 
+#hibernation.snap-section {
+  scroll-snap-stop: normal;
+}
+
+.site-footer {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
 body {
   background: var(--void);
   color: var(--corona);
@@ -859,6 +868,7 @@ a:hover { color: var(--photon); }
 .tiptraq-panel {
   position: relative;
   overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
 }
 
 .tiptraq-panel__image {
@@ -899,18 +909,28 @@ a:hover { color: var(--photon); }
   color: #ffffff;
 }
 
-.tiptraq-panel .lede {
-  color: #ffffff;
-}
-
-.tiptraq-panel .lede {
-  opacity: 0.9;
+.tiptraq-panel .support {
+  color: rgba(255, 255, 255, 0.88);
+  max-width: 28ch;
 }
 
 /* ── HIBERNATION PANEL — section 05, first-light video ───── */
 .hibernation-panel {
   position: relative;
   overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.hibernation-panel__veil {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(18, 14, 32, 0.5) 0%,
+    rgba(40, 28, 48, 0.62) 45%,
+    rgba(72, 48, 56, 0.78) 100%
+  );
 }
 
 .hibernation-panel__content {
@@ -973,7 +993,8 @@ a:hover { color: var(--photon); }
 }
 
 .model-firm-panel {
-  background: var(--cosmos);
+  background: var(--void);
+  border-top: 1px solid var(--rule);
 }
 
 .model-firm-panel .calc {
@@ -987,6 +1008,7 @@ a:hover { color: var(--photon); }
     var(--eggplant-dark) 0%,
     var(--eggplant) 100%
   );
+  border-top: 1px solid color-mix(in srgb, #ffffff 10%, var(--eggplant-dark));
 }
 
 .biology-panel__content {
@@ -1044,10 +1066,12 @@ a:hover { color: var(--photon); }
 /* ── PHOTONIC AGE PANEL — section 02 ─────────────────────── */
 .photonic-age-panel {
   background: linear-gradient(
-    165deg,
-    var(--lilac-dark) 0%,
-    color-mix(in srgb, var(--stellar) 22%, var(--lilac-deep)) 100%
+    180deg,
+    var(--void) 0%,
+    var(--lilac-light) 55%,
+    var(--lilac-medium) 100%
   );
+  border-top: 1px solid var(--rule);
 }
 
 .photonic-age-panel__content {
@@ -1439,6 +1463,91 @@ a:hover { color: var(--photon); }
     border-bottom: 1px solid var(--rule);
     padding-bottom: 24px;
   }
+}
+
+/* ── DETAIL PAGES ────────────────────────────────────────── */
+.detail-page {
+  position: relative;
+  min-height: 100dvh;
+}
+
+.detail-page__content {
+  padding-top: clamp(120px, 16vh, 160px);
+  padding-bottom: clamp(64px, 8vh, 96px);
+}
+
+.detail-page__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 36px;
+}
+
+.biology-page__lede {
+  margin-top: 16px;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.loss-page__content {
+  text-align: center;
+}
+
+.loss-page__title {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  max-width: none;
+}
+
+.loss-page .support {
+  margin-top: 12px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.tiptraq-page__content {
+  position: relative;
+  z-index: 2;
+}
+
+.tiptraq-page__steps {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.tiptraq-page__steps .support {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.contact-page__content {
+  position: relative;
+  z-index: 2;
+}
+
+.contact-page__email {
+  margin-top: 20px;
+}
+
+.contact-page__email a {
+  color: #ffffff;
+}
+
+.contact-page .btn--outline {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.42);
+}
+
+.contact-page .btn--outline:hover {
+  border-color: rgba(255, 255, 255, 0.72);
+  color: #ffffff;
+}
+
+.detail-page .hibernation-panel .btn--outline,
+.contact-page .btn--outline {
+  background: transparent;
 }
 
 /* ── LEGAL PAGES ─────────────────────────────────────────── */

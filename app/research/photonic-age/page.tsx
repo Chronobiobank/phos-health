@@ -37,7 +37,7 @@ export default function PhotonicAgePaper() {
             <Link href="#abstract" className="btn btn--primary">
               Read the methodology →
             </Link>
-            <Link href="/#hero" className="btn btn--outline">
+            <Link href="/" className="btn btn--outline">
               ← Back to PHOS
             </Link>
           </div>
@@ -131,7 +131,7 @@ export default function PhotonicAgePaper() {
             A 43-year-old senior professional in London, measured over three nights.
           </p>
 
-          <PhotonicAgeTile />
+          <PhotonicAgeTile ctaHref="/tiptraq" ctaLabel="How we measure it →" />
         </div>
       </section>
 
@@ -163,7 +163,7 @@ export default function PhotonicAgePaper() {
           </p>
 
           <div style={{ marginTop: '32px' }}>
-            <Link href="/#model-your-firm" className="btn btn--primary">
+            <Link href="/for-firms" className="btn btn--primary">
               Model your firm →
             </Link>
           </div>

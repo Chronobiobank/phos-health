@@ -7,7 +7,7 @@ const linkStyle = { color: 'var(--muted)' } as const
 
 export function Footer() {
   return (
-    <footer style={{ borderTop: '1px solid var(--rule)' }}>
+    <footer className="site-footer" style={{ borderTop: '1px solid var(--rule)' }}>
       <div
         className="container"
         style={{

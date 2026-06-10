@@ -24,7 +24,7 @@ export default function DashboardPage() {
           <DummyDashboard />
 
           <div className="dashboard-page__actions">
-            <Link href="/#hero" className="btn btn--outline">
+            <Link href="/" className="btn btn--outline">
               Back to home
             </Link>
             <a href="mailto:hello@phos.org.uk?subject=Book%20free%20demo" className="btn btn--primary">
