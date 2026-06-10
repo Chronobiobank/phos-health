@@ -6,7 +6,7 @@ import './globals.css'
 
 const unbounded = Unbounded({
   subsets: ['latin'],
-  weight: ['400', '500'],
+  weight: ['300', '400', '500'],
   variable: '--font-logo',
   display: 'swap',
 })
