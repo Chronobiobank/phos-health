@@ -83,7 +83,7 @@ export default function Home() {
             <article className="fact-tile">
               <h3 className="fact-tile__head">Modern life broke the signal.</h3>
               <p className="fact-tile__support">
-                Bright nights, dim days, irregular hours. The body runs out of sync.
+                Bright nights, dim days, irregular hours throw the body off sync.
               </p>
             </article>
 
