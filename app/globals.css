@@ -1107,9 +1107,16 @@ a:hover { color: var(--photon); }
 }
 
 .photonic-age-panel__content {
-  padding-top: clamp(16px, 2.5vh, 32px);
-  padding-bottom: clamp(16px, 2.5vh, 32px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(28px, 4vh, 48px);
+  padding-top: clamp(24px, 4vh, 48px);
+  padding-bottom: clamp(24px, 4vh, 48px);
   width: 100%;
+  min-height: 100%;
+  text-align: center;
 }
 
 .photonic-age-panel .section-number {
@@ -1118,15 +1125,13 @@ a:hover { color: var(--photon); }
 }
 
 .photonic-age-panel .section-title {
-  margin-top: 4px;
-  margin-bottom: 0;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0;
+  width: 100%;
+  max-width: 18ch;
   font-size: clamp(34px, 2.4vw + 22px, 56px);
   line-height: 1.12;
   text-align: center;
   text-wrap: balance;
-  max-width: 16ch;
 }
 
 .photonic-age-panel__tile {
@@ -1137,14 +1142,19 @@ a:hover { color: var(--photon); }
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 16px;
-  margin-top: 16px;
+  margin: 0;
   width: 100%;
 }
 
 .loss-pitch-panel .photonic-age-panel__tile--pitch {
   width: 100%;
   max-width: 420px;
+  margin: 0 auto;
+}
+
+.loss-pitch-panel .photonic-age-panel__tile {
   margin-top: 0;
 }
 
@@ -2112,12 +2122,13 @@ a:hover { color: var(--photon); }
   }
 
   .photonic-age-panel.snap-section {
-    justify-content: flex-start;
+    justify-content: center;
   }
 
   .photonic-age-panel__content {
-    padding-top: 16px;
-    padding-bottom: 16px;
+    gap: clamp(20px, 3vh, 32px);
+    padding-top: clamp(20px, 3vh, 32px);
+    padding-bottom: clamp(20px, 3vh, 32px);
   }
 
   .photonic-age-panel .section-number {
@@ -2126,14 +2137,13 @@ a:hover { color: var(--photon); }
 
   .photonic-age-panel .section-title {
     font-size: clamp(32px, 8vw, 40px);
-    margin-top: 0;
     line-height: 1.12;
   }
 
   .photonic-age-panel .loss-pitch-panel,
   .photonic-age-panel .loss-dual-panel {
     gap: 8px;
-    margin-top: 8px;
+    margin: 0;
   }
 
   .photonic-age-panel .loss-pitch-panel .photonic-age-panel__tile--pitch {
