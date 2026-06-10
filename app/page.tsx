@@ -74,7 +74,7 @@ export default function Home() {
 
           <div className="fact-tiles">
             <article className="fact-tile">
-              <h3 className="fact-tile__head">Light powers every human cell.</h3>
+              <h3 className="fact-tile__head">Light powers every cell.</h3>
               <p className="fact-tile__support">
                 20,000 neurons set the body&apos;s entire schedule by morning light.
               </p>
