@@ -3,10 +3,10 @@ import Link from 'next/link'
 
 import { Footer } from '@/components/Footer'
 import { Nav } from '@/components/Nav'
-import { PhotonicAgeTile } from '@/components/PhotonicAgeTile'
+import { LossDualPanel } from '@/components/LossDualPanel'
 
 export const metadata: Metadata = {
-  title: 'How we quantify loss · PHOS Circadian Health',
+  title: 'Measure loss. Reverse it. · PHOS Circadian Health',
   description: 'Quantified circadian misalignment and firm-level financial impact.',
 }
 
@@ -18,10 +18,10 @@ export default function LossInLightYearsPage() {
       <section id="photonic-age" className="detail-page loss-page photonic-age-panel">
         <div className="container detail-page__content loss-page__content">
           <p className="section-number">02</p>
-          <h1 className="section-title loss-page__title">How we quantify loss</h1>
-          <p className="support">The metric serious firms will compare.</p>
+          <h1 className="section-title loss-page__title">Measure loss. Reverse it.</h1>
+          <p className="support">The CFO sees the leak. HR sees what changes daily.</p>
 
-          <PhotonicAgeTile ctaHref="/tiptraq" ctaLabel="How we measure it →" />
+          <LossDualPanel ctaHref="/dashboard" ctaLabel="View dashboard →" />
 
           <div className="detail-page__actions">
             <Link href="/research/photonic-age" className="btn btn--outline">

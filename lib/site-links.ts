@@ -1,7 +1,7 @@
 export const SITE_LINKS = [
   { href: '/', label: 'Home' },
   { href: '/biology', label: 'Why light matters' },
-  { href: '/loss-in-light-years', label: 'How we quantify loss' },
+  { href: '/loss-in-light-years', label: 'Measure loss. Reverse it.' },
   { href: '/tiptraq', label: 'TipTraQ' },
   { href: '/for-firms', label: 'Model your firm' },
   { href: '/contact', label: 'Let light back in' },

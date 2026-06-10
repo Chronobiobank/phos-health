@@ -70,6 +70,13 @@
   padding: 0;
 }
 
+::view-transition-group(*),
+::view-transition-old(*),
+::view-transition-new(*) {
+  animation-duration: 0.25s;
+  animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+}
+
 html {
   scroll-padding-top: var(--nav-height);
   scrollbar-gutter: stable;
@@ -1075,8 +1082,8 @@ a:hover { color: var(--photon); }
 }
 
 .photonic-age-panel__content {
-  padding-top: clamp(20px, 3vh, 40px);
-  padding-bottom: clamp(20px, 3vh, 40px);
+  padding-top: clamp(16px, 2.5vh, 32px);
+  padding-bottom: clamp(16px, 2.5vh, 32px);
   width: 100%;
 }
 
@@ -1090,7 +1097,7 @@ a:hover { color: var(--photon); }
   margin-bottom: 0;
   margin-left: auto;
   margin-right: auto;
-  font-size: clamp(28px, 1.6vw + 22px, 48px);
+  font-size: clamp(24px, 1.4vw + 18px, 40px);
   line-height: 1.08;
   text-align: center;
   max-width: none;
@@ -1098,6 +1105,66 @@ a:hover { color: var(--photon); }
 
 .photonic-age-panel__tile {
   margin-top: clamp(14px, 2vh, 24px);
+}
+
+.loss-dual-panel {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 1.4vh, 14px);
+  margin-top: clamp(10px, 1.5vh, 18px);
+}
+
+.loss-dual-panel__row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(10px, 1.4vw, 14px);
+}
+
+.loss-metric-card {
+  max-width: none;
+  margin: 0;
+  width: 100%;
+}
+
+.loss-metric-card .impact-card__eyebrow {
+  color: var(--muted);
+}
+
+.impact-card__figure--time {
+  font-size: clamp(22px, 2.2vw + 14px, 34px);
+  letter-spacing: -0.01em;
+}
+
+.q-schedule-bar {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  align-items: center;
+  padding: clamp(12px, 1.8vh, 16px) clamp(14px, 2.5vw, 18px);
+  border-radius: 12px;
+  background: var(--cosmos);
+  border: 1px solid var(--rule);
+}
+
+.q-schedule-bar__mark {
+  font-family: var(--font-logo);
+  font-size: clamp(22px, 2.5vw + 16px, 28px);
+  font-weight: 300;
+  line-height: 1;
+  color: var(--corona);
+}
+
+.q-schedule-bar__copy {
+  font-family: var(--font-body);
+  font-size: clamp(17px, 0.3vw + 16px, 18px);
+  line-height: 1.45;
+  color: var(--corona);
+}
+
+.loss-dual-panel__cta.btn {
+  width: 100%;
+  max-width: none;
+  text-align: center;
 }
 
 /* Impact card — section 02 tile */
@@ -1134,6 +1201,18 @@ a:hover { color: var(--photon); }
   grid-template-columns: 1fr 1fr;
 }
 
+.impact-card__split--triple {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.impact-card__split--triple .impact-card__metric:not(:last-child) {
+  border-right: 1px solid var(--rule);
+}
+
+.impact-card__split--triple .impact-card__metric:first-child {
+  border-bottom: none;
+}
+
 .impact-card__metric {
   display: flex;
   flex-direction: column;
@@ -1167,6 +1246,10 @@ a:hover { color: var(--photon); }
   line-height: 1;
   color: var(--corona);
   font-variant-numeric: lining-nums tabular-nums;
+}
+
+.impact-card__figure--compact {
+  font-size: clamp(28px, 3vw + 16px, 44px);
 }
 
 .impact-card__sub {
@@ -1220,6 +1303,11 @@ a:hover { color: var(--photon); }
   color: var(--muted);
 }
 
+.impact-card__cite--centered {
+  text-align: center;
+  padding: 0 clamp(14px, 3vw, 20px) clamp(8px, 1.5vh, 12px);
+}
+
 .impact-card__firm {
   padding: clamp(14px, 2.5vw, 22px) clamp(14px, 3vw, 20px) clamp(16px, 2.5vw, 24px);
   border-top: 1px solid color-mix(in srgb, var(--stellar) 28%, var(--rule));
@@ -1245,15 +1333,52 @@ a:hover { color: var(--photon); }
   max-width: 280px;
 }
 
+.impact-card--compact .impact-card__header {
+  padding: 8px 14px;
+}
+
+.impact-card--compact .impact-card__metric--compact {
+  padding: clamp(12px, 2vh, 18px) 14px 10px;
+}
+
+.impact-card--compact .impact-card__figure {
+  font-size: clamp(32px, 3.5vw + 20px, 48px);
+}
+
+.impact-card__summary {
+  font-family: var(--font-mono);
+  font-size: clamp(14px, 0.2vw + 13px, 16px);
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  margin-top: 6px;
+  line-height: 1.4;
+}
+
 @supports not (backdrop-filter: blur(1px)) {
   .impact-card {
     background: var(--void);
   }
 }
 
-@media (max-width: 360px) {
-  .impact-card__split {
+@media (max-width: 720px) {
+  .loss-dual-panel__row {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 360px) {
+  .impact-card__split:not(.impact-card__split--triple) {
+    grid-template-columns: 1fr;
+  }
+
+  .impact-card__split--triple {
+    grid-template-columns: 1fr;
+  }
+
+  .impact-card__split--triple .impact-card__metric:not(:last-child) {
+    border-right: none;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 12px;
   }
 
   .impact-card__metric:first-child {

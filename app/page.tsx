@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { BiologyFacts } from '@/components/BiologyFacts'
 import { Nav } from '@/components/Nav'
 import { Footer } from '@/components/Footer'
-import { PhotonicAgeTile } from '@/components/PhotonicAgeTile'
+import { LossDualPanel } from '@/components/LossDualPanel'
 import { CostCalculator } from '@/components/CostCalculator'
 
 export default function Home() {
@@ -86,8 +86,8 @@ export default function Home() {
       >
         <div className="container photonic-age-panel__content">
           <p className="section-number">02</p>
-          <h2 className="section-title">How we quantify loss</h2>
-          <PhotonicAgeTile ctaHref="/dashboard" ctaLabel="View dashboard →" />
+          <h2 className="section-title">Measure loss. Reverse it.</h2>
+          <LossDualPanel ctaHref="/dashboard" ctaLabel="View dashboard →" />
         </div>
       </section>
 
