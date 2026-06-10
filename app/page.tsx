@@ -45,9 +45,7 @@ export default function Home() {
         </video>
         <div className="hero__veil" aria-hidden="true" />
         <div className="container hero__content">
-          <p className="label">Photonic OS</p>
-
-          <h1 className="display-xl" style={{ marginTop: '28px' }}>
+          <h1 className="display-xl">
             Reclaim
             <br />
             <em className="text-spectrum" style={{ whiteSpace: 'nowrap' }}>

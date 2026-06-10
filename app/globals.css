@@ -141,8 +141,16 @@ a:hover { color: var(--photon); }
   font-size: clamp(13px, 0.45vw + 11px, 18px);
   font-weight: 400;
   letter-spacing: 0.02em;
-  color: var(--muted);
+  color: rgba(255, 255, 255, 0.8);
   white-space: nowrap;
+}
+
+/* White wordmark variant — overrides the spectrum fill in the nav */
+.wordmark--white {
+  background: none;
+  -webkit-text-fill-color: #ffffff;
+  background-clip: border-box;
+  color: #ffffff;
 }
 
 /* ── LAYOUT ──────────────────────────────────────────────── */
@@ -634,24 +642,45 @@ a:hover { color: var(--photon); }
 
 /* White veil keeps dark editorial type legible over the footage,
    dissolving to solid page white at the bottom edge. */
-/* Light at the top so the footage reads through the glass nav,
-   denser in the middle where the headline sits, solid at the foot. */
+/* Dark cinematic veil: footage glows through, type sits in white. */
 .hero__veil {
   position: absolute;
   inset: 0;
   z-index: 1;
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0.3) 0%,
-    rgba(255, 255, 255, 0.78) 28%,
-    rgba(255, 255, 255, 0.82) 60%,
-    var(--void) 100%
+    rgba(8, 8, 22, 0.45) 0%,
+    rgba(8, 8, 22, 0.55) 40%,
+    rgba(8, 8, 22, 0.78) 100%
   );
 }
 
 .hero__content {
   position: relative;
   z-index: 2;
+}
+
+/* Dark-hero type inversions */
+.hero .display-xl {
+  color: #ffffff;
+}
+
+.hero .display-sm {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.hero .label {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.hero .btn--primary {
+  background: #ffffff;
+  color: var(--deep);
+}
+
+.hero .btn--primary:hover {
+  background: var(--nebula);
+  color: var(--deep);
 }
 
 @media (prefers-reduced-motion: reduce) {

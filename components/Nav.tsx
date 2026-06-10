@@ -11,10 +11,10 @@ export function Nav() {
         left: 0,
         right: 0,
         zIndex: 100,
-        background: 'rgba(255, 255, 255, 0.18)',
-        borderBottom: '1px solid rgba(220, 220, 232, 0.4)',
-        backdropFilter: 'blur(10px)',
-        WebkitBackdropFilter: 'blur(10px)',
+        background: 'rgba(10, 10, 26, 0.55)',
+        borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
+        backdropFilter: 'blur(14px)',
+        WebkitBackdropFilter: 'blur(14px)',
       }}
     >
       <div
@@ -33,7 +33,7 @@ export function Nav() {
           aria-label="PHOS home"
           style={{ display: 'inline-flex', justifySelf: 'start' }}
         >
-          <Wordmark />
+          <Wordmark className="wordmark--white" />
         </Link>
 
         <span className="nav-sub" style={{ justifySelf: 'center' }}>
@@ -43,7 +43,7 @@ export function Nav() {
         <Link
           href="/research/photonic-age"
           className="btn btn--primary"
-          style={{ justifySelf: 'end' }}
+          style={{ justifySelf: 'end', border: '1px solid rgba(255, 255, 255, 0.35)' }}
         >
           Why PHOS?
         </Link>
