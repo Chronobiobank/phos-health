@@ -82,29 +82,25 @@ html:has(.snap-section) {
   scroll-snap-type: y mandatory;
 }
 
-/* Full-viewport snapping sections — one thumb flick per screen */
+/* Full-viewport snapping sections — document scroll, not nested scrollports */
 .snap-section,
 #hero {
   scroll-snap-align: start;
-  scroll-snap-stop: always;
-  height: 100dvh;
+  scroll-snap-stop: normal;
   min-height: 100dvh;
   box-sizing: border-box;
-  overflow-y: auto;
-  overscroll-behavior-y: contain;
-  -webkit-overflow-scrolling: touch;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-#hibernation.snap-section {
-  scroll-snap-stop: normal;
+#model-your-firm.snap-section {
+  justify-content: flex-start;
 }
 
 html:has(.snap-section) .site-footer {
   scroll-snap-align: start;
-  scroll-snap-stop: always;
+  scroll-snap-stop: normal;
 }
 
 body {

@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
 
 import { scrollToHome, scrollToPageTop } from '@/lib/scroll-home'
@@ -21,13 +21,19 @@ function scrollToHash() {
 
 export function HashScroll() {
   const pathname = usePathname()
+  const previousPath = useRef<string | null>(null)
 
   useEffect(() => {
-    if (window.location.hash) {
+    const hash = window.location.hash
+    const pathChanged = previousPath.current !== null && previousPath.current !== pathname
+    previousPath.current = pathname
+
+    if (hash) {
       scrollToHash()
-    } else {
+    } else if (pathChanged) {
       scrollToPageTop()
     }
+
     window.addEventListener('hashchange', scrollToHash)
     return () => window.removeEventListener('hashchange', scrollToHash)
   }, [pathname])
