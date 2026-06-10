@@ -16,6 +16,12 @@ All marketing pages follow Guy Kawasaki density: big type, few words, one idea p
 - No em dashes, en dashes, or bullet points in copy
 - All headings are sentence case, never title case (proper nouns like Photonic Age and TipTraQ keep their capitals; cited paper titles keep title case)
 
+## Spectrum usage law
+
+- The aqua → lilac → crimson gradient (`--spectrum`) is for `.btn--primary` buttons ONLY
+- Never apply spectrum to text, wordmarks, headings, borders, backgrounds, or decorative elements
+- No `.text-spectrum` class — it does not exist
+
 ## Font usage law (senior legibility)
 
 - Geist Mono is for eyebrows, labels, section numbers, and numeric data ONLY, never for copy, buttons, bylines, table body text, or captions

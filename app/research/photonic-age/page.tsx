@@ -15,7 +15,7 @@ const PDF_PATH = '/papers/photonic-age-white-paper.pdf'
 
 export default function PhotonicAgePaper() {
   return (
-    <main>
+    <main data-nav-theme="light">
       <Nav />
 
       {/* ── Paper header ── */}

@@ -31,7 +31,7 @@ export default function Home() {
       <Nav />
 
       {/* ── Hero ── */}
-      <section className="fade-in hero snap-section">
+      <section className="fade-in hero snap-section" data-nav-theme="dark">
         <video
           className="hero__video"
           autoPlay
@@ -48,9 +48,7 @@ export default function Home() {
           <h1 className="display-xl">
             Reclaim
             <br />
-            <em className="text-spectrum" style={{ whiteSpace: 'nowrap' }}>
-              lost&nbsp;time
-            </em>
+            <em style={{ whiteSpace: 'nowrap' }}>lost&nbsp;time</em>
           </h1>
 
           <p className="display-sm" style={{ marginTop: '24px', maxWidth: '520px' }}>
@@ -60,7 +58,7 @@ export default function Home() {
 
           <div style={{ marginTop: '40px' }}>
             <Link href="/research/photonic-age" className="btn btn--primary">
-              Read the methodology →
+              Why light matters →
             </Link>
           </div>
         </div>
@@ -72,6 +70,7 @@ export default function Home() {
       <section
         id="biology"
         className="fade-in snap-section"
+        data-nav-theme="light"
         style={{ paddingTop: 'clamp(48px, 8vh, 80px)', paddingBottom: 'clamp(40px, 6vh, 64px)' }}
       >
         <div className="container">
@@ -108,9 +107,13 @@ export default function Home() {
       </section>
 
       {/* ── 02 · Photonic Age ── */}
-      <section id="photonic-age" className="snap-section" style={{ background: 'var(--cosmos)' }}>
+      <section
+        id="photonic-age"
+        className="fade-in snap-section photonic-age-panel"
+        data-nav-theme="light"
+      >
         <div
-          className="fade-in container"
+          className="container"
           style={{ paddingTop: 'clamp(48px, 8vh, 80px)', paddingBottom: 'clamp(48px, 8vh, 80px)' }}
         >
           <p className="section-number">02</p>
@@ -121,21 +124,47 @@ export default function Home() {
           </p>
 
           <PhotonicAgeTile />
-
-          <p className="support" style={{ marginTop: '32px' }}>
-            Measured with TipTraQ, at home, in three nights. No blood tests. No clinic.
-          </p>
         </div>
       </section>
 
-      {/* ── 03 · The Commercial Case ── */}
+      {/* ── 03 · TipTraQ ── */}
+      <section id="tiptraq" className="fade-in tiptraq-panel snap-section" data-nav-theme="dark">
+        <div
+          className="tiptraq-panel__image"
+          style={{ backgroundImage: 'url(/tiptraq/tiptraq.jpg)' }}
+          aria-hidden="true"
+        />
+        <div className="tiptraq-panel__veil" aria-hidden="true" />
+        <div className="container tiptraq-panel__content">
+          <p className="section-number" style={{ color: 'rgba(255, 255, 255, 0.72)' }}>
+            03
+          </p>
+          <h2 className="section-title" style={{ marginTop: '12px' }}>
+            Sleep tests tell us all we need to know
+          </h2>
+
+          <p className="lede" style={{ marginTop: '20px' }}>
+            Your Photonic Age score comes from clinical-grade home tests, no lab visit or blood
+            test.
+          </p>
+
+          <div style={{ marginTop: '36px' }}>
+            <Link href="/#tiptraq" className="btn btn--primary">
+              How we measure it →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 04 · The Commercial Case ── */}
       <section
         id="commercial-case"
         className="fade-in snap-section"
+        data-nav-theme="light"
         style={{ paddingTop: 'clamp(48px, 8vh, 80px)', paddingBottom: 'clamp(48px, 8vh, 80px)' }}
       >
         <div className="container">
-          <p className="section-number">03</p>
+          <p className="section-number">04</p>
           <h2 className="section-title">What Lost Light Years costs your firm</h2>
 
           <p className="lede">
@@ -201,35 +230,37 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 04 · White Paper ── */}
+      {/* ── 05 · Turn off hibernation ── */}
       <section
-        id="white-paper"
-        className="fade-in snap-section"
-        style={{ background: 'var(--cosmos)', paddingTop: 'clamp(48px, 8vh, 80px)', paddingBottom: 'clamp(48px, 8vh, 80px)' }}
+        id="hibernation"
+        className="fade-in hibernation-panel snap-section"
+        data-nav-theme="dark"
       >
-        <div className="container">
-          <p className="section-number">04</p>
-          <h2 className="section-title">The methodology, published</h2>
-
-          <div className="callout">
-            <p className="paper-title">
-              Photonic Age: A Methodology for Measuring Lost Light Years and the Hidden Cost of
-              Circadian Misalignment
-            </p>
-            <p style={{ marginTop: '18px' }}>
-              The full methodology: scientific foundations, a worked clinical example, and the
-              commercial translation into revenue impact.
-            </p>
-            <p className="byline" style={{ marginTop: '22px' }}>
-              <strong>Grant Munro</strong> · NIHI Fellow, University of Auckland
-              <br />
-              The Circadian Foundation · Auckland, New Zealand · June 2026
-            </p>
-          </div>
-
-          <div style={{ marginTop: '32px' }}>
-            <Link href="/research/photonic-age" className="btn btn--primary">
-              Read the white paper →
+        <video
+          className="hero__video"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          aria-hidden="true"
+        >
+          <source src="/hero/first-light.mp4" type="video/mp4" />
+        </video>
+        <div className="hero__veil" aria-hidden="true" />
+        <div className="container hibernation-panel__content">
+          <p className="section-number" style={{ color: 'rgba(255, 255, 255, 0.72)' }}>
+            05
+          </p>
+          <h2 className="section-title" style={{ marginTop: '12px' }}>
+            Turn off hibernation
+          </h2>
+          <p className="support" style={{ marginTop: '20px' }}>
+            Three nights of TipTraQ data ends biological winter.
+          </p>
+          <div style={{ marginTop: '36px' }}>
+            <Link href="/#commercial-case" className="btn btn--primary">
+              Calculate your cost →
             </Link>
           </div>
         </div>

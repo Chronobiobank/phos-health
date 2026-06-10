@@ -4,7 +4,7 @@
 export default function Wordmark({ className = '' }: { className?: string }) {
   return (
     <span
-      className={`wordmark text-spectrum ${className}`}
+      className={`wordmark ${className}`}
       aria-label="PHOS"
     >
       PH<span aria-hidden="true">ʘ</span>S

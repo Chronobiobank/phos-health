@@ -1,20 +1,13 @@
 import Link from 'next/link'
 
 import Wordmark from '@/components/Wordmark'
-
-const FOOTER_LINKS = [
-  { href: '/', label: 'Home' },
-  { href: '/#biology', label: 'Unspoken facts' },
-  { href: '/#photonic-age', label: 'Photonic Age' },
-  { href: '/#commercial-case', label: 'The commercial case' },
-  { href: '/research/photonic-age', label: 'White paper' },
-] as const
+import { SITE_LINKS } from '@/lib/site-links'
 
 export function Footer() {
   return (
     <footer className="snap-end" style={{ borderTop: '1px solid var(--rule)' }}>
       <div
-        className="container--wide"
+        className="container"
         style={{
           display: 'flex',
           justifyContent: 'space-between',
@@ -35,16 +28,18 @@ export function Footer() {
           </p>
         </div>
 
-        <nav
+        <div
+          role="navigation"
           aria-label="Footer"
+          className="footer-nav"
           style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}
         >
-          {FOOTER_LINKS.map((link) => (
+          {SITE_LINKS.map((link) => (
             <Link key={link.href} href={link.href} className="label" style={{ color: 'var(--muted)' }}>
               {link.label}
             </Link>
           ))}
-        </nav>
+        </div>
 
         <div className="label" style={{ color: 'var(--dim)', textAlign: 'right', lineHeight: 2 }}>
           © 2026 PHOS
