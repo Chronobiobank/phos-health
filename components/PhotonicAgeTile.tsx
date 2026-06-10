@@ -38,13 +38,16 @@ export function PhotonicAgeTile() {
           <p className="impact-card__eyebrow">Across 150 professionals</p>
           <p className="impact-card__firm-stats">41,400 hrs · £2.7M annually</p>
           <Link href="/dashboard" className="btn btn--primary impact-card__cta">
-            View demo dashboard →
+            See the 48 hour reveal →
           </Link>
         </footer>
       </article>
 
+      <p className="support photonic-age-panel__guarantee">
+        Reclaim lost time in 90 days or your money back.
+      </p>
       <p className="support photonic-age-panel__cred">
-        Developed with Prof. Russell Foster, Oxford Sleep and Circadian Neuroscience Institute.
+        Prof. Russell Foster, Oxford. Chronobiology for billable hours.
       </p>
     </div>
   )

@@ -45,17 +45,17 @@ export default function Home() {
         </video>
         <div className="hero__veil" aria-hidden="true" />
         <div className="container hero__content">
-          <h1 className="display-xl" style={{ maxWidth: '28ch' }}>
-            Each staff member bleeds ~£18k p/a from hibernation
+          <h1 className="display-xl" style={{ maxWidth: '26ch' }}>
+            Reclaim lost time your building steals.
           </h1>
 
           <p className="display-sm" style={{ marginTop: '24px', maxWidth: '520px' }}>
-            PHOS measures exactly why and closes the gap in 90 days.
+            Exclusive TipTraQ. Dashboard in 48 hours. Ninety day guarantee.
           </p>
 
           <div style={{ marginTop: '40px' }}>
-            <Link href="/research/photonic-age" className="btn btn--primary">
-              Why light matters →
+            <Link href="/#photonic-age" className="btn btn--primary">
+              What rivals will measure →
             </Link>
           </div>
         </div>
@@ -103,6 +103,10 @@ export default function Home() {
         <div className="container photonic-age-panel__content">
           <p className="section-number">02</p>
           <h2 className="section-title">Loss in Light Years</h2>
+          <p className="lede photonic-age-panel__lede">What is your firm&apos;s Photonic Age?</p>
+          <p className="support photonic-age-panel__intro">
+            Measured exclusively on TipTraQ. Serious firms will compare.
+          </p>
           <PhotonicAgeTile />
         </div>
       </section>
@@ -177,8 +181,11 @@ export default function Home() {
           <h2 className="section-title" style={{ marginTop: '12px' }}>
             Turn off hibernation
           </h2>
-          <p className="support" style={{ marginTop: '20px' }}>
-            Book a free demo for your firm.
+          <p className="lede" style={{ marginTop: '20px' }}>
+            Professional infrastructure for firms that measure people.
+          </p>
+          <p className="support" style={{ marginTop: '16px' }}>
+            Ninety days or your money back. Book a free demo.
           </p>
           <div style={{ marginTop: '36px' }}>
             <a href="mailto:hello@phos.org.uk?subject=Book%20free%20demo" className="btn btn--primary">
