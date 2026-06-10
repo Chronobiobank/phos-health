@@ -47,11 +47,11 @@ export default function Home() {
         <div className="hero__veil" aria-hidden="true" />
         <div className="container hero__content">
           <h1 className="display-xl" style={{ maxWidth: '22ch' }}>
-            Your firm is in the dark
+            Employee hibernation is lethal to business
           </h1>
 
           <p className="display-sm" style={{ marginTop: '24px', maxWidth: '44ch' }}>
-            That darkness costs £18,000 per professional, per year.
+            Circadian misalignment costs ~£18,000 per person, per year.
           </p>
 
           <div style={{ marginTop: '40px' }}>
