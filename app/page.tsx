@@ -51,7 +51,7 @@ export default function Home() {
           </h1>
 
           <p className="display-sm" style={{ marginTop: '24px', maxWidth: '44ch' }}>
-            Circadian misalignment costs ~£18,000 per person, per year.
+            Living out of sync with daylight costs ~£18,000 per person, per year.
           </p>
 
           <div style={{ marginTop: '40px' }}>
