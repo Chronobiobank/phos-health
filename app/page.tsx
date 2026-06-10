@@ -140,68 +140,21 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 04 · The Commercial Case ── */}
-      <section
-        id="commercial-case"
-        className="fade-in snap-section commercial-case-panel"
-        data-nav-theme="light"
-      >
-        <div className="container commercial-case-panel__content">
-          <p className="section-number">04</p>
-          <h2 className="section-title">What Lost Light Years costs your firm</h2>
-          <p className="support">Each lost year costs 15 percent of cognitive performance.</p>
-
-          <div className="formula-box">
-            <div className="formula-label">Corporate cost · Hafner et al. 2016</div>
-            <div className="formula-content">
-              <p className="formula-line formula-line--primary">
-                Lost Light Years × annual salary × 0.15
-              </p>
-            </div>
-          </div>
-
-          <div className="data-table-wrap">
-            <table className="data-table">
-              <thead>
-                <tr>
-                  <th>Example</th>
-                  <th>London law firm</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Senior professionals</td>
-                  <td>150</td>
-                </tr>
-                <tr>
-                  <td>Lost Light Years</td>
-                  <td>3.8</td>
-                </tr>
-                <tr className="highlight">
-                  <td>Annual impact</td>
-                  <td>£2.7 million</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      {/* ── 05 · Model your firm ── */}
+      {/* ── 04 · Model your firm ── */}
       <section
         id="model-your-firm"
         className="fade-in snap-section model-firm-panel"
         data-nav-theme="light"
       >
         <div className="container model-firm-panel__content">
-          <p className="section-number">05</p>
+          <p className="section-number">04</p>
           <h2 className="section-title">Model your firm</h2>
           <p className="support">Set headcount, salary, and Lost Light Years.</p>
           <CostCalculator />
         </div>
       </section>
 
-      {/* ── 06 · Turn off hibernation ── */}
+      {/* ── 05 · Turn off hibernation ── */}
       <section
         id="hibernation"
         className="fade-in hibernation-panel snap-section"
@@ -221,7 +174,7 @@ export default function Home() {
         <div className="hero__veil" aria-hidden="true" />
         <div className="container hibernation-panel__content">
           <p className="section-number" style={{ color: 'rgba(255, 255, 255, 0.72)' }}>
-            06
+            05
           </p>
           <h2 className="section-title" style={{ marginTop: '12px' }}>
             Reclaim lost productivity in 90 days or your money back.

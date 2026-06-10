@@ -1,6 +1,5 @@
 import Link from 'next/link'
 
-import Wordmark from '@/components/Wordmark'
 import { FOOTER_LINKS } from '@/lib/site-links'
 
 const linkStyle = { color: 'var(--muted)' } as const
@@ -21,7 +20,9 @@ export function Footer() {
         }}
       >
         <div>
-          <Wordmark />
+          <span className="footer-mark" aria-label="PHOS">
+            ʘ
+          </span>
           <p className="display-sm" style={{ marginTop: '10px' }}>
             Circadian Health
           </p>

@@ -119,9 +119,18 @@ a:hover { color: var(--photon); }
 
 /* ── WORDMARK ────────────────────────────────────────────────
    CRITICAL RULE:
-   The ʘ character (U+0298) appears ONLY in the wordmark element.
+   The ʘ character (U+0298) appears ONLY in the wordmark and footer mark.
    Everywhere else in copy write PHOS — never PHʘS.
    ─────────────────────────────────────────────────────────── */
+.footer-mark {
+  font-family: var(--font-logo);
+  font-size: clamp(52px, 9vw, 80px);
+  font-weight: 500;
+  line-height: 1;
+  color: var(--corona);
+  display: block;
+}
+
 .wordmark {
   font-family: var(--font-logo);
   font-weight: 500;
