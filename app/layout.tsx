@@ -30,11 +30,11 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'PHOS · Light Matters',
+  title: 'PHOS Circadian Health',
   description:
     'PHOS measures your Photonic Age across three nights of TipTraQ data, quantifying Lost Light Years and the cost of circadian misalignment for individuals and teams.',
   openGraph: {
-    title: 'PHOS · Light Matters',
+    title: 'PHOS Circadian Health',
     description:
       'Photonic Age quantifies the cost of lost light. PHOS measures it and closes the gap.',
     url: 'https://phos.org.uk',
