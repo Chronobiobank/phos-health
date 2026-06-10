@@ -14,7 +14,7 @@ type HomeLinkProps = {
 }
 
 export function HomeLink({
-  href = '/',
+  href = '/#hero',
   className,
   'aria-label': ariaLabel,
   onNavigate,

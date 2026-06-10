@@ -31,7 +31,11 @@ export function HashScroll() {
     if (hash) {
       scrollToHash()
     } else if (pathChanged) {
-      scrollToPageTop()
+      if (pathname === '/') {
+        scrollToHome()
+      } else {
+        scrollToPageTop()
+      }
     }
 
     window.addEventListener('hashchange', scrollToHash)

@@ -120,6 +120,10 @@ html:has(.snap-section) {
   justify-content: center;
 }
 
+#hero {
+  scroll-snap-stop: always;
+}
+
 #model-your-firm.snap-section {
   justify-content: flex-start;
 }

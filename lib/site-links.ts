@@ -1,5 +1,5 @@
 export const SITE_LINKS = [
-  { href: '/', label: 'Home' },
+  { href: '/#hero', label: 'Home' },
   { href: '/biology', label: 'Why light matters' },
   { href: '/loss-in-light-years', label: 'Measure loss. Reverse it.' },
   { href: '/tiptraq', label: 'TipTraQ' },
