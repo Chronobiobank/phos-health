@@ -12,6 +12,8 @@
   --deep:    #1A1A2E;
   --lilac-medium: #C5BFE0;
   --lilac-light:  #DDD9F0;
+  --lilac-dark:   #A9A1CE;
+  --lilac-deep:   #9088BE;
 
   /* Brand colours */
   --stellar: #5050A0;
@@ -1029,53 +1031,192 @@ a:hover { color: var(--photon); }
 .photonic-age-panel {
   background: linear-gradient(
     165deg,
-    var(--lilac-medium) 0%,
-    color-mix(in srgb, var(--stellar) 18%, var(--lilac-light)) 100%
+    var(--lilac-dark) 0%,
+    color-mix(in srgb, var(--stellar) 22%, var(--lilac-deep)) 100%
   );
 }
 
 .photonic-age-panel__content {
-  padding-top: clamp(32px, 5vh, 56px);
-  padding-bottom: clamp(32px, 5vh, 56px);
+  padding-top: clamp(20px, 3vh, 40px);
+  padding-bottom: clamp(20px, 3vh, 40px);
   width: 100%;
 }
 
+.photonic-age-panel .section-number {
+  margin-bottom: 6px;
+}
+
 .photonic-age-panel .section-title {
-  margin-top: 8px;
+  margin-top: 4px;
   margin-bottom: 0;
+  font-size: clamp(28px, 1.6vw + 22px, 48px);
+  line-height: 1.08;
 }
 
 .photonic-age-panel__tile {
-  margin-top: clamp(28px, 4vh, 40px);
+  margin-top: clamp(14px, 2vh, 24px);
 }
 
-.photonic-age-panel .age-tile {
-  background: rgba(255, 255, 255, 0.42);
-  backdrop-filter: blur(18px) saturate(1.35);
-  -webkit-backdrop-filter: blur(18px) saturate(1.35);
-  border: 1px solid rgba(255, 255, 255, 0.62);
-  border-radius: 12px;
+/* Impact card — section 02 tile */
+.impact-card {
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, 0.85);
   box-shadow:
-    0 10px 36px rgba(80, 80, 160, 0.14),
-    inset 0 1px 0 rgba(255, 255, 255, 0.72);
+    0 16px 48px rgba(58, 58, 144, 0.2),
+    0 4px 14px rgba(58, 58, 144, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
 }
 
-.photonic-age-panel .age-tile__lost {
-  border-left-color: rgba(80, 80, 160, 0.22);
+.impact-card__header {
+  padding: clamp(10px, 1.5vh, 14px) clamp(14px, 3vw, 20px);
+  border-bottom: 1px solid var(--rule);
+  font-family: var(--font-mono);
+  font-size: clamp(11px, 0.12vw + 10px, 12px);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--muted);
+  line-height: 1.4;
 }
 
-.photonic-age-panel .age-tile__outcome {
-  border-top-color: rgba(80, 80, 160, 0.22);
+.impact-card__split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
-.photonic-age-panel .age-tile__note--accent {
-  color: var(--photon);
-  font-weight: 500;
+.impact-card__metric {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(4px, 0.8vh, 8px);
+  padding: clamp(14px, 2.5vw, 22px) clamp(10px, 2.5vw, 16px);
+  text-align: center;
+}
+
+.impact-card__metric:first-child {
+  border-right: 1px solid var(--rule);
+}
+
+.impact-card__eyebrow {
+  font-family: var(--font-mono);
+  font-size: clamp(11px, 0.12vw + 10px, 12px);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--corona);
+  line-height: 1.35;
+}
+
+.impact-card__figure {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 4vw + 22px, 56px);
+  font-weight: 600;
+  line-height: 1;
+  color: var(--corona);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.impact-card__sub {
+  font-family: var(--font-body);
+  font-size: clamp(17px, 0.3vw + 16px, 18px);
+  line-height: 1.35;
+  color: var(--muted);
+}
+
+.impact-card__equals {
+  display: flex;
+  align-items: center;
+  gap: clamp(8px, 1.5vw, 12px);
+  padding: clamp(2px, 0.5vh, 4px) clamp(14px, 3vw, 20px);
+}
+
+.impact-card__equals-line {
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+}
+
+.impact-card__equals-sign {
+  font-family: var(--font-display);
+  font-size: clamp(18px, 2vw, 22px);
+  line-height: 1;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.impact-card__loss {
+  padding: clamp(10px, 2vw, 18px) clamp(14px, 3vw, 20px) clamp(14px, 2.5vw, 22px);
+  text-align: center;
+}
+
+.impact-card__loss-value {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 6vw + 18px, 64px);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--corona);
+  font-variant-numeric: lining-nums tabular-nums;
+  margin: clamp(4px, 0.8vh, 8px) 0;
+}
+
+.impact-card__cite {
+  font-family: var(--font-body);
+  font-size: clamp(17px, 0.3vw + 16px, 18px);
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+.impact-card__firm {
+  padding: clamp(14px, 2.5vw, 22px) clamp(14px, 3vw, 20px) clamp(16px, 2.5vw, 24px);
+  border-top: 1px solid color-mix(in srgb, var(--stellar) 28%, var(--rule));
+  background: color-mix(in srgb, var(--lilac-medium) 72%, var(--stellar) 14%);
+  text-align: center;
+}
+
+.impact-card__firm-stats {
+  font-family: var(--font-mono);
+  font-size: clamp(15px, 0.25vw + 14px, 17px);
+  letter-spacing: 0.06em;
+  color: var(--corona);
+  margin: clamp(4px, 0.8vh, 8px) 0 clamp(12px, 2vh, 18px);
+  line-height: 1.4;
+}
+
+.photonic-age-panel .impact-card__cta.btn {
+  padding: 11px 22px;
+}
+
+.impact-card__cta {
+  width: 100%;
+  max-width: 280px;
 }
 
 @supports not (backdrop-filter: blur(1px)) {
-  .photonic-age-panel .age-tile {
-    background: rgba(255, 255, 255, 0.82);
+  .impact-card {
+    background: var(--void);
+  }
+}
+
+@media (max-width: 360px) {
+  .impact-card__split {
+    grid-template-columns: 1fr;
+  }
+
+  .impact-card__metric:first-child {
+    border-right: none;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 12px;
+  }
+
+  .impact-card__metric:last-child {
+    padding-top: 12px;
   }
 }
 
@@ -1261,10 +1402,6 @@ a:hover { color: var(--photon); }
     padding-top: 20px;
   }
 
-  .photonic-age-panel .age-tile__lost {
-    border-top-color: rgba(80, 80, 160, 0.22);
-  }
-
   .age-tile__primary {
     font-size: clamp(80px, 22vw, 112px);
   }
@@ -1278,6 +1415,134 @@ a:hover { color: var(--photon); }
     border-right: none;
     border-bottom: 1px solid var(--rule);
     padding-bottom: 24px;
+  }
+}
+
+/* ── DUMMY DASHBOARD — product preview ───────────────────── */
+.dashboard-page {
+  min-height: 100dvh;
+  background: var(--cosmos);
+}
+
+.dashboard-page__content {
+  padding-top: clamp(120px, 16vh, 160px);
+  padding-bottom: clamp(64px, 8vh, 96px);
+}
+
+.dashboard-page .support {
+  margin-top: 12px;
+}
+
+.dashboard-page__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: clamp(32px, 4vh, 48px);
+}
+
+.dummy-dashboard {
+  margin-top: clamp(28px, 4vh, 40px);
+}
+
+.dummy-dashboard__summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(12px, 2vw, 20px);
+}
+
+.dummy-dashboard__stat {
+  background: var(--void);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  padding: clamp(20px, 3vw, 28px);
+  text-align: center;
+}
+
+.dummy-dashboard__stat--hero {
+  border-color: color-mix(in srgb, var(--stellar) 40%, var(--rule));
+  background: color-mix(in srgb, var(--stellar) 6%, var(--void));
+}
+
+.dummy-dashboard__stat--accent {
+  border-left: 3px solid var(--stellar);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+
+.dummy-dashboard__stat-value {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 3vw + 28px, 64px);
+  font-weight: 600;
+  line-height: 1;
+  color: var(--corona);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.dummy-dashboard__stat--hero .dummy-dashboard__stat-value {
+  color: var(--stellar);
+  font-size: clamp(48px, 3.6vw + 32px, 72px);
+}
+
+.dummy-dashboard__stat--accent .dummy-dashboard__stat-value {
+  color: var(--photon);
+}
+
+.dummy-dashboard__stat-label {
+  font-family: var(--font-body);
+  font-size: clamp(17px, 0.3vw + 16px, 18px);
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--muted);
+  margin-top: 10px;
+}
+
+.dummy-dashboard__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(12px, 2vw, 16px);
+  margin-top: clamp(20px, 3vh, 28px);
+}
+
+.dummy-dashboard__metric {
+  background: var(--void);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  padding: clamp(18px, 2.5vw, 24px);
+}
+
+.dummy-dashboard__metric-value {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 1.8vw + 20px, 40px);
+  font-weight: 600;
+  line-height: 1;
+  color: var(--corona);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.dummy-dashboard__metric-label {
+  font-family: var(--font-body);
+  font-size: clamp(17px, 0.3vw + 16px, 18px);
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--corona);
+  margin-top: 8px;
+}
+
+.dummy-dashboard__metric-note {
+  font-family: var(--font-body);
+  font-size: clamp(17px, 0.3vw + 16px, 18px);
+  line-height: 1.4;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+.dummy-dashboard__sample {
+  margin-top: clamp(20px, 3vh, 28px);
+}
+
+@media (max-width: 720px) {
+  .dummy-dashboard__summary,
+  .dummy-dashboard__grid {
+    grid-template-columns: 1fr;
   }
 }
 

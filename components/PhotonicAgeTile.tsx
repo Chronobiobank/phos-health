@@ -1,40 +1,47 @@
-function Operand({ value, label }: { value: string; label: string }) {
-  return (
-    <div className="age-tile__operand">
-      <p className="age-tile__cycle-value">{value}</p>
-      <p className="age-tile__caption">{label}</p>
-    </div>
-  )
-}
+import Link from 'next/link'
 
 export function PhotonicAgeTile() {
   return (
-    <div
-      className="photonic-age-panel__tile"
-      aria-label="2.9 Light Years plus 1.3 Dark Years equals 4.2 years lost to hibernation. Photonic Age 47.2, Calendar Age 43."
-    >
-      <div className="age-tile age-tile--equation">
-        <div className="age-tile__formula">
-          <Operand value="2.9" label="Light Years" />
-          <span className="age-tile__op" aria-hidden="true">
-            +
-          </span>
-          <Operand value="1.3" label="Dark Years" />
-          <span className="age-tile__op" aria-hidden="true">
-            =
-          </span>
-          <div className="age-tile__lost">
-            <p className="age-tile__cycle-value">4.2</p>
-            <p className="age-tile__note age-tile__note--accent">years lost to hibernation</p>
+    <div className="photonic-age-panel__tile">
+      <article
+        className="impact-card"
+        aria-label="Senior professional in London, age 43. 4.2 lost light years, 276 hours lost per year, £18,000 annual financial loss per person. Across 150 professionals, 41,400 hours and £2.7 million annually."
+      >
+        <header className="impact-card__header">Senior professional · London · age 43</header>
+
+        <div className="impact-card__split">
+          <div className="impact-card__metric">
+            <p className="impact-card__eyebrow">Lost light years</p>
+            <p className="impact-card__figure">4.2</p>
+            <p className="impact-card__sub">yrs misalignment</p>
+          </div>
+          <div className="impact-card__metric">
+            <p className="impact-card__eyebrow">Hours lost</p>
+            <p className="impact-card__figure">276</p>
+            <p className="impact-card__sub">per year</p>
           </div>
         </div>
 
-        <div className="age-tile__outcome">
-          <p className="age-tile__primary">47.2</p>
-          <p className="age-tile__caption">Photonic Age</p>
-          <p className="age-tile__ref">(Calendar Age 43)</p>
+        <div className="impact-card__equals" aria-hidden="true">
+          <span className="impact-card__equals-line" />
+          <span className="impact-card__equals-sign">=</span>
+          <span className="impact-card__equals-line" />
         </div>
-      </div>
+
+        <div className="impact-card__loss">
+          <p className="impact-card__eyebrow">Annual financial loss</p>
+          <p className="impact-card__loss-value">£18,000</p>
+          <p className="impact-card__cite">per person · Hafner et al., RAND Europe 2016</p>
+        </div>
+
+        <footer className="impact-card__firm">
+          <p className="impact-card__eyebrow">Across 150 professionals</p>
+          <p className="impact-card__firm-stats">41,400 hrs · £2.7M annually</p>
+          <Link href="/dashboard" className="btn btn--primary impact-card__cta">
+            View demo dashboard →
+          </Link>
+        </footer>
+      </article>
     </div>
   )
 }
