@@ -127,7 +127,7 @@ export default function Home() {
           </p>
 
           <div style={{ marginTop: '36px' }}>
-            <Link href="/#tiptraq" className="btn btn--primary">
+            <Link href="/dashboard" className="btn btn--primary">
               How we measure it →
             </Link>
           </div>

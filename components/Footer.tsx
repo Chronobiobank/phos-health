@@ -1,5 +1,6 @@
 import Link from 'next/link'
 
+import { HomeLink } from '@/components/HomeLink'
 import { FOOTER_LINKS } from '@/lib/site-links'
 
 const linkStyle = { color: 'var(--muted)' } as const
@@ -20,9 +21,9 @@ export function Footer() {
         }}
       >
         <div>
-          <Link href="/#hero" className="footer-mark" aria-label="PHOS home">
+          <HomeLink className="footer-mark" aria-label="PHOS home">
             ʘ
-          </Link>
+          </HomeLink>
           <p className="display-sm" style={{ marginTop: '10px' }}>
             Circadian Health
           </p>

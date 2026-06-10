@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation'
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 
+import { HomeLink } from '@/components/HomeLink'
 import Wordmark from '@/components/Wordmark'
 import { SITE_LINKS } from '@/lib/site-links'
 
@@ -108,9 +109,9 @@ export function Nav() {
       <div ref={barRef} className="nav__bar">
         <div className="container">
           <div className="nav__inner">
-            <Link href="/#hero" aria-label="PHOS home" className="nav__logo">
+            <HomeLink aria-label="PHOS home" className="nav__logo">
               <Wordmark />
-            </Link>
+            </HomeLink>
 
             <span className="nav-sub nav__tag">Circadian Health</span>
 
@@ -147,16 +148,27 @@ export function Nav() {
             className="container nav-menu-panel__inner"
             onClick={(event) => event.stopPropagation()}
           >
-            {SITE_LINKS.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="nav-menu-link"
-                onClick={() => setOpen(false)}
-              >
-                {link.label}
-              </Link>
-            ))}
+            {SITE_LINKS.map((link) =>
+              link.href === '/' ? (
+                <HomeLink
+                  key={link.href}
+                  href={link.href}
+                  className="nav-menu-link"
+                  onNavigate={() => setOpen(false)}
+                >
+                  {link.label}
+                </HomeLink>
+              ) : (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="nav-menu-link"
+                  onClick={() => setOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              ),
+            )}
           </div>
         </div>,
         document.body,
