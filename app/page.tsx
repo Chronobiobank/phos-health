@@ -103,10 +103,6 @@ export default function Home() {
         <div className="container photonic-age-panel__content">
           <p className="section-number">02</p>
           <h2 className="section-title">Loss in Light Years</h2>
-          <p className="lede photonic-age-panel__lede">What is your firm&apos;s Photonic Age?</p>
-          <p className="support photonic-age-panel__intro">
-            Measured exclusively on TipTraQ. Serious firms will compare.
-          </p>
           <PhotonicAgeTile />
         </div>
       </section>

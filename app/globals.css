@@ -1087,43 +1087,8 @@ a:hover { color: var(--photon); }
   max-width: none;
 }
 
-.photonic-age-panel__lede {
-  margin-top: clamp(14px, 2vh, 20px);
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 28ch;
-}
-
-.photonic-age-panel__intro {
-  margin-top: 10px;
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 36ch;
-}
-
 .photonic-age-panel__tile {
   margin-top: clamp(14px, 2vh, 24px);
-}
-
-.photonic-age-panel__guarantee {
-  margin-top: clamp(18px, 2.5vh, 24px);
-  max-width: 36ch;
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-  font-weight: 500;
-  color: var(--corona);
-}
-
-.photonic-age-panel__cred {
-  margin-top: 10px;
-  max-width: 42ch;
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-  font-size: clamp(17px, 0.3vw + 16px, 18px);
 }
 
 /* Impact card — section 02 tile */
@@ -1171,6 +1136,10 @@ a:hover { color: var(--photon); }
 
 .impact-card__metric:first-child {
   border-right: 1px solid var(--rule);
+}
+
+.impact-card__metric--solo {
+  border-right: none;
 }
 
 .impact-card__eyebrow {

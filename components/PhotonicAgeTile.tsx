@@ -5,50 +5,27 @@ export function PhotonicAgeTile() {
     <div className="photonic-age-panel__tile">
       <article
         className="impact-card"
-        aria-label="Senior professional in London, age 43. 4.2 lost light years, 276 hours lost per year, £18,000 annual financial loss per person. Across 150 professionals, 41,400 hours and £2.7 million annually."
+        aria-label="Senior professional in London, age 43. 4.2 lost light years, £18,000 annual financial loss per person. Across 150 professionals, £2.7 million annually."
       >
         <header className="impact-card__header">Senior professional · London · age 43</header>
 
-        <div className="impact-card__split">
-          <div className="impact-card__metric">
-            <p className="impact-card__eyebrow">Lost light years</p>
-            <p className="impact-card__figure">4.2</p>
-            <p className="impact-card__sub">yrs misalignment</p>
-          </div>
-          <div className="impact-card__metric">
-            <p className="impact-card__eyebrow">Hours lost</p>
-            <p className="impact-card__figure">276</p>
-            <p className="impact-card__sub">per year</p>
-          </div>
-        </div>
-
-        <div className="impact-card__equals" aria-hidden="true">
-          <span className="impact-card__equals-line" />
-          <span className="impact-card__equals-sign">=</span>
-          <span className="impact-card__equals-line" />
+        <div className="impact-card__metric impact-card__metric--solo">
+          <p className="impact-card__eyebrow">Lost light years</p>
+          <p className="impact-card__figure">4.2</p>
         </div>
 
         <div className="impact-card__loss">
-          <p className="impact-card__eyebrow">Annual financial loss</p>
           <p className="impact-card__loss-value">£18,000</p>
           <p className="impact-card__cite">per person · Hafner et al. 2016</p>
         </div>
 
         <footer className="impact-card__firm">
-          <p className="impact-card__eyebrow">Across 150 professionals</p>
-          <p className="impact-card__firm-stats">41,400 hrs · £2.7M annually</p>
+          <p className="impact-card__firm-stats">150 professionals · £2.7M annually</p>
           <Link href="/dashboard" className="btn btn--primary impact-card__cta">
-            See the 48 hour reveal →
+            View demo dashboard →
           </Link>
         </footer>
       </article>
-
-      <p className="support photonic-age-panel__guarantee">
-        Reclaim lost time in 90 days or your money back.
-      </p>
-      <p className="support photonic-age-panel__cred">
-        Prof. Russell Foster, Oxford. Chronobiology for billable hours.
-      </p>
     </div>
   )
 }
