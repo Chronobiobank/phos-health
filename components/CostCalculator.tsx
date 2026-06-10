@@ -11,10 +11,10 @@ const gbp = new Intl.NumberFormat('en-GB', {
 export function CostCalculator() {
   const [headcount, setHeadcount] = useState(150)
   const [salary, setSalary] = useState(120000)
-  const [lostYears, setLostYears] = useState(3.8)
 
-  /* Corporate cost formula: Lost Light Years × annual salary × 0.15, per person */
-  const annualCost = headcount * salary * 0.15 * lostYears
+  /* Corporate cost: headcount × salary × 0.15 (Hafner et al. 2016 productivity coefficient) */
+  const annualCost = headcount * salary * 0.15
+  const perPerson = salary * 0.15
 
   return (
     <div className="calc">
@@ -51,28 +51,14 @@ export function CostCalculator() {
               onChange={(e) => setSalary(Number(e.target.value))}
             />
           </div>
-
-          <div className="calc__field">
-            <div className="calc__field-row">
-              <span className="label">Average Lost Light Years</span>
-              <span className="calc__field-value">{lostYears.toFixed(1)} yrs</span>
-            </div>
-            <input
-              type="range"
-              min={0.5}
-              max={6}
-              step={0.1}
-              value={lostYears}
-              aria-label="Average Lost Light Years"
-              onChange={(e) => setLostYears(Number(e.target.value))}
-            />
-          </div>
         </div>
 
         <div className="calc__output">
           <span className="label">Estimated annual cost</span>
           <span className="calc__figure">{gbp.format(annualCost)}</span>
-          <span className="calc__note">Hafner et al. 2016</span>
+          <span className="calc__note">
+            {gbp.format(perPerson)} per person · Hafner et al. 2016
+          </span>
         </div>
       </div>
     </div>

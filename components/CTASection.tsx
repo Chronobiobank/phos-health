@@ -28,10 +28,10 @@ export function CTASection() {
             hours. PHOS measures both — and closes the gap.
           </p>
           <div className="cta__actions">
-            <a href="mailto:hello@phos.health" className="btn btn--primary">
+            <a href="mailto:hello@phos.org.uk" className="btn btn--primary">
               Order TipTraQ →
             </a>
-            <a href="mailto:hello@phos.health?subject=Team%20pricing" className="btn btn--ghost">
+            <a href="mailto:hello@phos.org.uk?subject=Team%20pricing" className="btn btn--ghost">
               Request team pricing
             </a>
           </div>

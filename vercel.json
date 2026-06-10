@@ -1,21 +1,20 @@
 {
   "redirects": [
-    { "source": "/how-it-works", "destination": "/#how-it-works", "permanent": true },
-    { "source": "/how-it-works/:path*", "destination": "/#how-it-works", "permanent": true },
-    { "source": "/contact", "destination": "/#cta", "permanent": true },
-    { "source": "/shop", "destination": "/#shop", "permanent": true },
-    { "source": "/shop/:path*", "destination": "/#shop", "permanent": true },
-    { "source": "/pitch", "destination": "/", "permanent": true },
-    { "source": "/pitch/:path*", "destination": "/", "permanent": true },
-    { "source": "/evidence", "destination": "/", "permanent": true },
-    { "source": "/evidence/:path*", "destination": "/", "permanent": true },
-    { "source": "/science", "destination": "/", "permanent": true },
-    { "source": "/technology", "destination": "/", "permanent": true },
-    { "source": "/clinicians", "destination": "/#cta", "permanent": true },
+    { "source": "/how-it-works", "destination": "/#tiptraq", "permanent": true },
+    { "source": "/how-it-works/:path*", "destination": "/#tiptraq", "permanent": true },
+    { "source": "/contact", "destination": "/#hibernation", "permanent": true },
+    { "source": "/shop", "destination": "/#hero", "permanent": true },
+    { "source": "/shop/:path*", "destination": "/#hero", "permanent": true },
+    { "source": "/pitch", "destination": "/#hero", "permanent": true },
+    { "source": "/pitch/:path*", "destination": "/#hero", "permanent": true },
+    { "source": "/evidence", "destination": "/#photonic-age", "permanent": true },
+    { "source": "/evidence/:path*", "destination": "/#photonic-age", "permanent": true },
+    { "source": "/science", "destination": "/research/photonic-age", "permanent": true },
+    { "source": "/technology", "destination": "/research/photonic-age", "permanent": true },
+    { "source": "/clinicians", "destination": "/#hibernation", "permanent": true },
     { "source": "/tiptraq", "destination": "/#tiptraq", "permanent": true },
-    { "source": "/signin", "destination": "/#cta", "permanent": false },
-    { "source": "/signup", "destination": "/#cta", "permanent": false },
-    { "source": "/auth/:path*", "destination": "/#cta", "permanent": false },
-    { "source": "/dashboard/:path*", "destination": "/#cta", "permanent": false }
+    { "source": "/signin", "destination": "/#hero", "permanent": false },
+    { "source": "/signup", "destination": "/#hibernation", "permanent": false },
+    { "source": "/auth/:path*", "destination": "/#hero", "permanent": false }
   ]
 }

@@ -11,7 +11,6 @@ export const metadata: Metadata = {
     'The methodology for measuring Lost Light Years and the hidden cost of circadian misalignment.',
 }
 
-const PDF_PATH = '/papers/photonic-age-white-paper.pdf'
 
 export default function PhotonicAgePaper() {
   return (
@@ -35,10 +34,10 @@ export default function PhotonicAgePaper() {
           </p>
 
           <div style={{ marginTop: '36px', display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-            <a href={PDF_PATH} className="btn btn--primary" download>
-              Download the full paper (PDF)
-            </a>
-            <Link href="/" className="btn btn--outline">
+            <Link href="#abstract" className="btn btn--primary">
+              Read the methodology →
+            </Link>
+            <Link href="/#hero" className="btn btn--outline">
               ← Back to PHOS
             </Link>
           </div>
@@ -48,7 +47,7 @@ export default function PhotonicAgePaper() {
       <hr style={{ border: 'none', borderTop: '1px solid var(--rule)', margin: 0 }} />
 
       {/* ── Abstract ── */}
-      <section style={{ paddingTop: '64px', paddingBottom: '64px' }}>
+      <section id="abstract" style={{ paddingTop: '64px', paddingBottom: '64px', scrollMarginTop: 'var(--nav-height)' }}>
         <div className="container">
           <p className="section-number">Abstract</p>
           <div className="callout" style={{ marginTop: '16px' }}>
@@ -164,9 +163,9 @@ export default function PhotonicAgePaper() {
           </p>
 
           <div style={{ marginTop: '32px' }}>
-            <a href={PDF_PATH} className="btn btn--primary" download>
-              Download the full paper (PDF)
-            </a>
+            <Link href="/#model-your-firm" className="btn btn--primary">
+              Model your firm →
+            </Link>
           </div>
         </div>
       </section>

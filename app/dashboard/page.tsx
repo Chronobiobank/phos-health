@@ -24,10 +24,10 @@ export default function DashboardPage() {
           <DummyDashboard />
 
           <div className="dashboard-page__actions">
-            <Link href="/" className="btn btn--outline">
+            <Link href="/#hero" className="btn btn--outline">
               Back to home
             </Link>
-            <a href="mailto:hello@phos.health?subject=Book%20free%20demo" className="btn btn--primary">
+            <a href="mailto:hello@phos.org.uk?subject=Book%20free%20demo" className="btn btn--primary">
               Book free demo →
             </a>
           </div>

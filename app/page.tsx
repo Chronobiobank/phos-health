@@ -45,15 +45,12 @@ export default function Home() {
         </video>
         <div className="hero__veil" aria-hidden="true" />
         <div className="container hero__content">
-          <h1 className="display-xl">
-            Reclaim
-            <br />
-            <em style={{ whiteSpace: 'nowrap' }}>lost&nbsp;time</em>
+          <h1 className="display-xl" style={{ maxWidth: '18ch' }}>
+            Your fee earners are losing £18,000 a year.
           </h1>
 
           <p className="display-sm" style={{ marginTop: '24px', maxWidth: '520px' }}>
-            Light deprivation drains your productivity. PHOS measures exactly how, and shows you how
-            to reclaim it.
+            PHOS measures exactly why and closes the gap in 90 days.
           </p>
 
           <div style={{ marginTop: '40px' }}>
@@ -70,7 +67,7 @@ export default function Home() {
       <section id="biology" className="fade-in snap-section biology-panel" data-nav-theme="light">
         <div className="container biology-panel__content">
           <p className="section-number">01</p>
-          <h2 className="section-title">Unspoken facts</h2>
+          <h2 className="section-title">The biology</h2>
 
           <div className="fact-tiles">
             <article className="fact-tile">
@@ -128,8 +125,7 @@ export default function Home() {
           </h2>
 
           <p className="lede" style={{ marginTop: '20px' }}>
-            Your Photonic Age score comes from clinical-grade home tests, no lab visit or blood
-            test.
+            Three nights at home on TipTraQ, clinical analysis, HR dashboard in 48 hours.
           </p>
 
           <div style={{ marginTop: '36px' }}>
@@ -149,7 +145,9 @@ export default function Home() {
         <div className="container model-firm-panel__content">
           <p className="section-number">04</p>
           <h2 className="section-title">Model your firm</h2>
-          <p className="support">Set headcount, salary, and Lost Light Years.</p>
+          <p className="support">
+            Set headcount and salary. PHOS deploys from £495 per professional.
+          </p>
           <CostCalculator />
         </div>
       </section>
@@ -177,10 +175,13 @@ export default function Home() {
             05
           </p>
           <h2 className="section-title" style={{ marginTop: '12px' }}>
-            Reclaim lost productivity in 90 days or your money back.
+            Turn off hibernation
           </h2>
+          <p className="support" style={{ marginTop: '20px' }}>
+            Book a free demo for your firm.
+          </p>
           <div style={{ marginTop: '36px' }}>
-            <a href="mailto:hello@phos.health?subject=Book%20free%20demo" className="btn btn--primary">
+            <a href="mailto:hello@phos.org.uk?subject=Book%20free%20demo" className="btn btn--primary">
               Book free demo →
             </a>
           </div>

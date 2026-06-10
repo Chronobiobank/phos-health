@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import { Unbounded, Source_Serif_4, Geist, Geist_Mono } from 'next/font/google'
+
+import { HashScroll } from '@/components/HashScroll'
 import './globals.css'
 
 const unbounded = Unbounded({
@@ -54,6 +56,7 @@ export default function RootLayout({
       <body
         className={`${unbounded.variable} ${sourceSerif.variable} ${geist.variable} ${geistMono.variable}`}
       >
+        <HashScroll />
         {children}
       </body>
     </html>
