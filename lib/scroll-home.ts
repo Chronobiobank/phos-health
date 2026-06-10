@@ -1,15 +1,19 @@
-const SNAP_TARGETS = [document.documentElement, document.body]
+function getSnapTargets() {
+  return [document.documentElement, document.body]
+}
 
 function disableScrollSnap() {
-  const previous = SNAP_TARGETS.map((node) => node.style.scrollSnapType)
-  SNAP_TARGETS.forEach((node) => {
+  const targets = getSnapTargets()
+  const previous = targets.map((node) => node.style.scrollSnapType)
+  targets.forEach((node) => {
     node.style.scrollSnapType = 'none'
   })
   return previous
 }
 
 function restoreScrollSnap(previous: string[]) {
-  SNAP_TARGETS.forEach((node, index) => {
+  const targets = getSnapTargets()
+  targets.forEach((node, index) => {
     node.style.scrollSnapType = previous[index] || ''
   })
 }

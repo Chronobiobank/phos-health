@@ -2732,6 +2732,296 @@ a:hover { color: var(--photon); }
   }
 }
 
+.dashboard-shell {
+  min-height: 100dvh;
+  background: var(--dash-page);
+}
+
+.dashboard-shell__bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(255, 255, 255, 0.92);
+  border-bottom: 1px solid var(--dash-border);
+  backdrop-filter: blur(12px);
+}
+
+.dashboard-shell__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.dashboard-shell__logo {
+  text-decoration: none;
+  color: var(--dash-ink);
+}
+
+.dashboard-shell__nav {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.dashboard-shell__link {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--dash-support);
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.dashboard-shell__link:hover,
+.dashboard-shell__signout:hover {
+  color: var(--dash-ink);
+}
+
+.dashboard-shell__main {
+  min-height: calc(100dvh - 72px);
+}
+
+.dashboard-page__title {
+  margin-bottom: 0;
+}
+
+.dashboard-page__lede {
+  max-width: 44ch;
+}
+
+.phos-dashboard {
+  margin-top: 28px;
+  display: grid;
+  gap: 24px;
+}
+
+.phos-dashboard__sample-note {
+  max-width: 44ch;
+}
+
+.phos-dashboard__summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.phos-dashboard__stat {
+  padding: 24px;
+  text-align: center;
+  background: var(--dash-surface);
+}
+
+.phos-dashboard__stat--accent .dash-card__metric {
+  color: var(--eggplant);
+}
+
+.phos-dashboard__tile {
+  max-width: 480px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.phos-dashboard__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.phos-dashboard__metric {
+  padding: 24px;
+}
+
+.phos-dashboard__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.tiptraq-upload {
+  margin-top: 24px;
+}
+
+.tiptraq-upload__drop {
+  padding: 32px 24px;
+  text-align: center;
+  border: 1.5px dashed var(--dash-border);
+}
+
+.tiptraq-upload__drop--active {
+  border-color: var(--eggplant);
+  background: var(--dash-surface-muted);
+}
+
+.tiptraq-upload__title {
+  font-family: var(--font-body);
+  font-size: 21px;
+  font-weight: 600;
+  color: var(--dash-ink);
+}
+
+.tiptraq-upload__hint {
+  margin-top: 8px;
+}
+
+.tiptraq-upload__picker {
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.tiptraq-upload__input {
+  display: none;
+}
+
+.tiptraq-upload__meta {
+  margin-top: 16px;
+}
+
+.tiptraq-upload__progress,
+.tiptraq-upload__result,
+.tiptraq-upload__error {
+  padding: 24px;
+}
+
+.tiptraq-upload__status {
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--dash-ink);
+}
+
+.tiptraq-upload__bar {
+  margin-top: 16px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--dash-border);
+  overflow: hidden;
+}
+
+.tiptraq-upload__bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--eggplant);
+  transition: width 0.3s ease;
+}
+
+.tiptraq-upload__phase {
+  margin-top: 12px;
+  font-size: 21px;
+  color: var(--dash-ink);
+}
+
+.tiptraq-upload__again {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.tiptraq-upload__error-copy {
+  color: #8b1e1e;
+  font-size: 17px;
+}
+
+.dashboard-streams__history {
+  margin-top: 40px;
+}
+
+.dashboard-streams__history-title {
+  margin-bottom: 16px;
+}
+
+.tiptraq-night-list__items {
+  display: grid;
+  gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tiptraq-night-list__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px;
+}
+
+.tiptraq-night-list__stats {
+  margin-top: 6px;
+  font-size: 15px;
+  color: var(--dash-support);
+}
+
+.tiptraq-night-list__delete {
+  flex-shrink: 0;
+}
+
+.tiptraq-night-list__error {
+  margin-top: 12px;
+  color: #8b1e1e;
+}
+
+.auth-page {
+  min-height: 100dvh;
+  background: var(--dash-page);
+}
+
+.auth-page__content {
+  padding-top: clamp(120px, 16vh, 160px);
+  padding-bottom: 64px;
+  max-width: 480px;
+}
+
+.auth-form {
+  margin-top: 28px;
+  padding: 24px;
+  display: grid;
+  gap: 16px;
+}
+
+.auth-form__field {
+  display: grid;
+  gap: 8px;
+}
+
+.auth-form__input {
+  font-family: var(--font-body);
+  font-size: 17px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--dash-border);
+  background: var(--dash-surface);
+  color: var(--dash-ink);
+}
+
+.auth-form__submit,
+.auth-form__toggle,
+.auth-page__back {
+  width: 100%;
+  justify-content: center;
+}
+
+.auth-page__back {
+  margin-top: 16px;
+  display: inline-flex;
+}
+
+@media (max-width: 720px) {
+  .phos-dashboard__summary,
+  .phos-dashboard__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-shell__inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
 /* ── COST CALCULATOR ─────────────────────────────────────── */
 .calc {
   margin: 32px 0 0;

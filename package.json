@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.10.3",
+    "@supabase/supabase-js": "^2.108.1",
+    "edfjs": "^0.6.0",
     "framer-motion": "^12.0.0",
     "next": "^15.1.0",
     "react": "^19.0.0",

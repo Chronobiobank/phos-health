@@ -150,7 +150,7 @@ export function Nav() {
             onClick={(event) => event.stopPropagation()}
           >
             {SITE_LINKS.map((link) =>
-              link.href === '/' ? (
+              link.href === '/#hero' ? (
                 <HomeLink
                   key={link.href}
                   href={link.href}
