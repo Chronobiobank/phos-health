@@ -15,7 +15,7 @@ export default function ForFirmsPage() {
     <main data-nav-theme="light">
       <Nav />
 
-      <section className="detail-page for-firms-page model-firm-panel">
+      <section id="model-your-firm" className="detail-page for-firms-page model-firm-panel">
         <div className="container detail-page__content">
           <p className="section-number">04</p>
           <h1 className="section-title">Model your firm</h1>

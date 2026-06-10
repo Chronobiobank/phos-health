@@ -71,11 +71,15 @@
 }
 
 html {
-  scroll-snap-type: y mandatory;
   scroll-padding-top: var(--nav-height);
   scrollbar-gutter: stable;
   /* Fluid root: 16px at 360px viewport, 18px at 1440px+ */
   font-size: clamp(16px, 15.33px + 0.185vw, 18px);
+}
+
+/* Scroll snap only on the homepage pitch (not detail routes) */
+html:has(.snap-section) {
+  scroll-snap-type: y mandatory;
 }
 
 /* Full-viewport snapping sections — one thumb flick per screen */
@@ -98,7 +102,7 @@ html {
   scroll-snap-stop: normal;
 }
 
-.site-footer {
+html:has(.snap-section) .site-footer {
   scroll-snap-align: start;
   scroll-snap-stop: always;
 }
@@ -1469,6 +1473,7 @@ a:hover { color: var(--photon); }
 .detail-page {
   position: relative;
   min-height: 100dvh;
+  scroll-margin-top: var(--nav-height);
 }
 
 .detail-page__content {

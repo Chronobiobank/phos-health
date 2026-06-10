@@ -14,7 +14,7 @@ export default function ContactPage() {
     <main data-nav-theme="dark">
       <Nav />
 
-      <section className="detail-page contact-page hibernation-panel">
+      <section id="hibernation" className="detail-page contact-page hibernation-panel">
         <video
           className="hero__video"
           autoPlay

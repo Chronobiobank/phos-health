@@ -8,6 +8,7 @@ import { createPortal } from 'react-dom'
 import { HomeLink } from '@/components/HomeLink'
 import Wordmark from '@/components/Wordmark'
 import { SITE_LINKS } from '@/lib/site-links'
+import { scrollToPageTop } from '@/lib/scroll-home'
 
 function getProbeY(bar: HTMLDivElement | null) {
   if (bar) return bar.offsetHeight
@@ -163,7 +164,10 @@ export function Nav() {
                   key={link.href}
                   href={link.href}
                   className="nav-menu-link"
-                  onClick={() => setOpen(false)}
+                  onClick={() => {
+                    setOpen(false)
+                    if (pathname === link.href) scrollToPageTop()
+                  }}
                 >
                   {link.label}
                 </Link>

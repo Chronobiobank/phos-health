@@ -14,7 +14,7 @@ export default function TipTraqPage() {
     <main data-nav-theme="dark">
       <Nav />
 
-      <section className="detail-page tiptraq-page tiptraq-panel">
+      <section id="tiptraq" className="detail-page tiptraq-page tiptraq-panel">
         <img
           className="tiptraq-panel__image"
           src="/tiptraq/tiptraq.jpg"

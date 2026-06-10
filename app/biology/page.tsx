@@ -15,7 +15,7 @@ export default function BiologyPage() {
     <main data-nav-theme="dark">
       <Nav />
 
-      <section className="detail-page biology-page biology-panel">
+      <section id="biology" className="detail-page biology-page biology-panel">
         <div className="container detail-page__content">
           <p className="section-number">01</p>
           <h1 className="section-title">The biology</h1>

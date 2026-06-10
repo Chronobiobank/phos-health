@@ -3,7 +3,7 @@
 import { useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 
-import { scrollToHome } from '@/lib/scroll-home'
+import { scrollToHome, scrollToPageTop } from '@/lib/scroll-home'
 
 function scrollToHash() {
   const hash = window.location.hash
@@ -23,7 +23,11 @@ export function HashScroll() {
   const pathname = usePathname()
 
   useEffect(() => {
-    scrollToHash()
+    if (window.location.hash) {
+      scrollToHash()
+    } else {
+      scrollToPageTop()
+    }
     window.addEventListener('hashchange', scrollToHash)
     return () => window.removeEventListener('hashchange', scrollToHash)
   }, [pathname])

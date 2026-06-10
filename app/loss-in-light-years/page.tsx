@@ -15,7 +15,7 @@ export default function LossInLightYearsPage() {
     <main data-nav-theme="light">
       <Nav />
 
-      <section className="detail-page loss-page photonic-age-panel">
+      <section id="photonic-age" className="detail-page loss-page photonic-age-panel">
         <div className="container detail-page__content loss-page__content">
           <p className="section-number">02</p>
           <h1 className="section-title loss-page__title">Loss in Light Years</h1>
