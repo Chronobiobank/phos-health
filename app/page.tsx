@@ -61,8 +61,6 @@ export default function Home() {
         </div>
       </section>
 
-      <hr style={{ border: 'none', borderTop: '1px solid var(--rule)', margin: 0 }} />
-
       {/* ── 01 · The Biology ── */}
       <section id="biology" className="fade-in snap-section biology-panel" data-nav-theme="dark">
         <div className="container biology-panel__content">

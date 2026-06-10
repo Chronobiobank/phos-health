@@ -71,7 +71,6 @@
 }
 
 html {
-  scroll-behavior: smooth;
   scroll-snap-type: y mandatory;
   scroll-padding-top: var(--nav-height);
   scrollbar-gutter: stable;
@@ -84,15 +83,15 @@ html {
 #hero {
   scroll-snap-align: start;
   scroll-snap-stop: always;
-  scroll-margin-top: var(--nav-height);
+  height: 100dvh;
   min-height: 100dvh;
+  box-sizing: border-box;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
   display: flex;
   flex-direction: column;
   justify-content: center;
-}
-
-.snap-end {
-  scroll-snap-align: end;
 }
 
 body {
@@ -806,8 +805,8 @@ a:hover { color: var(--photon); }
 .hero {
   position: relative;
   overflow: hidden;
-  /* Top padding clears the fixed glass nav; video runs underneath it */
-  padding: clamp(96px, 12vh, 150px) 0 clamp(64px, 9vh, 110px);
+  /* Padding inside 100dvh box; html scroll-padding clears the fixed nav */
+  padding: clamp(72px, 10vh, 120px) 0 clamp(48px, 8vh, 88px);
 }
 
 .hero__video {
@@ -860,9 +859,6 @@ a:hover { color: var(--photon); }
 .tiptraq-panel {
   position: relative;
   overflow: hidden;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
 }
 
 .tiptraq-panel__image {
@@ -915,9 +911,6 @@ a:hover { color: var(--photon); }
 .hibernation-panel {
   position: relative;
   overflow: hidden;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
 }
 
 .hibernation-panel__content {
@@ -950,14 +943,6 @@ a:hover { color: var(--photon); }
     color-mix(in srgb, var(--stellar) 14%, var(--void)) 0%,
     color-mix(in srgb, var(--stellar) 6%, var(--nebula)) 100%
   );
-}
-
-.commercial-case-panel,
-.model-firm-panel {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 }
 
 .commercial-case-panel__content,
