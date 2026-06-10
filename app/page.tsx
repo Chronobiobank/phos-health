@@ -83,7 +83,7 @@ export default function Home() {
             <article className="fact-tile">
               <h3 className="fact-tile__head">Modern life broke the signal.</h3>
               <p className="fact-tile__support">
-                Bright nights, dim days, irregular hours. The body runs on the wrong time.
+                Bright nights, dim days, irregular hours. The body runs out of sync.
               </p>
             </article>
 
@@ -111,7 +111,7 @@ export default function Home() {
           <h2 className="section-title">Photonic Age</h2>
 
           <p className="lede">
-            Your age, measured in light. The gap from your calendar age is your Lost Light Years.
+            The gap from your calendar age is your Lost Light Years.
           </p>
 
           <PhotonicAgeTile />
@@ -132,7 +132,7 @@ export default function Home() {
             03
           </p>
           <h2 className="section-title" style={{ marginTop: '12px' }}>
-            Sleep tests tell us all we need to know
+            Sleep tests offer deep insight
           </h2>
 
           <p className="lede" style={{ marginTop: '20px' }}>
@@ -232,11 +232,8 @@ export default function Home() {
             06
           </p>
           <h2 className="section-title" style={{ marginTop: '12px' }}>
-            Turn off hibernation
+            Three nights of TipTraQ data boosts performance and your bottom line.
           </h2>
-          <p className="support" style={{ marginTop: '20px' }}>
-            Three nights of TipTraQ data ends biological winter.
-          </p>
           <div style={{ marginTop: '36px' }}>
             <Link href="/#model-your-firm" className="btn btn--primary">
               Calculate your cost →
