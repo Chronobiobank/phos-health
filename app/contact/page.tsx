@@ -5,8 +5,8 @@ import { Footer } from '@/components/Footer'
 import { Nav } from '@/components/Nav'
 
 export const metadata: Metadata = {
-  title: 'Book a demo · PHOS Circadian Health',
-  description: 'Book a free PHOS demo for your firm. Ninety day money back guarantee.',
+  title: 'Let light back in · PHOS Circadian Health',
+  description: 'From £495 per professional. Measurable results in 90 days or your money back.',
 }
 
 export default function ContactPage() {
@@ -31,8 +31,8 @@ export default function ContactPage() {
           <p className="section-number" style={{ color: 'rgba(255, 255, 255, 0.72)' }}>
             05
           </p>
-          <h1 className="section-title">Turn off hibernation</h1>
-          <p className="support">Ninety days or your money back.</p>
+          <h1 className="section-title">Let light back in</h1>
+          <p className="support">From £495 per professional. Measurable results in 90 days or your money back.</p>
 
           <p className="support contact-page__email">
             <a href="mailto:hello@phos.org.uk">hello@phos.org.uk</a>

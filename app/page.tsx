@@ -165,10 +165,10 @@ export default function Home() {
             05
           </p>
           <h2 className="section-title" style={{ marginTop: '12px' }}>
-            Turn off hibernation
+            Let light back in
           </h2>
           <p className="support" style={{ marginTop: '20px' }}>
-            Ninety days or your money back.
+            From £495 per professional. Measurable results in 90 days or your money back.
           </p>
           <div style={{ marginTop: '36px' }}>
             <Link href="/contact" className="btn btn--primary">

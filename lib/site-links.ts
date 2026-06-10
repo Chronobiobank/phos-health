@@ -4,7 +4,7 @@ export const SITE_LINKS = [
   { href: '/loss-in-light-years', label: 'How we quantify loss' },
   { href: '/tiptraq', label: 'TipTraQ' },
   { href: '/for-firms', label: 'Model your firm' },
-  { href: '/contact', label: 'Turn off hibernation' },
+  { href: '/contact', label: 'Let light back in' },
 ] as const
 
 export const FOOTER_LINKS = [
