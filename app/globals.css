@@ -14,6 +14,8 @@
   --lilac-light:  #DDD9F0;
   --lilac-dark:   #A9A1CE;
   --lilac-deep:   #9088BE;
+  --eggplant:     #523B50;
+  --eggplant-dark:#3A2838;
 
   /* Brand colours */
   --stellar: #5050A0;
@@ -992,8 +994,8 @@ a:hover { color: var(--photon); }
 .biology-panel {
   background: linear-gradient(
     180deg,
-    var(--void) 0%,
-    color-mix(in srgb, var(--stellar) 4%, var(--cosmos)) 100%
+    var(--eggplant-dark) 0%,
+    var(--eggplant) 100%
   );
 }
 
@@ -1002,8 +1004,13 @@ a:hover { color: var(--photon); }
   padding-bottom: clamp(40px, 6vh, 64px);
 }
 
+.biology-panel .section-number {
+  color: var(--lilac-light);
+}
+
 .biology-panel .section-title {
   margin-top: 12px;
+  color: #ffffff;
 }
 
 .fact-tiles {
@@ -1013,42 +1020,35 @@ a:hover { color: var(--photon); }
   margin-top: clamp(28px, 4vh, 40px);
 }
 
-.fact-tile {
-  background: var(--void);
-  border: 1px solid var(--rule);
+.biology-panel .fact-tile {
+  background: color-mix(in srgb, var(--eggplant-dark) 72%, #ffffff 6%);
+  border: 1px solid color-mix(in srgb, #ffffff 14%, var(--eggplant-dark));
   border-radius: var(--radius-md);
   padding: clamp(20px, 4vw, 28px);
 }
 
-.fact-tile__head {
+.biology-panel .fact-tile__head {
   font-family: var(--font-display);
   font-size: clamp(20px, 0.9vw + 17px, 28px);
   font-weight: 600;
   line-height: 1.25;
-  color: var(--stellar);
+  color: var(--lilac-light);
 }
 
-.fact-tile__head::before {
-  content: '→';
-  margin-right: 0.45em;
-  color: var(--stellar);
-}
-
-.fact-tile__support {
+.biology-panel .fact-tile__support {
   font-family: var(--font-body);
   font-size: clamp(17px, 0.3vw + 15px, 18px);
   font-weight: 400;
   line-height: 1.6;
-  color: var(--corona);
+  color: rgba(255, 255, 255, 0.88);
   margin-top: 12px;
-  margin-left: 1.35em;
   max-width: 48ch;
 }
 
-.fact-tile__support::before {
+.biology-panel .fact-tile__support::before {
   content: '→';
   margin-right: 0.45em;
-  color: color-mix(in srgb, var(--stellar) 55%, var(--corona));
+  color: color-mix(in srgb, var(--lilac-light) 65%, #ffffff);
 }
 
 /* ── PHOTONIC AGE PANEL — section 02 ─────────────────────── */
@@ -1748,11 +1748,11 @@ a:hover { color: var(--photon); }
     gap: 20px;
   }
 
-  .fact-tile {
+  .biology-panel .fact-tile {
     padding: 18px;
   }
 
-  .fact-tile__support {
+  .biology-panel .fact-tile__support {
     margin-top: 10px;
   }
 

@@ -45,8 +45,8 @@ export default function Home() {
         </video>
         <div className="hero__veil" aria-hidden="true" />
         <div className="container hero__content">
-          <h1 className="display-xl" style={{ maxWidth: '22ch' }}>
-            Even your top performers leak ~£20k losses p/a.
+          <h1 className="display-xl" style={{ maxWidth: '28ch' }}>
+            Each staff member bleeds ~£18k p/a from hibernation
           </h1>
 
           <p className="display-sm" style={{ marginTop: '24px', maxWidth: '520px' }}>
@@ -64,7 +64,7 @@ export default function Home() {
       <hr style={{ border: 'none', borderTop: '1px solid var(--rule)', margin: 0 }} />
 
       {/* ── 01 · The Biology ── */}
-      <section id="biology" className="fade-in snap-section biology-panel" data-nav-theme="light">
+      <section id="biology" className="fade-in snap-section biology-panel" data-nav-theme="dark">
         <div className="container biology-panel__content">
           <p className="section-number">01</p>
           <h2 className="section-title">The biology</h2>
