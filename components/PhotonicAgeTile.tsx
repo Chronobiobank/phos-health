@@ -28,9 +28,11 @@ export function PhotonicAgeTile({
   const firmAnnualCost = formatGbp(FIRM_ANNUAL_COST)
 
   return (
-    <div className="photonic-age-panel__tile photonic-age-panel__tile--worked">
+    <div
+      className={`photonic-age-panel__tile photonic-age-panel__tile--worked${ctaOutside ? '' : ' photonic-age-panel__tile--embedded'}`}
+    >
       <article
-        className="impact-card impact-card--worked impact-card--evidence dash-card dash-card--featured"
+        className={`impact-card impact-card--worked impact-card--evidence dash-card dash-card--featured${ctaOutside ? '' : ' impact-card--embedded'}`}
         aria-label={`Night-shift A&E registrar in London, age 43. 4.2 lost light years, 276 working hours lost, ${annualCost} annual cost per person. ${FIRM_HEADCOUNT} professionals, ${firmAnnualCost} per year.`}
       >
         <header className="impact-card__header impact-card__header--evidence">

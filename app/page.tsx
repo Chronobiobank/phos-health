@@ -65,7 +65,6 @@ export default function Home() {
       {/* ── 01 · The Biology ── */}
       <section id="biology" className="fade-in snap-section biology-panel" data-nav-theme="dark">
         <div className="container biology-panel__content">
-          <p className="section-number">01</p>
           <h2 className="section-title">Why light matters</h2>
 
           <BiologyFacts />
@@ -85,9 +84,12 @@ export default function Home() {
         data-nav-theme="light"
       >
         <div className="container photonic-age-panel__content">
-          <p className="section-number">02</p>
-          <h2 className="section-title">Measure loss. Reverse it.</h2>
-          <LossDualPanel ctaHref="/dashboard" ctaLabel="View dashboard →" />
+          <h2 className="section-title">
+            Map hibernation,
+            <br />
+            then reverse it.
+          </h2>
+          <LossDualPanel pitch ctaHref="/dashboard" ctaLabel="View dashboard →" />
         </div>
       </section>
 
@@ -101,10 +103,7 @@ export default function Home() {
         />
         <div className="tiptraq-panel__veil" aria-hidden="true" />
         <div className="container tiptraq-panel__content">
-          <p className="section-number" style={{ color: 'rgba(255, 255, 255, 0.72)' }}>
-            03
-          </p>
-          <h2 className="section-title" style={{ marginTop: '12px' }}>
+          <h2 className="section-title">
             Sleep tests give us deep insight
           </h2>
 
@@ -127,7 +126,6 @@ export default function Home() {
         data-nav-theme="light"
       >
         <div className="container model-firm-panel__content">
-          <p className="section-number">04</p>
           <h2 className="section-title">Model your firm</h2>
           <p className="support">
             From £495 per professional.
@@ -161,10 +159,7 @@ export default function Home() {
         </video>
         <div className="hibernation-panel__veil" aria-hidden="true" />
         <div className="container hibernation-panel__content">
-          <p className="section-number" style={{ color: 'rgba(255, 255, 255, 0.72)' }}>
-            05
-          </p>
-          <h2 className="section-title" style={{ marginTop: '12px' }}>
+          <h2 className="section-title">
             Let light back in
           </h2>
           <p className="support" style={{ marginTop: '20px' }}>
