@@ -137,9 +137,10 @@ a:hover { color: var(--photon); }
 }
 
 .nav-sub {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: clamp(13px, 0.45vw + 11px, 18px);
-  letter-spacing: 0.08em;
+  font-weight: 400;
+  letter-spacing: 0.02em;
   color: var(--muted);
   white-space: nowrap;
 }
@@ -347,11 +348,11 @@ a:hover { color: var(--photon); }
 
 /* ── BYLINE — multi-line attribution, never tracked caps ─── */
 .byline {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  letter-spacing: 0.02em;
-  line-height: 1.9;
-  color: var(--dim);
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  letter-spacing: 0.01em;
+  line-height: 1.8;
+  color: var(--muted);
 }
 
 .byline strong {
@@ -406,10 +407,10 @@ a:hover { color: var(--photon); }
 }
 
 .formula-line {
-  font-family: var(--font-mono);
-  font-size: clamp(14px, 2.5vw, 17px);
+  font-family: var(--font-body);
+  font-size: clamp(15px, 2.5vw, 18px);
   color: var(--corona);
-  letter-spacing: 0.04em;
+  letter-spacing: 0.01em;
 }
 
 .formula-line--primary {
@@ -432,11 +433,13 @@ a:hover { color: var(--photon); }
   border-radius: var(--radius-md);
 }
 
+/* Table body is copy: Geist Sans at a senior-legible size.
+   Mono is reserved for the header labels only. */
 .data-table {
   width: 100%;
   border-collapse: collapse;
-  font-family: var(--font-mono);
-  font-size: 13.5px;
+  font-family: var(--font-body);
+  font-size: 15px;
 }
 
 .data-table thead {
@@ -444,6 +447,7 @@ a:hover { color: var(--photon); }
 }
 
 .data-table thead th {
+  font-family: var(--font-mono);
   padding: 14px 20px;
   text-align: left;
   font-size: 11px;
@@ -558,9 +562,10 @@ a:hover { color: var(--photon); }
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-family: var(--font-mono);
-  font-size: 13px;
-  letter-spacing: 0.06em;
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
   padding: 12px 24px;
   border-radius: var(--radius-sm);
   transition: all 0.2s ease;
@@ -720,9 +725,9 @@ a:hover { color: var(--photon); }
 }
 
 .age-tile__note {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: 0.04em;
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  letter-spacing: 0.01em;
   color: var(--muted);
 }
 
@@ -870,10 +875,10 @@ a:hover { color: var(--photon); }
 }
 
 .calc__note {
-  font-family: var(--font-mono);
-  font-size: clamp(10.5px, 0.1vw + 10px, 12px);
-  letter-spacing: 0.08em;
-  color: rgba(255, 255, 255, 0.45);
+  font-family: var(--font-body);
+  font-size: 13px;
+  letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.65);
   margin-top: 6px;
 }
 

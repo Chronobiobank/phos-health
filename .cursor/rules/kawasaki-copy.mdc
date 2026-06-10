@@ -16,6 +16,12 @@ All marketing pages follow Guy Kawasaki density: big type, few words, one idea p
 - No em dashes, en dashes, or bullet points in copy
 - All headings are sentence case, never title case (proper nouns like Photonic Age and TipTraQ keep their capitals; cited paper titles keep title case)
 
+## Font usage law (senior legibility)
+
+- Geist Mono is for eyebrows, labels, section numbers, and numeric data ONLY, never for copy, buttons, bylines, table body text, or captions
+- All copy is Geist Sans in black (--corona) or grey (--muted), or white when on a dark background
+- The site must be easily readable by people of all ages, especially seniors on mobile: never set copy below 13px, body copy never below 17px
+
 ## Type classes (defined in app/globals.css)
 
 - `.lede` — single-sentence serif section opener, 21 to 30px fluid

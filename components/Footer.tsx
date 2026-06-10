@@ -1,4 +1,14 @@
+import Link from 'next/link'
+
 import Wordmark from '@/components/Wordmark'
+
+const FOOTER_LINKS = [
+  { href: '/', label: 'Home' },
+  { href: '/#biology', label: 'Unspoken facts' },
+  { href: '/#photonic-age', label: 'Photonic Age' },
+  { href: '/#commercial-case', label: 'The commercial case' },
+  { href: '/research/photonic-age', label: 'White paper' },
+] as const
 
 export function Footer() {
   return (
@@ -24,6 +34,17 @@ export function Footer() {
             Reclaim Lost Time
           </p>
         </div>
+
+        <nav
+          aria-label="Footer"
+          style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}
+        >
+          {FOOTER_LINKS.map((link) => (
+            <Link key={link.href} href={link.href} className="label" style={{ color: 'var(--muted)' }}>
+              {link.label}
+            </Link>
+          ))}
+        </nav>
 
         <div className="label" style={{ color: 'var(--dim)', textAlign: 'right', lineHeight: 2 }}>
           © 2026 PHOS

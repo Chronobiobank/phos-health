@@ -71,7 +71,11 @@ export default function Home() {
       <hr style={{ border: 'none', borderTop: '1px solid var(--rule)', margin: 0 }} />
 
       {/* ── 01 · The Biology ── */}
-      <section className="fade-in snap-section" style={{ paddingTop: 'clamp(48px, 8vh, 80px)', paddingBottom: 'clamp(40px, 6vh, 64px)' }}>
+      <section
+        id="biology"
+        className="fade-in snap-section"
+        style={{ paddingTop: 'clamp(48px, 8vh, 80px)', paddingBottom: 'clamp(40px, 6vh, 64px)' }}
+      >
         <div className="container">
           <p className="section-number">01</p>
           <h2 className="section-title">Unspoken facts</h2>
@@ -106,7 +110,7 @@ export default function Home() {
       </section>
 
       {/* ── 02 · Photonic Age ── */}
-      <section className="snap-section" style={{ background: 'var(--cosmos)' }}>
+      <section id="photonic-age" className="snap-section" style={{ background: 'var(--cosmos)' }}>
         <div
           className="fade-in container"
           style={{ paddingTop: 'clamp(48px, 8vh, 80px)', paddingBottom: 'clamp(48px, 8vh, 80px)' }}
@@ -127,7 +131,11 @@ export default function Home() {
       </section>
 
       {/* ── 03 · The Commercial Case ── */}
-      <section className="fade-in snap-section" style={{ paddingTop: 'clamp(48px, 8vh, 80px)', paddingBottom: 'clamp(48px, 8vh, 80px)' }}>
+      <section
+        id="commercial-case"
+        className="fade-in snap-section"
+        style={{ paddingTop: 'clamp(48px, 8vh, 80px)', paddingBottom: 'clamp(48px, 8vh, 80px)' }}
+      >
         <div className="container">
           <p className="section-number">03</p>
           <h2 className="section-title">What Lost Light Years costs your firm</h2>
@@ -197,6 +205,7 @@ export default function Home() {
 
       {/* ── 04 · White Paper ── */}
       <section
+        id="white-paper"
         className="fade-in snap-section"
         style={{ background: 'var(--cosmos)', paddingTop: 'clamp(48px, 8vh, 80px)', paddingBottom: 'clamp(48px, 8vh, 80px)' }}
       >
