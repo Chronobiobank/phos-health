@@ -87,7 +87,7 @@ export default function Home() {
             <article className="fact-tile">
               <h3 className="fact-tile__head">Hibernation is what follows.</h3>
               <p className="fact-tile__support">
-                Cognition, immunity, and metabolism drop a gear, every working day.
+                Cognition, immunity, and metabolism drop every working day.
               </p>
             </article>
           </div>
