@@ -41,7 +41,7 @@ export default function Home() {
           preload="metadata"
           aria-hidden="true"
         >
-          <source src="/hero/first-light.mp4" type="video/mp4" />
+          <source src="/lights%20in%20motion.mp4" type="video/mp4" />
         </video>
         <div className="hero__veil" aria-hidden="true" />
         <div className="container hero__content">
@@ -129,9 +129,10 @@ export default function Home() {
 
       {/* ── 03 · TipTraQ ── */}
       <section id="tiptraq" className="fade-in tiptraq-panel snap-section" data-nav-theme="dark">
-        <div
+        <img
           className="tiptraq-panel__image"
-          style={{ backgroundImage: 'url(/tiptraq/tiptraq.jpg)' }}
+          src="/tiptraq/tiptraq.jpg"
+          alt=""
           aria-hidden="true"
         />
         <div className="tiptraq-panel__veil" aria-hidden="true" />
@@ -159,28 +160,19 @@ export default function Home() {
       {/* ── 04 · The Commercial Case ── */}
       <section
         id="commercial-case"
-        className="fade-in snap-section"
+        className="fade-in snap-section commercial-case-panel"
         data-nav-theme="light"
-        style={{ paddingTop: 'clamp(48px, 8vh, 80px)', paddingBottom: 'clamp(48px, 8vh, 80px)' }}
       >
-        <div className="container">
+        <div className="container commercial-case-panel__content">
           <p className="section-number">04</p>
           <h2 className="section-title">What Lost Light Years costs your firm</h2>
-
-          <p className="lede">
-            Lost Light Years are a commercial metric. Each one costs an estimated 15 percent of
-            sustained cognitive performance.
-          </p>
+          <p className="support">Each lost year costs 15 percent of cognitive performance.</p>
 
           <div className="formula-box">
-            <div className="formula-label">Corporate cost formula</div>
+            <div className="formula-label">Corporate cost · Hafner et al. 2016</div>
             <div className="formula-content">
               <p className="formula-line formula-line--primary">
-                Annual cost per person&nbsp;&nbsp;=&nbsp;&nbsp;Lost Light Years&nbsp;&nbsp;×&nbsp;&nbsp;Annual
-                salary&nbsp;&nbsp;×&nbsp;&nbsp;0.15
-              </p>
-              <p className="formula-line formula-line--secondary">
-                Source: Hafner et al. (2016) · RAND Europe · Why Sleep Matters
+                Lost Light Years × annual salary × 0.15
               </p>
             </div>
           </div>
@@ -189,48 +181,44 @@ export default function Home() {
             <table className="data-table">
               <thead>
                 <tr>
-                  <th>Parameter</th>
-                  <th>Value</th>
+                  <th>Example</th>
+                  <th>London law firm</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>Organisation</td>
-                  <td>Top-tier London law firm</td>
-                </tr>
-                <tr>
                   <td>Senior professionals</td>
-                  <td>150 fee earners</td>
+                  <td>150</td>
                 </tr>
                 <tr>
-                  <td>Average annual salary</td>
-                  <td>£120,000</td>
-                </tr>
-                <tr>
-                  <td>Average Lost Light Years</td>
-                  <td>3.8 years</td>
-                </tr>
-                <tr>
-                  <td>Productivity coefficient</td>
-                  <td>15%</td>
+                  <td>Lost Light Years</td>
+                  <td>3.8</td>
                 </tr>
                 <tr className="highlight">
-                  <td>Annual revenue impact</td>
+                  <td>Annual impact</td>
                   <td>£2.7 million</td>
                 </tr>
               </tbody>
             </table>
           </div>
-
-          <CostCalculator />
-
-          <p className="support" style={{ marginTop: '28px' }}>
-            This is conservative. It excludes healthcare, attrition, and impaired decisions.
-          </p>
         </div>
       </section>
 
-      {/* ── 05 · Turn off hibernation ── */}
+      {/* ── 05 · Model your firm ── */}
+      <section
+        id="model-your-firm"
+        className="fade-in snap-section model-firm-panel"
+        data-nav-theme="light"
+      >
+        <div className="container model-firm-panel__content">
+          <p className="section-number">05</p>
+          <h2 className="section-title">Model your firm</h2>
+          <p className="support">Set headcount, salary, and Lost Light Years.</p>
+          <CostCalculator />
+        </div>
+      </section>
+
+      {/* ── 06 · Turn off hibernation ── */}
       <section
         id="hibernation"
         className="fade-in hibernation-panel snap-section"
@@ -245,12 +233,12 @@ export default function Home() {
           preload="metadata"
           aria-hidden="true"
         >
-          <source src="/hero/first-light.mp4" type="video/mp4" />
+          <source src="/first-light.mp4" type="video/mp4" />
         </video>
         <div className="hero__veil" aria-hidden="true" />
         <div className="container hibernation-panel__content">
           <p className="section-number" style={{ color: 'rgba(255, 255, 255, 0.72)' }}>
-            05
+            06
           </p>
           <h2 className="section-title" style={{ marginTop: '12px' }}>
             Turn off hibernation
@@ -259,7 +247,7 @@ export default function Home() {
             Three nights of TipTraQ data ends biological winter.
           </p>
           <div style={{ marginTop: '36px' }}>
-            <Link href="/#commercial-case" className="btn btn--primary">
+            <Link href="/#model-your-firm" className="btn btn--primary">
               Calculate your cost →
             </Link>
           </div>

@@ -4,5 +4,6 @@ export const SITE_LINKS = [
   { href: '/#photonic-age', label: 'Photonic Age' },
   { href: '/#tiptraq', label: 'TipTraQ' },
   { href: '/#commercial-case', label: 'The commercial case' },
+  { href: '/#model-your-firm', label: 'Model your firm' },
   { href: '/#hibernation', label: 'Turn off hibernation' },
 ] as const

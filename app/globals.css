@@ -207,19 +207,8 @@ a:hover { color: var(--photon); }
   justify-self: center;
 }
 
-.nav__actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+.nav__menu {
   justify-self: end;
-}
-
-.nav__cta {
-  border: 1px solid transparent;
-}
-
-.site-nav.nav--on-dark .nav__cta {
-  border-color: rgba(255, 255, 255, 0.35);
 }
 
 .site-nav .wordmark {
@@ -838,6 +827,7 @@ a:hover { color: var(--photon); }
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   z-index: 0;
 }
 
@@ -893,6 +883,50 @@ a:hover { color: var(--photon); }
 
 .hibernation-panel .support {
   color: rgba(255, 255, 255, 0.85);
+}
+
+/* ── COMMERCIAL CASE + MODEL — sections 04–05 ────────────── */
+.commercial-case-panel,
+.model-firm-panel {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.commercial-case-panel__content,
+.model-firm-panel__content {
+  padding-top: clamp(48px, 8vh, 80px);
+  padding-bottom: clamp(48px, 8vh, 80px);
+}
+
+.commercial-case-panel .section-title {
+  margin-top: 12px;
+}
+
+.commercial-case-panel .support,
+.model-firm-panel .support {
+  margin-top: 16px;
+}
+
+.commercial-case-panel .formula-box {
+  margin: 28px 0 20px;
+}
+
+.commercial-case-panel .formula-content {
+  padding: 20px 24px;
+}
+
+.commercial-case-panel .data-table-wrap {
+  margin: 0;
+}
+
+.model-firm-panel {
+  background: var(--cosmos);
+}
+
+.model-firm-panel .calc {
+  margin-top: 28px;
 }
 
 /* ── PHOTONIC AGE PANEL — section 02 ─────────────────────── */
@@ -1133,6 +1167,34 @@ a:hover { color: var(--photon); }
   .calc__body { grid-template-columns: 1fr; }
   .calc__inputs { border-right: none; border-bottom: 1px solid var(--rule); }
 
+  .commercial-case-panel__content,
+  .model-firm-panel__content {
+    padding-top: clamp(40px, 6vh, 64px);
+    padding-bottom: clamp(40px, 6vh, 64px);
+  }
+
+  .commercial-case-panel .formula-box {
+    margin: 20px 0 16px;
+  }
+
+  .commercial-case-panel .formula-content {
+    padding: 16px 20px;
+  }
+
+  .commercial-case-panel .data-table td,
+  .commercial-case-panel .data-table thead th {
+    padding: 10px 16px;
+  }
+
+  .model-firm-panel .calc {
+    margin-top: 20px;
+  }
+
+  .calc__inputs {
+    padding: 20px;
+    gap: 20px;
+  }
+
   .nav__inner {
     grid-template-columns: 1fr auto;
   }
@@ -1141,13 +1203,9 @@ a:hover { color: var(--photon); }
     display: none;
   }
 
-  .nav__cta {
-    display: none;
-  }
 }
 
 @media (max-width: 600px) {
-  .site-nav .btn { padding: 8px 12px; font-size: 11px; }
   .callout { padding: 24px 22px; }
   .pull-quote { padding: 20px 22px; }
   .formula-content { padding: 20px; }

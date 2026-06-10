@@ -114,24 +114,18 @@ export function Nav() {
 
             <span className="nav-sub nav__tag">Circadian Health</span>
 
-            <div className="nav__actions">
-              <Link href="/research/photonic-age" className="btn btn--primary nav__cta">
-                Why light matters
-              </Link>
-
-              <button
-                type="button"
-                className="nav-menu-btn"
-                aria-expanded={open}
-                aria-controls="nav-menu-panel"
-                aria-label={open ? 'Close menu' : 'Open menu'}
-                onClick={() => setOpen((v) => !v)}
-              >
-                <span className="nav-menu-btn__icon" aria-hidden>
-                  +
-                </span>
-              </button>
-            </div>
+            <button
+              type="button"
+              className="nav-menu-btn nav__menu"
+              aria-expanded={open}
+              aria-controls="nav-menu-panel"
+              aria-label={open ? 'Close menu' : 'Open menu'}
+              onClick={() => setOpen((v) => !v)}
+            >
+              <span className="nav-menu-btn__icon" aria-hidden>
+                +
+              </span>
+            </button>
           </div>
         </div>
       </div>

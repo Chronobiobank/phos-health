@@ -18,7 +18,6 @@ export function CostCalculator() {
 
   return (
     <div className="calc">
-      <div className="calc__header">Model your firm</div>
       <div className="calc__body">
         <div className="calc__inputs">
           <div className="calc__field">
@@ -73,9 +72,7 @@ export function CostCalculator() {
         <div className="calc__output">
           <span className="label">Estimated annual cost</span>
           <span className="calc__figure">{gbp.format(annualCost)}</span>
-          <span className="calc__note">
-            Lost Light Years × salary × 0.15 · Hafner et al. (2016)
-          </span>
+          <span className="calc__note">Hafner et al. 2016</span>
         </div>
       </div>
     </div>
