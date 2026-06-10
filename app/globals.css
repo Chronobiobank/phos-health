@@ -1068,13 +1068,18 @@ a:hover { color: var(--photon); }
 
 .photonic-age-panel .section-number {
   margin-bottom: 6px;
+  text-align: center;
 }
 
 .photonic-age-panel .section-title {
   margin-top: 4px;
   margin-bottom: 0;
+  margin-left: auto;
+  margin-right: auto;
   font-size: clamp(28px, 1.6vw + 22px, 48px);
   line-height: 1.08;
+  text-align: center;
+  max-width: none;
 }
 
 .photonic-age-panel__tile {
