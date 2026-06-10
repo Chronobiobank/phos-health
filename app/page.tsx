@@ -87,7 +87,7 @@ export default function Home() {
         <div className="container photonic-age-panel__content">
           <p className="section-number">02</p>
           <h2 className="section-title">How we quantify loss</h2>
-          <PhotonicAgeTile ctaHref="/tiptraq" ctaLabel="How we measure it →" />
+          <PhotonicAgeTile ctaHref="/dashboard" ctaLabel="View dashboard →" />
         </div>
       </section>
 
