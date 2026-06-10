@@ -1,7 +1,9 @@
 import Link from 'next/link'
 
 import Wordmark from '@/components/Wordmark'
-import { SITE_LINKS } from '@/lib/site-links'
+import { FOOTER_LINKS } from '@/lib/site-links'
+
+const linkStyle = { color: 'var(--muted)' } as const
 
 export function Footer() {
   return (
@@ -34,18 +36,22 @@ export function Footer() {
           className="footer-nav"
           style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}
         >
-          {SITE_LINKS.map((link) => (
-            <Link key={link.href} href={link.href} className="label" style={{ color: 'var(--muted)' }}>
-              {link.label}
-            </Link>
-          ))}
+          {FOOTER_LINKS.map((link) =>
+            link.href.startsWith('mailto:') ? (
+              <a key={link.href} href={link.href} className="label" style={linkStyle}>
+                {link.label}
+              </a>
+            ) : (
+              <Link key={link.href} href={link.href} className="label" style={linkStyle}>
+                {link.label}
+              </Link>
+            ),
+          )}
         </div>
 
-        <div className="label" style={{ color: 'var(--dim)', textAlign: 'right', lineHeight: 2 }}>
+        <p className="label" style={{ color: 'var(--dim)', textAlign: 'right' }}>
           © 2026 PHOS
-          <br />
-          phos.org.uk
-        </div>
+        </p>
       </div>
     </footer>
   )

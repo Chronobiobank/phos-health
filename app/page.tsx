@@ -52,8 +52,8 @@ export default function Home() {
           </h1>
 
           <p className="display-sm" style={{ marginTop: '24px', maxWidth: '520px' }}>
-            Light deprivation is costing you years. PHOS measures exactly how many, and shows you
-            how to reclaim them.
+            Light deprivation drains your productivity. PHOS measures exactly how, and shows you how
+            to reclaim it.
           </p>
 
           <div style={{ marginTop: '40px' }}>
@@ -103,17 +103,9 @@ export default function Home() {
         className="fade-in snap-section photonic-age-panel"
         data-nav-theme="light"
       >
-        <div
-          className="container"
-          style={{ paddingTop: 'clamp(48px, 8vh, 80px)', paddingBottom: 'clamp(48px, 8vh, 80px)' }}
-        >
+        <div className="container photonic-age-panel__content">
           <p className="section-number">02</p>
           <h2 className="section-title">Photonic Age</h2>
-
-          <p className="lede">
-            The gap from your calendar age is your Lost Light Years.
-          </p>
-
           <PhotonicAgeTile />
         </div>
       </section>
@@ -232,12 +224,12 @@ export default function Home() {
             06
           </p>
           <h2 className="section-title" style={{ marginTop: '12px' }}>
-            Three nights of TipTraQ data boosts performance and your bottom line.
+            Reclaim lost productivity in 90 days or your money back.
           </h2>
           <div style={{ marginTop: '36px' }}>
-            <Link href="/#model-your-firm" className="btn btn--primary">
-              Calculate your cost →
-            </Link>
+            <a href="mailto:hello@phos.health?subject=Book%20free%20demo" className="btn btn--primary">
+              Book free demo →
+            </a>
           </div>
         </div>
       </section>

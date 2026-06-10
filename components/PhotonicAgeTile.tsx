@@ -1,58 +1,40 @@
-/* Marketing version of the DIOS SnapshotHeroRow: Light Time and Dark Time
-   cells flanking a Photonic Age over Calendar Age centre stack. */
-
-function CycleCell({
-  value,
-  unit,
-  label,
-  note,
-}: {
-  value: string
-  unit: string
-  label: string
-  note: string
-}) {
+function Operand({ value, label }: { value: string; label: string }) {
   return (
-    <div className="age-tile__cycle">
-      <p className="age-tile__cycle-value">
-        {value}
-        <span className="age-tile__cycle-unit">{unit}</span>
-      </p>
-      <p className="label">{label}</p>
-      <p className="age-tile__note">{note}</p>
+    <div className="age-tile__operand">
+      <p className="age-tile__cycle-value">{value}</p>
+      <p className="age-tile__caption">{label}</p>
     </div>
   )
 }
 
 export function PhotonicAgeTile() {
   return (
-    <div style={{ margin: '40px 0 0' }}>
-      <div className="age-tile">
-        <CycleCell value="2.9" unit="h" label="Light Time" note="bright light per day" />
-
-        <div className="age-tile__centre">
-          <p className="age-tile__primary" aria-label="Photonic Age 47.2">
-            47.2
-          </p>
-          <p className="label">Photonic Age</p>
-          <p className="age-tile__note" style={{ color: 'var(--stellar)' }}>
-            4.2 years lost to hibernation
-          </p>
-
-          <hr className="age-tile__rule" aria-hidden />
-
-          <p className="age-tile__secondary" aria-label="Calendar Age 43">
-            43
-          </p>
-          <p className="label">Calendar Age</p>
+    <div
+      className="photonic-age-panel__tile"
+      aria-label="2.9 Light Years plus 1.3 Dark Years equals 4.2 years lost to hibernation. Photonic Age 47.2, Calendar Age 43."
+    >
+      <div className="age-tile age-tile--equation">
+        <div className="age-tile__formula">
+          <Operand value="2.9" label="Light Years" />
+          <span className="age-tile__op" aria-hidden="true">
+            +
+          </span>
+          <Operand value="1.3" label="Dark Years" />
+          <span className="age-tile__op" aria-hidden="true">
+            =
+          </span>
+          <div className="age-tile__lost">
+            <p className="age-tile__cycle-value">4.2</p>
+            <p className="age-tile__note age-tile__note--accent">years lost to hibernation</p>
+          </div>
         </div>
 
-        <CycleCell value="6.8" unit="h" label="Dark Time" note="true dark per night" />
+        <div className="age-tile__outcome">
+          <p className="age-tile__primary">47.2</p>
+          <p className="age-tile__caption">Photonic Age</p>
+          <p className="age-tile__ref">(Calendar Age 43)</p>
+        </div>
       </div>
-
-      <p className="label" style={{ textAlign: 'center', marginTop: '24px' }}>
-        Example: senior professional, London, 43 · three-night TipTraQ study
-      </p>
     </div>
   )
 }
