@@ -127,9 +127,10 @@ a:hover { color: var(--photon); }
    Everywhere else in copy write PHOS — never PHʘS.
    ─────────────────────────────────────────────────────────── */
 .footer-mark {
-  font-family: var(--font-logo);
-  font-size: clamp(72px, 12vw, 108px);
+  font-family: var(--font-body);
+  font-size: clamp(104px, 22vw, 176px);
   font-weight: 400;
+  font-synthesis: none;
   line-height: 1;
   color: var(--corona);
   display: block;
