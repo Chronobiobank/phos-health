@@ -28,6 +28,7 @@ export default function Home() {
     <main>
       <Nav />
 
+      {/* Beat 1 — The provocation */}
       <section id="hero" className="fade-in hero snap-section" data-nav-theme="dark">
         <video
           className="hero__video"
@@ -42,25 +43,23 @@ export default function Home() {
         </video>
         <div className="hero__veil" aria-hidden="true" />
         <div className="container hero__content">
-          <h1 className="display-xl">Your light is ageing you.</h1>
+          <h1 className="display-xl">Your light outruns your birthday.</h1>
           <p className="lede">
-            Your body clock drifts when light is wrong. Photonic Age measures how far.
+            88,000 people, eight years, three journals. Light predicts heart disease, diabetes, death.
           </p>
           <div className="copy-actions">
             <Link href="/score" className="btn btn--primary">
-              Get your number →
-            </Link>
-            <Link href="/score?context=d3" className="btn btn--outline">
-              On D3? Start here →
+              Calculate your Photonic Age →
             </Link>
           </div>
         </div>
       </section>
 
+      {/* Beat 2 — The mechanism */}
       <section id="science" className="fade-in snap-section biology-panel" data-nav-theme="dark">
         <div className="container biology-panel__content">
           <p className="section-number">01</p>
-          <h2 className="section-title">Your nights are costing years.</h2>
+          <h2 className="section-title">The science is already in.</h2>
           <div className="fact-tiles">
             <article className="fact-tile">
               <h3 className="fact-tile__head">Mortality up thirty four percent.</h3>
@@ -78,6 +77,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Beat 3 — The metric */}
       <section
         id="metric"
         className="fade-in snap-section photonic-age-panel"
@@ -85,28 +85,30 @@ export default function Home() {
       >
         <div className="container photonic-age-panel__content">
           <p className="section-number">02</p>
-          <h2 className="section-title">One number upstream of everything.</h2>
+          <h2 className="section-title">Photonic Age names the driver.</h2>
           <p className="lede">
-            Epigenetic clocks score damage done. Photonic Age scores the light causing it.
+            Lost Light Years are drift you can close. Not damage scored too late.
           </p>
         </div>
       </section>
 
+      {/* Beat 4 — The calculator */}
       <section id="diagnostic" className="fade-in snap-section photonic-age-panel" data-nav-theme="light">
         <div className="container photonic-age-panel__content">
           <p className="section-number">03</p>
           <h2 className="section-title">What is your number?</h2>
           <p className="lede">
-            Seven questions, two minutes, no blood draw. Your protocol follows immediately.
+            Seven questions, two minutes, no blood test. Every answer sharpens your protocol.
           </p>
           <div className="copy-actions">
             <Link href="/score" className="btn btn--primary">
-              Calculate now →
+              Calculate your Photonic Age →
             </Link>
           </div>
         </div>
       </section>
 
+      {/* Beat 5 — The bigger invitation */}
       <section
         id="chronobiobank"
         className="fade-in snap-section hibernation-panel"
@@ -115,24 +117,24 @@ export default function Home() {
         <div className="hibernation-panel__veil" aria-hidden="true" />
         <div className="container hibernation-panel__content">
           <p className="section-number">04</p>
-          <h2 className="section-title">Your data stays yours forever.</h2>
+          <h2 className="section-title">Your data could change medicine.</h2>
           <p className="lede">
-            Chronobiobank Limited is a charity. Every assessment builds medicine without selling you.
+            Every assessment feeds Chronobiobank, the first longitudinal light dataset under your control.
           </p>
           <div className="fact-tiles">
             <article className="fact-tile">
-              <h3 className="fact-tile__head">Investors never own your record.</h3>
+              <h3 className="fact-tile__head">Not feeding a corporate model.</h3>
             </article>
             <article className="fact-tile">
-              <h3 className="fact-tile__head">Advertisers never buy your light.</h3>
+              <h3 className="fact-tile__head">Held in charitable trust for you.</h3>
             </article>
             <article className="fact-tile">
-              <h3 className="fact-tile__head">You choose who sees it.</h3>
+              <h3 className="fact-tile__head">You are a founding contributor.</h3>
             </article>
           </div>
           <div className="copy-actions">
             <Link href="/score" className="btn btn--primary">
-              Join and calculate →
+              Join the Chronobiobank →
             </Link>
           </div>
         </div>

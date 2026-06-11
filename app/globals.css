@@ -1081,6 +1081,11 @@ a:hover { color: var(--photon); }
 .hibernation-panel {
   position: relative;
   overflow: hidden;
+  background: linear-gradient(
+    180deg,
+    var(--deep) 0%,
+    color-mix(in srgb, var(--eggplant-dark) 55%, var(--deep)) 100%
+  );
   border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
 
@@ -1127,8 +1132,43 @@ a:hover { color: var(--photon); }
   margin-top: var(--stack-lg);
 }
 
+.hibernation-panel .fact-tile {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--radius-md);
+  padding: clamp(20px, 4vw, 28px);
+}
+
 .hibernation-panel .fact-tile__head {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 0.9vw + 17px, 28px);
+  font-weight: 600;
+  line-height: 1.25;
   color: rgba(255, 255, 255, 0.95);
+}
+
+.hibernation-panel .section-number {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* Landing five-beat surfaces — each snap section a distinct register */
+#metric.photonic-age-panel {
+  background: linear-gradient(
+    180deg,
+    var(--lilac-light) 0%,
+    var(--lilac-medium) 62%,
+    var(--lilac-dark) 100%
+  );
+  border-top: 2px solid color-mix(in srgb, var(--stellar) 28%, #ffffff);
+}
+
+#diagnostic.photonic-age-panel {
+  background: var(--void);
+  border-top: 3px solid var(--lilac-dark);
+}
+
+#chronobiobank.hibernation-panel {
+  border-top: 3px solid color-mix(in srgb, var(--lilac-light) 40%, var(--deep));
 }
 
 .trust-line {
@@ -1209,6 +1249,10 @@ a:hover { color: var(--photon); }
 .biology-panel .section-title {
   margin-top: 12px;
   color: #ffffff;
+}
+
+.biology-panel .support {
+  color: rgba(255, 255, 255, 0.82);
 }
 
 .fact-tiles {
