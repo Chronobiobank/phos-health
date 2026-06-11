@@ -54,7 +54,7 @@ export default function Home() {
             Living out of sync with daylight costs ~£18,000 per person, per year.
           </p>
 
-          <div style={{ marginTop: '40px' }}>
+          <div className="copy-actions">
             <Link href="/research/photonic-age" className="btn btn--primary">
               Read the report →
             </Link>
@@ -69,7 +69,7 @@ export default function Home() {
 
           <BiologyFacts />
 
-          <div style={{ marginTop: '36px' }}>
+          <div className="copy-actions">
             <Link href="/biology" className="btn btn--primary">
               Why light matters →
             </Link>
@@ -111,7 +111,7 @@ export default function Home() {
             Three nights at home. Your tightest Photonic Age band.
           </p>
 
-          <div style={{ marginTop: '36px' }}>
+          <div className="copy-actions">
             <Link href="/shop" className="btn btn--primary">
               Photonic Sleep Study →
             </Link>
@@ -132,11 +132,11 @@ export default function Home() {
           </p>
           <CostCalculator />
 
-          <div style={{ marginTop: '36px' }}>
+          <div className="copy-actions">
             <Link href="/org" className="btn btn--primary">
               Employer dashboard →
             </Link>
-            <Link href="/contact" className="btn btn--outline" style={{ marginLeft: '12px' }}>
+            <Link href="/contact" className="btn btn--outline">
               Book free demo →
             </Link>
           </div>
@@ -168,7 +168,7 @@ export default function Home() {
           <p className="support" style={{ marginTop: '20px' }}>
             From £495 per professional. Measurable results in 90 days or your money back.
           </p>
-          <div style={{ marginTop: '36px' }}>
+          <div className="copy-actions">
             <Link href="/contact" className="btn btn--primary">
               Contact us →
             </Link>

@@ -16,7 +16,7 @@ export default function ShopPage() {
         <p className="eyebrow">Upgrades</p>
         <h1 className="section-title dashboard-page__title">Tighten your confidence band</h1>
         <p className="support dashboard-page__lede">
-          Same Photonic Age metric. Narrower error bar. Kit serial binds to your profile at purchase.
+          Same metric, narrower band, kit binds at purchase.
         </p>
 
         <div className="shop-page__grid">
@@ -26,7 +26,6 @@ export default function ShopPage() {
               <h2 className="display-md">{sku.name}</h2>
               <p className="shop-page__price">{formatPrice(sku.pricePence)}</p>
               <p className="support">{sku.summary}</p>
-              <p className="dash-card__support">{sku.note}</p>
               <ShopCheckoutButton skuId={sku.id} pricePence={sku.pricePence} />
             </article>
           ))}
@@ -36,9 +35,11 @@ export default function ShopPage() {
           Order confirmation is sent to orders@phos.org.uk for fulfilment.
         </p>
 
-        <Link href="/dashboard" className="btn btn--outline">
-          Back to dashboard
-        </Link>
+        <div className="copy-actions">
+          <Link href="/dashboard" className="btn btn--outline">
+            Back to dashboard
+          </Link>
+        </div>
       </div>
     </section>
   )

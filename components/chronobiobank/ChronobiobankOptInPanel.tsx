@@ -83,23 +83,27 @@ export function ChronobiobankOptInPanel({ state, signedIn }: ChronobiobankOptInP
           <a href="/auth/signin?next=/chronobiobank">Sign in</a> to join or manage your contribution.
         </p>
       ) : isActive ? (
-        <button
-          type="button"
-          className="btn btn--outline"
-          onClick={revoke}
-          disabled={loading != null}
-        >
-          {loading === 'revoke' ? 'Revoking…' : 'Revoke and withdraw →'}
-        </button>
+        <div className="copy-actions">
+          <button
+            type="button"
+            className="btn btn--outline"
+            onClick={revoke}
+            disabled={loading != null}
+          >
+            {loading === 'revoke' ? 'Revoking…' : 'Revoke and withdraw →'}
+          </button>
+        </div>
       ) : (
-        <button
-          type="button"
-          className="btn btn--primary"
-          onClick={optIn}
-          disabled={loading != null}
-        >
-          {loading === 'opt-in' ? 'Joining…' : 'Join Chronobiobank →'}
-        </button>
+        <div className="copy-actions">
+          <button
+            type="button"
+            className="btn btn--primary"
+            onClick={optIn}
+            disabled={loading != null}
+          >
+            {loading === 'opt-in' ? 'Joining…' : 'Join Chronobiobank →'}
+          </button>
+        </div>
       )}
 
       {message ? <p className="support chronobiobank-optin__message">{message}</p> : null}

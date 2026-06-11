@@ -26,7 +26,7 @@ export default function TermsPage() {
             Enquiries:{' '}
             <a href="mailto:hello@phos.org.uk">hello@phos.org.uk</a>
           </p>
-          <div style={{ marginTop: '32px' }}>
+          <div className="copy-actions">
             <Link href="/" className="btn btn--outline">
               Back to home
             </Link>

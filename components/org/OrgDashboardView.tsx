@@ -115,14 +115,16 @@ export function OrgDashboardView({ snapshot, role, inviteCode }: OrgDashboardVie
       ) : null}
 
       {role === 'admin' && !snapshot.isSample ? (
-        <button
-          type="button"
-          className="btn btn--outline"
-          onClick={refreshAggregates}
-          disabled={refreshing}
-        >
-          {refreshing ? 'Refreshing…' : 'Refresh cohort data →'}
-        </button>
+        <div className="copy-actions">
+          <button
+            type="button"
+            className="btn btn--outline"
+            onClick={refreshAggregates}
+            disabled={refreshing}
+          >
+            {refreshing ? 'Refreshing…' : 'Refresh cohort data →'}
+          </button>
+        </div>
       ) : null}
 
       {message ? <p className="support org-dashboard__message">{message}</p> : null}

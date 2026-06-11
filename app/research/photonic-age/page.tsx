@@ -33,7 +33,7 @@ export default function PhotonicAgePaper() {
             The Circadian Foundation · Auckland, New Zealand
           </p>
 
-          <div style={{ marginTop: '36px', display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+          <div className="copy-actions">
             <Link href="#abstract" className="btn btn--primary">
               Read the methodology →
             </Link>
@@ -158,7 +158,7 @@ export default function PhotonicAgePaper() {
             The full derivation, sensitivity analysis, and references are in the paper.
           </p>
 
-          <div style={{ marginTop: '32px' }}>
+          <div className="copy-actions">
             <Link href="/for-firms" className="btn btn--primary">
               Model your firm →
             </Link>

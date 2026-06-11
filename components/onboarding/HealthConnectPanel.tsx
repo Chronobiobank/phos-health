@@ -85,9 +85,11 @@ export function HealthConnectPanel() {
         Native HealthKit and Health Connect sync ships in the mobile app. Web uses demo data until then.
       </p>
 
-      <Link href="/dashboard" className="btn btn--outline">
-        Skip to dashboard
-      </Link>
+      <div className="copy-actions">
+        <Link href="/dashboard" className="btn btn--outline">
+          Skip to dashboard
+        </Link>
+      </div>
     </div>
   )
 }

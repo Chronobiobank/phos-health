@@ -9,7 +9,6 @@ export type ShopSku = {
   pricePence: number
   currency: 'GBP'
   summary: string
-  note: string
 }
 
 export const SHOP_SKUS: ShopSku[] = [
@@ -21,8 +20,7 @@ export const SHOP_SKUS: ShopSku[] = [
     kitType: 'panel',
     pricePence: 14900,
     currency: 'GBP',
-    summary: 'Blood panel for a tighter read on personal light.',
-    note: 'Fulfilled by our lab partner. Vitamin D plus assay.',
+    summary: 'Lab vitamin D panel for a tighter personal light read.',
   },
   {
     id: 'photonic-sleep-study',
@@ -32,8 +30,7 @@ export const SHOP_SKUS: ShopSku[] = [
     kitType: 'tiptraq',
     pricePence: 24900,
     currency: 'GBP',
-    summary: 'Three-night home sleep test for your tightest Photonic Age.',
-    note: 'Fulfilled by our sleep study partner. Device ship and return.',
+    summary: 'Three home nights for your tightest Photonic Age band.',
   },
 ]
 
