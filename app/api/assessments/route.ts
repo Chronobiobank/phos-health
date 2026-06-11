@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server'
 
 import { buildAssessmentRow } from '@/lib/assessments/map-score'
 import { latitudeFromUkPostcode } from '@/lib/assessments/postcode'
-import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 
 export const dynamic = 'force-dynamic'
 
@@ -21,7 +21,7 @@ type AssessmentRequest = {
 }
 
 export async function POST(request: Request) {
-  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
     return NextResponse.json({ error: 'Assessment storage is not configured.' }, { status: 503 })
   }
 
@@ -77,7 +77,7 @@ export async function POST(request: Request) {
   })
 
   const assessmentId = randomUUID()
-  const supabase = await createClient()
+  const supabase = createAdminClient()
   const { error } = await supabase.from('phos_assessments').insert({ ...row, id: assessmentId })
 
   if (error) {
