@@ -3,7 +3,6 @@
     { "source": "/how-it-works", "destination": "/shop", "permanent": true },
     { "source": "/how-it-works/:path*", "destination": "/shop", "permanent": true },
     { "source": "/tiptraq", "destination": "/shop", "permanent": true },
-    { "source": "/tiptraq/:path*", "destination": "/shop", "permanent": true },
     { "source": "/q", "destination": "/daily-cue", "permanent": true },
     { "source": "/q/:path*", "destination": "/daily-cue", "permanent": true },
     { "source": "/pitch", "destination": "/", "permanent": true },

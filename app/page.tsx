@@ -97,7 +97,7 @@ export default function Home() {
       <section id="sleep-study" className="fade-in tiptraq-panel snap-section" data-nav-theme="dark">
         <img
           className="tiptraq-panel__image"
-          src="/tiptraq/tiptraq.jpg"
+          src="/tiptraq.jpg"
           alt=""
           aria-hidden="true"
         />
