@@ -49,7 +49,7 @@ export default function Home() {
           </p>
           <div className="copy-actions">
             <Link href="#science" className="btn btn--outline">
-              See the proof
+              See the proof →
             </Link>
           </div>
         </div>
