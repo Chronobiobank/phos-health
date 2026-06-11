@@ -1,37 +1,138 @@
 import { TERRY_MOCK_SNAPSHOT } from '@/lib/phos/mock-snapshot'
-import type { PhosMetric, PhosSnapshot } from '@/lib/phos/types'
+import type { DailyCueStop, PhosMetric, PhosSnapshot } from '@/lib/phos/types'
 import { photonicCalibration } from '@/lib/tiptraq/sync-mlux-profile'
 import type { createClient } from '@/lib/supabase/server'
 
 type SupabaseServerClient = Awaited<ReturnType<typeof createClient>>
-
-function estimateLostLightYears(
-  calendarAge: number,
-  nights: Array<{ sleep_efficiency_pct: number | null; waso_minutes: number | null }>,
-): number {
-  if (!nights.length) return 0
-
-  const avgEfficiency =
-    nights.reduce((sum, night) => sum + (night.sleep_efficiency_pct ?? 75), 0) / nights.length
-  const avgWaso = nights.reduce((sum, night) => sum + (night.waso_minutes ?? 40), 0) / nights.length
-
-  const efficiencyGap = Math.max(0, 92 - avgEfficiency)
-  const wasoPenalty = Math.min(2.5, avgWaso / 60)
-  const gap = efficiencyGap * 0.08 + wasoPenalty * 0.35
-
-  return Math.round(Math.min(14, Math.max(0, gap)) * 10) / 10
-}
 
 function formatTime(value: string | null | undefined): string | null {
   if (!value) return null
   return value.slice(0, 5)
 }
 
-export async function buildPhosSnapshot(
+function defaultCueTimeline(): DailyCueStop[] {
+  return [
+    { time: '08:30', label: 'Anchor', icon: 'anchor', active: true },
+    { time: '15:00', label: 'Peak', icon: 'peak' },
+    { time: '19:30', label: 'Fuel', icon: 'fuel' },
+    { time: '21:30', label: 'Dim', icon: 'dim' },
+  ]
+}
+
+function buildCueTimeline(
+  start: string | null,
+  end: string | null,
+  cueType: string | null,
+): DailyCueStop[] {
+  if (!start) return defaultCueTimeline()
+
+  const anchor = start
+  const peak = end ?? '15:00'
+
+  return [
+    { time: anchor, label: cueType ?? 'Anchor', icon: 'anchor', active: true },
+    { time: peak, label: 'Peak', icon: 'peak' },
+    { time: '19:30', label: 'Fuel', icon: 'fuel' },
+    { time: '21:30', label: 'Dim', icon: 'dim' },
+  ]
+}
+
+async function buildFromPhotonicProfile(
   supabase: SupabaseServerClient,
   userId: string,
   canUpload: boolean,
-): Promise<PhosSnapshot> {
+): Promise<PhosSnapshot | null> {
+  const [{ data: member }, { data: profile }, { data: nights }] = await Promise.all([
+    supabase.from('members').select('full_name, date_of_birth').eq('id', userId).maybeSingle(),
+    supabase.from('photonic_age_profiles').select('*').eq('member_id', userId).maybeSingle(),
+    supabase
+      .from('tiptraq_nights')
+      .select('id, report_date, sleep_efficiency_pct, tst_minutes, waso_minutes, mlux_phase_time')
+      .eq('patient_id', userId)
+      .order('report_date', { ascending: false }),
+  ])
+
+  if (!profile) return null
+
+  const metrics: PhosMetric[] = [
+    {
+      label: 'Body clock phase',
+      value: profile.d1_value != null ? `${profile.d1_value} h drift` : 'Pending',
+      note: profile.d1_source ?? 'Phone',
+    },
+    {
+      label: 'Social jet lag',
+      value: profile.d2_value != null ? `${Math.round(profile.d2_value)} min` : 'Pending',
+      note: profile.d2_source ?? 'Phone sleep timing',
+    },
+    {
+      label: 'Personal light',
+      value: profile.d3_value != null ? `${profile.d3_value} index` : 'Pending',
+      note: profile.d3_source ?? 'Inferred',
+    },
+    {
+      label: 'Confidence band',
+      value: profile.confidence_band_minutes != null ? `±${profile.confidence_band_minutes} min` : 'Pending',
+      note: profile.confidence_label ?? 'Wide',
+    },
+    {
+      label: 'Tier',
+      value: profile.tier === 'premium' ? 'Premium' : profile.tier === 'basic' ? 'Basic' : 'Free',
+      note: 'Current measurement tier',
+    },
+    {
+      label: 'Observations',
+      value: String((profile.provenance as { observationCount?: number } | null)?.observationCount ?? 'Synced'),
+      note: 'Sleep history used',
+    },
+  ]
+
+  return {
+    subjectName: member?.full_name?.split(' ')[0] ?? 'You',
+    calendarAge: profile.calendar_age ?? TERRY_MOCK_SNAPSHOT.calendarAge,
+    photonicAge: Number(profile.photonic_age),
+    lostLightYears: Number(profile.lost_light_years),
+    nightsCount: nights?.length ?? 0,
+    tier: profile.tier,
+    confidenceScore: profile.confidence_score,
+    confidenceLabel: profile.confidence_label,
+    confidenceBandMinutes: profile.confidence_band_minutes,
+    chronotype: null,
+    lightWindow:
+      profile.light_time_start && profile.light_time_end
+        ? {
+            start: formatTime(profile.light_time_start) ?? '',
+            end: formatTime(profile.light_time_end) ?? '',
+          }
+        : null,
+    dailyCueType: profile.daily_cue_type,
+    dailyCueCopy: profile.daily_cue_copy,
+    cueTimeline: buildCueTimeline(
+      formatTime(profile.light_time_start),
+      formatTime(profile.light_time_end),
+      profile.daily_cue_type,
+    ),
+    metrics,
+    nights:
+      nights?.map((night) => ({
+        id: night.id,
+        date: night.report_date,
+        sleepEfficiency: night.sleep_efficiency_pct,
+        tstMinutes: night.tst_minutes,
+        dlmoTime: formatTime(night.mlux_phase_time),
+      })) ?? [],
+    isSample: false,
+    hasPhoneData: true,
+    canUpload,
+    onboardingPath: '/onboarding',
+  }
+}
+
+async function buildFromTipTraq(
+  supabase: SupabaseServerClient,
+  userId: string,
+  canUpload: boolean,
+): Promise<PhosSnapshot | null> {
   const [{ data: profile }, { data: patient }, { data: mlux }, { data: nights }] = await Promise.all([
     supabase.from('profiles').select('full_name').eq('id', userId).maybeSingle(),
     supabase
@@ -47,14 +148,7 @@ export async function buildPhosSnapshot(
       .order('report_date', { ascending: false }),
   ])
 
-  if (!nights?.length) {
-    return {
-      ...TERRY_MOCK_SNAPSHOT,
-      subjectName: profile?.full_name?.split(' ')[0] ?? TERRY_MOCK_SNAPSHOT.subjectName,
-      isSample: true,
-      canUpload,
-    }
-  }
+  if (!nights?.length) return null
 
   const calendarAge = patient?.date_of_birth
     ? Math.floor(
@@ -62,16 +156,15 @@ export async function buildPhosSnapshot(
       )
     : TERRY_MOCK_SNAPSHOT.calendarAge
 
-  const lostLightYears = estimateLostLightYears(calendarAge, nights)
-  const photonicAge = Math.round((calendarAge + lostLightYears) * 10) / 10
-  const calibration = photonicCalibration(mlux?.nights_count ?? nights.length)
-
   const avgEfficiency = Math.round(
     nights.reduce((sum, night) => sum + (night.sleep_efficiency_pct ?? 0), 0) / nights.length,
   )
   const avgTst = Math.round(
     nights.reduce((sum, night) => sum + (night.tst_minutes ?? 0), 0) / nights.length,
   )
+  const lostLightYears = TERRY_MOCK_SNAPSHOT.lostLightYears
+  const photonicAge = Math.round((calendarAge + lostLightYears) * 10) / 10
+  const calibration = photonicCalibration(mlux?.nights_count ?? nights.length)
 
   const metrics: PhosMetric[] = [
     {
@@ -115,8 +208,10 @@ export async function buildPhosSnapshot(
     photonicAge,
     lostLightYears,
     nightsCount: mlux?.nights_count ?? nights.length,
+    tier: 'premium',
     confidenceScore: mlux?.confidence_score ?? null,
     confidenceLabel: mlux?.confidence_label ?? null,
+    confidenceBandMinutes: mlux?.confidence_band_minutes ?? null,
     chronotype: mlux?.chronotype ?? null,
     lightWindow:
       mlux?.light_dose_window_start && mlux?.light_dose_window_end
@@ -125,6 +220,15 @@ export async function buildPhosSnapshot(
             end: formatTime(mlux.light_dose_window_end) ?? '',
           }
         : null,
+    dailyCueType: 'Anchor',
+    dailyCueCopy: mlux?.light_dose_window_start
+      ? `Catch first light, before ${formatTime(mlux.light_dose_window_start)}.`
+      : 'Catch first light, before 08:30.',
+    cueTimeline: buildCueTimeline(
+      formatTime(mlux?.light_dose_window_start),
+      formatTime(mlux?.light_dose_window_end),
+      'Anchor',
+    ),
     metrics,
     nights: nights.map((night) => ({
       id: night.id,
@@ -134,6 +238,39 @@ export async function buildPhosSnapshot(
       dlmoTime: formatTime(night.mlux_phase_time),
     })),
     isSample: false,
+    hasPhoneData: false,
+    canUpload,
+    onboardingPath: '/onboarding',
+  }
+}
+
+export async function buildPhosSnapshot(
+  supabase: SupabaseServerClient,
+  userId: string,
+  canUpload: boolean,
+): Promise<PhosSnapshot> {
+  if (!userId) {
+    return { ...TERRY_MOCK_SNAPSHOT, canUpload }
+  }
+
+  try {
+    const fromProfile = await buildFromPhotonicProfile(supabase, userId, canUpload)
+    if (fromProfile) return fromProfile
+  } catch {
+    // Migration 002 not applied yet; fall through to TipTraQ path.
+  }
+
+  try {
+    const fromTipTraq = await buildFromTipTraq(supabase, userId, canUpload)
+    if (fromTipTraq) return fromTipTraq
+  } catch {
+    // Legacy tables unavailable.
+  }
+
+  return {
+    ...TERRY_MOCK_SNAPSHOT,
+    subjectName: 'You',
+    isSample: true,
     canUpload,
   }
 }

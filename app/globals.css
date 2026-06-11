@@ -2816,6 +2816,306 @@ a:hover { color: var(--photon); }
   max-width: 44ch;
 }
 
+.phos-dashboard__confidence {
+  max-width: 52ch;
+}
+
+.onboarding-connect {
+  margin-top: 28px;
+  display: grid;
+  gap: 20px;
+}
+
+.onboarding-connect__lede {
+  max-width: 44ch;
+}
+
+.onboarding-connect__options {
+  display: grid;
+  gap: 16px;
+}
+
+.onboarding-connect__option {
+  display: grid;
+  gap: 8px;
+  width: 100%;
+  padding: 24px;
+  text-align: left;
+  cursor: pointer;
+  border: 1.5px solid var(--dash-border);
+  background: var(--dash-surface);
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.onboarding-connect__option:hover:not(:disabled),
+.onboarding-connect__option:focus-visible {
+  border-color: var(--eggplant);
+  background: var(--dash-surface-muted);
+}
+
+.onboarding-connect__option:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.onboarding-connect__option-label {
+  margin: 0;
+}
+
+.onboarding-connect__option-note {
+  margin: 0;
+}
+
+.onboarding-connect__option-action {
+  font-family: var(--font-body);
+  font-size: 17px;
+  color: var(--eggplant);
+}
+
+.onboarding-connect__error {
+  color: var(--crimson);
+}
+
+.onboarding-connect__footnote {
+  max-width: 48ch;
+}
+
+.daily-cue-view {
+  margin-top: 24px;
+}
+
+.daily-cue-view__thread {
+  display: grid;
+  gap: 16px;
+  max-width: 560px;
+}
+
+.daily-cue-view__message {
+  padding: 24px;
+  display: grid;
+  gap: 12px;
+}
+
+.daily-cue-view__label {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0;
+}
+
+.daily-cue-view__cta {
+  justify-self: start;
+}
+
+.shop-page__grid {
+  margin-top: 28px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.shop-page__card {
+  padding: 28px;
+  display: grid;
+  gap: 12px;
+}
+
+.shop-page__price {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 36px);
+  font-weight: 600;
+  margin: 0;
+  color: var(--dash-ink);
+}
+
+.shop-page__fulfilment {
+  max-width: 48ch;
+  margin-top: 8px;
+}
+
+.shop-page__cta {
+  justify-self: start;
+  margin-top: 8px;
+}
+
+.shop-checkout {
+  display: grid;
+  gap: 8px;
+}
+
+.shop-checkout__message {
+  margin: 0;
+  max-width: 40ch;
+}
+
+.employer-shell__org-bar {
+  border-bottom: 1px solid var(--dash-border);
+  background: var(--dash-surface);
+  padding: 10px 0;
+}
+
+.employer-shell__org-name {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.org-dashboard {
+  margin-top: 28px;
+  display: grid;
+  gap: 20px;
+}
+
+.org-dashboard__sample {
+  max-width: 52ch;
+}
+
+.org-dashboard__hero {
+  padding: 32px;
+  display: grid;
+  gap: 8px;
+}
+
+.org-dashboard__savings {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 6vw, 56px);
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.05;
+}
+
+.org-dashboard__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.org-dashboard__stat {
+  padding: 24px;
+}
+
+.org-dashboard__privacy,
+.org-dashboard__invite {
+  padding: 28px;
+  display: grid;
+  gap: 12px;
+}
+
+.org-dashboard__invite-code {
+  font-family: var(--font-mono);
+  font-size: 21px;
+  letter-spacing: 0.08em;
+  margin: 0;
+  color: var(--eggplant);
+}
+
+.org-dashboard__message {
+  margin: 0;
+}
+
+.org-join {
+  margin-top: 24px;
+  padding: 28px;
+  display: grid;
+  gap: 16px;
+  max-width: 480px;
+}
+
+.org-join__field {
+  display: grid;
+  gap: 8px;
+}
+
+.org-join__input {
+  font-family: var(--font-body);
+  font-size: 17px;
+  padding: 12px 14px;
+  border: 1.5px solid var(--dash-border);
+  border-radius: 8px;
+  background: var(--dash-page);
+  color: var(--dash-ink);
+}
+
+.org-join__message {
+  margin: 0;
+}
+
+.chronobiobank-page__lede {
+  max-width: 52ch;
+  margin-top: 12px;
+}
+
+.chronobiobank-page__blocks {
+  margin-top: 28px;
+  display: grid;
+  gap: 16px;
+}
+
+.chronobiobank-page__block {
+  padding: 28px;
+  display: grid;
+  gap: 10px;
+}
+
+.chronobiobank-optin {
+  margin-top: 28px;
+  display: grid;
+  gap: 16px;
+  max-width: 520px;
+}
+
+.chronobiobank-optin__status {
+  padding: 28px;
+  display: grid;
+  gap: 8px;
+}
+
+.chronobiobank-optin__message,
+.chronobiobank-optin__note {
+  margin: 0;
+  max-width: 48ch;
+}
+
+.kit-assign {
+  margin-top: 24px;
+  padding: 28px;
+  display: grid;
+  gap: 16px;
+}
+
+.kit-assign__title {
+  margin: 0;
+}
+
+.kit-assign__lede {
+  margin: 0;
+  max-width: 48ch;
+}
+
+.kit-assign__field {
+  display: grid;
+  gap: 8px;
+}
+
+.kit-assign__input {
+  font-family: var(--font-body);
+  font-size: 17px;
+  padding: 12px 14px;
+  border: 1.5px solid var(--dash-border);
+  border-radius: 8px;
+  background: var(--dash-page);
+  color: var(--dash-ink);
+}
+
+.kit-assign__message {
+  margin: 0;
+}
+
 .phos-dashboard__summary {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -3022,7 +3322,9 @@ a:hover { color: var(--photon); }
 
 @media (max-width: 720px) {
   .phos-dashboard__summary,
-  .phos-dashboard__grid {
+  .phos-dashboard__grid,
+  .shop-page__grid,
+  .org-dashboard__grid {
     grid-template-columns: 1fr;
   }
 

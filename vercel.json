@@ -1,9 +1,11 @@
 {
   "redirects": [
-    { "source": "/how-it-works", "destination": "/tiptraq", "permanent": true },
-    { "source": "/how-it-works/:path*", "destination": "/tiptraq", "permanent": true },
-    { "source": "/shop", "destination": "/", "permanent": true },
-    { "source": "/shop/:path*", "destination": "/", "permanent": true },
+    { "source": "/how-it-works", "destination": "/shop", "permanent": true },
+    { "source": "/how-it-works/:path*", "destination": "/shop", "permanent": true },
+    { "source": "/tiptraq", "destination": "/shop", "permanent": true },
+    { "source": "/tiptraq/:path*", "destination": "/shop", "permanent": true },
+    { "source": "/q", "destination": "/daily-cue", "permanent": true },
+    { "source": "/q/:path*", "destination": "/daily-cue", "permanent": true },
     { "source": "/pitch", "destination": "/", "permanent": true },
     { "source": "/pitch/:path*", "destination": "/", "permanent": true },
     { "source": "/evidence", "destination": "/loss-in-light-years", "permanent": true },
@@ -11,9 +13,6 @@
     { "source": "/science", "destination": "/research/photonic-age", "permanent": true },
     { "source": "/technology", "destination": "/research/photonic-age", "permanent": true },
     { "source": "/clinicians", "destination": "/contact", "permanent": true },
-    { "source": "/signin", "destination": "/", "permanent": false },
-    { "source": "/signup", "destination": "/contact", "permanent": false },
-    { "source": "/auth/:path*", "destination": "/", "permanent": false },
     { "source": "/model-your-firm", "destination": "/for-firms", "permanent": true },
     { "source": "/hibernation", "destination": "/contact", "permanent": true }
   ]

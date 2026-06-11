@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-import { calculateNightMLux } from '@/lib/mlux'
 import { resolvePatientTimeZone } from '@/lib/patient/timezone'
 import { createClient } from '@/lib/supabase/server'
 import {
@@ -8,19 +7,13 @@ import {
   getTipTraqUploadMaxBytes,
   mapEdfParseError,
 } from '@/lib/tiptraq/edf-parser'
-import {
-  logPostgrestError,
-  mapInsertError,
-  resolveReportDate,
-  summarizeDbValue,
-  toNightInput,
-} from '@/lib/tiptraq/extraction'
-import { syncMLuxProfileForPatient } from '@/lib/tiptraq/sync-mlux-profile'
+import { photonicCalibration } from '@/lib/tiptraq/sync-mlux-profile'
+import { processTipTraqNight } from '@/lib/tiptraq/process-night'
 
 export const maxDuration = 60
 export const dynamic = 'force-dynamic'
 
-/** EDF processing only — does not call Anthropic (ANTHROPIC_API_KEY not required). */
+/** Dev/MVP self-upload path. Production ingest uses POST /api/ingest/tiptraq. */
 function jsonResponse(body: Record<string, unknown>, status = 200) {
   return NextResponse.json(body, {
     status,
@@ -143,159 +136,25 @@ export async function POST(request: NextRequest) {
       return errorResponse(mapEdfParseError(message), 422)
     }
 
-    const reportDate = resolveReportDate(extracted)
-    const nightInput = toNightInput(extracted)
-    const dlmoResult = calculateNightMLux(nightInput)
-
-    const insertRow = {
-      patient_id: user.id,
-      report_date: reportDate,
-      pdf_path: storagePath,
-      recording_start: extracted.recording_start,
-      recording_end: extracted.recording_end,
-      trt_minutes: extracted.trt_minutes,
-      signal_quality_pct: extracted.signal_quality_pct,
-      sleep_onset: extracted.sleep_onset,
-      sleep_offset: extracted.sleep_offset,
-      sleep_latency_minutes: extracted.sleep_latency_minutes,
-      tst_minutes: extracted.tst_minutes,
-      waso_minutes: extracted.waso_minutes,
-      sleep_efficiency_pct: extracted.sleep_efficiency_pct,
-      rem_duration_minutes: extracted.rem_duration_minutes,
-      rem_pct_tst: extracted.rem_pct_tst,
-      nrem_duration_minutes: extracted.nrem_duration_minutes,
-      first_rem_onset: extracted.first_rem_onset,
-      ahi: extracted.ahi,
-      ahi_severity: extracted.ahi_severity,
-      rdi: extracted.rdi,
-      odi_3pct: extracted.odi_3pct,
-      odi_4pct: extracted.odi_4pct,
-      t90_pct: extracted.t90_pct,
-      min_spo2: extracted.min_spo2,
-      mean_spo2: extracted.mean_spo2,
-      hypoxic_burden: extracted.hypoxic_burden,
-      event_count: extracted.event_count,
-      mean_pr: extracted.mean_pr,
-      min_pr: extracted.min_pr,
-      max_pr: extracted.max_pr,
-      sns_pct: extracted.sns_pct,
-      pns_pct: extracted.pns_pct,
-      snoring_minutes: extracted.snoring_minutes,
-      algorithm_version: extracted.algorithm_version,
-      mlux_phase_time: dlmoResult.proxy_dlmo_time,
-      mlux_phase_minutes: dlmoResult.proxy_dlmo_minutes,
-      dlmo_baseline_estimate: dlmoResult.baseline_estimate,
-      dlmo_rem_correction_min: dlmoResult.rem_correction_min,
-      dlmo_ans_correction_min: dlmoResult.ans_correction_min,
-      dlmo_ahi_modifier_min: dlmoResult.ahi_modifier_min,
-      confidence_score: dlmoResult.confidence_score,
-      confidence_band_minutes: dlmoResult.confidence_band_minutes,
-      confidence_label: dlmoResult.confidence_label,
-      chronotype_signal: dlmoResult.chronotype_signal,
-      non_dipper_flag: dlmoResult.non_dipper_flag,
-      high_sympathetic_flag: dlmoResult.high_sympathetic_flag,
-      rem_delay_flag: dlmoResult.rem_delay_flag,
-      apnea_confound_flag: dlmoResult.apnea_confound_flag,
-      extraction_model: String(extracted.algorithm_version ?? 'edf-channel-v1'),
-    }
-
-    console.info('[TipTraQ] EDF parsed — inserting tiptraq_nights row', {
-      userId: user.id,
+    const result = await processTipTraqNight(supabase, user.id, extracted, {
       storagePath,
-      reportDate,
-      patientTimeZone,
-      edfType: extracted.algorithm_version,
-      channelCount: Array.isArray(extracted.edf_channels) ? extracted.edf_channels.length : null,
-      timeFields: {
-        recording_start: summarizeDbValue(insertRow.recording_start),
-        recording_end: summarizeDbValue(insertRow.recording_end),
-        sleep_onset: summarizeDbValue(insertRow.sleep_onset),
-        sleep_offset: summarizeDbValue(insertRow.sleep_offset),
-        first_rem_onset: summarizeDbValue(insertRow.first_rem_onset),
-        mlux_phase_time: summarizeDbValue(insertRow.mlux_phase_time),
-        dlmo_baseline_estimate: summarizeDbValue(insertRow.dlmo_baseline_estimate),
-      },
-      keyMetrics: {
-        tst_minutes: summarizeDbValue(insertRow.tst_minutes),
-        ahi: summarizeDbValue(insertRow.ahi),
-        rem_pct_tst: summarizeDbValue(insertRow.rem_pct_tst),
-        hypoxic_burden: summarizeDbValue(insertRow.hypoxic_burden),
-        confidence_score: summarizeDbValue(insertRow.confidence_score),
-      },
+      ingestSource: 'edf-self-upload',
     })
 
-    const { error: insertError } = await supabase.from('tiptraq_nights').insert(insertRow)
-
-    if (insertError) {
-      logPostgrestError('tiptraq_nights insert failed', insertError, {
-        userId: user.id,
-        reportDate,
-        storagePath,
-        mappedClientMessage: mapInsertError(insertError.message),
-        invalidFields: Object.fromEntries(
-          Object.entries(insertRow).map(([key, value]) => [key, summarizeDbValue(value)])
-        ),
-      })
-      return errorResponse(mapInsertError(insertError.message), 500)
-    }
-
-    console.info('[TipTraQ] tiptraq_nights insert succeeded', {
-      userId: user.id,
-      reportDate,
-      storagePath,
-    })
-
-    const { error: syncError, rolling, calibration } = await syncMLuxProfileForPatient(
-      supabase,
-      user.id,
-    )
-
-    if (syncError || !rolling) {
-      console.error('[TipTraQ] MLux profile sync failed after insert', {
-        userId: user.id,
-        reportDate,
-        syncError,
-      })
-      return errorResponse(syncError ?? 'Failed to update body clock profile', 500)
+    if (!result.success) {
+      return errorResponse(result.error ?? 'Failed to process night', 500)
     }
 
     return jsonResponse({
       success: true,
       night: {
-        date: reportDate,
-        dlmo_time: dlmoResult.proxy_dlmo_time,
-        confidence_score: dlmoResult.confidence_score,
-        confidence_label: dlmoResult.confidence_label,
-        confidence_band_minutes: dlmoResult.confidence_band_minutes,
-        chronotype_signal: dlmoResult.chronotype_signal,
-        flags: {
-          non_dipper: dlmoResult.non_dipper_flag,
-          high_sympathetic: dlmoResult.high_sympathetic_flag,
-          rem_delay: dlmoResult.rem_delay_flag,
-          apnea_confound: dlmoResult.apnea_confound_flag,
-        },
+        date: result.reportDate,
+        confidence_score: result.rolling?.confidence_score,
+        confidence_label: result.rolling?.confidence_label,
+        confidence_band_minutes: result.rolling?.confidence_band_minutes,
       },
-      rolling: {
-        nights_count: rolling.nights_count,
-        dlmo_time: rolling.proxy_dlmo_time,
-        confidence_score: rolling.confidence_score,
-        confidence_label: rolling.confidence_label,
-        confidence_band_minutes: rolling.confidence_band_minutes,
-        chronotype: rolling.chronotype,
-        dose_windows: {
-          simvastatin: rolling.simvastatin_optimal,
-          ramipril: rolling.ramipril_optimal,
-          prednisolone: rolling.prednisolone_optimal,
-          salmeterol: rolling.salmeterol_optimal,
-          light_start: rolling.light_window_start,
-          light_end: rolling.light_window_end,
-        },
-      },
-      calibration: {
-        gate: calibration.gate,
-        displayLabel: calibration.displayLabel,
-        nightsRemaining: calibration.nightsRemaining,
-      },
+      rolling: result.rolling ?? null,
+      calibration: photonicCalibration(result.nightsCount ?? 0),
     })
   } catch (error) {
     console.error('TipTraQ EDF pipeline error:', error)

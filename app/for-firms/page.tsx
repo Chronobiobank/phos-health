@@ -24,7 +24,13 @@ export default function ForFirmsPage() {
           <CostCalculator />
 
           <div className="detail-page__actions">
-            <Link href="/contact" className="btn btn--primary">
+            <Link href="/org" className="btn btn--primary">
+              Employer dashboard →
+            </Link>
+            <Link href="/org/join" className="btn btn--outline">
+              Join with invite code
+            </Link>
+            <Link href="/contact" className="btn btn--outline">
               Book free demo →
             </Link>
             <Link href="/" className="btn btn--outline">

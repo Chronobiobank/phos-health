@@ -93,8 +93,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 03 · TipTraQ ── */}
-      <section id="tiptraq" className="fade-in tiptraq-panel snap-section" data-nav-theme="dark">
+      {/* ── 03 · Photonic Sleep Study ── */}
+      <section id="sleep-study" className="fade-in tiptraq-panel snap-section" data-nav-theme="dark">
         <img
           className="tiptraq-panel__image"
           src="/tiptraq/tiptraq.jpg"
@@ -108,12 +108,12 @@ export default function Home() {
           </h2>
 
           <p className="support" style={{ marginTop: '20px' }}>
-            TipTraQ maps lost light from three nights at home, not a lab.
+            Three nights at home. Your tightest Photonic Age band.
           </p>
 
           <div style={{ marginTop: '36px' }}>
-            <Link href="/dashboard" className="btn btn--primary">
-              View demo dashboard →
+            <Link href="/shop" className="btn btn--primary">
+              Photonic Sleep Study →
             </Link>
           </div>
         </div>
@@ -133,7 +133,10 @@ export default function Home() {
           <CostCalculator />
 
           <div style={{ marginTop: '36px' }}>
-            <Link href="/contact" className="btn btn--primary">
+            <Link href="/org" className="btn btn--primary">
+              Employer dashboard →
+            </Link>
+            <Link href="/contact" className="btn btn--outline" style={{ marginLeft: '12px' }}>
               Book free demo →
             </Link>
           </div>

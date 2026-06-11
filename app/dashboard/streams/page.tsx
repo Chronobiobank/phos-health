@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 
+import { KitAssignPanel } from '@/components/dashboard/KitAssignPanel'
 import { TipTraqNightList } from '@/components/dashboard/TipTraqNightList'
 import { TipTraqUploadPanel } from '@/components/dashboard/TipTraqUploadPanel'
 import { buildPhosSnapshot, isSupabaseConfigured } from '@/lib/phos/build-snapshot'
@@ -40,7 +41,9 @@ export default async function DashboardStreamsPage() {
     <section className="dashboard-page">
       <div className="container dashboard-page__content">
         <h1 className="section-title dashboard-page__title">Upload nights</h1>
-        <p className="support">Three nights at home. Results in 48 hours.</p>
+        <p className="support">Bind your kit serial for automated ingest, or use dev upload below.</p>
+
+        <KitAssignPanel />
 
         <TipTraqUploadPanel />
 

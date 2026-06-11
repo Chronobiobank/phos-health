@@ -1,18 +1,17 @@
-type CueStop = {
-  time: string
-  label: string
-  icon: 'anchor' | 'peak' | 'fuel' | 'dim'
-  active?: boolean
+import type { DailyCueStop } from '@/lib/phos/types'
+
+type DailyCueTimelineProps = {
+  stops?: DailyCueStop[]
 }
 
-const STOPS: CueStop[] = [
+const DEFAULT_STOPS: DailyCueStop[] = [
   { time: '08:30', label: 'Anchor', icon: 'anchor', active: true },
   { time: '15:00', label: 'Peak', icon: 'peak' },
   { time: '19:30', label: 'Fuel', icon: 'fuel' },
   { time: '21:30', label: 'Dim', icon: 'dim' },
 ]
 
-function CueIcon({ icon, active }: { icon: CueStop['icon']; active?: boolean }) {
+function CueIcon({ icon, active }: { icon: DailyCueStop['icon']; active?: boolean }) {
   const className = active ? 'daily-cue-timeline__icon daily-cue-timeline__icon--active' : 'daily-cue-timeline__icon'
 
   if (icon === 'anchor') {
@@ -58,14 +57,14 @@ function CueIcon({ icon, active }: { icon: CueStop['icon']; active?: boolean }) 
   )
 }
 
-export function DailyCueTimeline() {
+export function DailyCueTimeline({ stops = DEFAULT_STOPS }: DailyCueTimelineProps) {
   return (
-    <div className="daily-cue-timeline" aria-label="Daily cue schedule from 08:30 anchor to 21:30 dim.">
+    <div className="daily-cue-timeline" aria-label="Daily cue schedule from anchor to dim.">
       <div className="daily-cue-timeline__track" aria-hidden="true" />
       <ol className="daily-cue-timeline__stops">
-        {STOPS.map((stop) => (
+        {stops.map((stop) => (
           <li
-            key={stop.label}
+            key={`${stop.label}-${stop.time}`}
             className={`daily-cue-timeline__stop${stop.active ? ' daily-cue-timeline__stop--active' : ''}`}
           >
             <CueIcon icon={stop.icon} active={stop.active} />

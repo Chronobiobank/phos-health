@@ -9,7 +9,7 @@ import { createClient } from '@/lib/supabase/client'
 function SignInFields() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const next = searchParams.get('next') ?? '/dashboard/streams'
+  const next = searchParams.get('next') ?? '/onboarding'
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [mode, setMode] = useState<'signin' | 'signup'>('signin')

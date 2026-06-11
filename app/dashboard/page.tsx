@@ -7,7 +7,7 @@ import { createClient } from '@/lib/supabase/server'
 
 export const metadata: Metadata = {
   title: 'Dashboard · PHOS Circadian Health',
-  description: 'Photonic Age dashboard from three nights of TipTraQ data.',
+  description: 'Your Photonic Age, confidence band, and daily cues.',
 }
 
 export default async function DashboardPage() {
@@ -29,8 +29,10 @@ export default async function DashboardPage() {
         <h1 className="section-title dashboard-page__title">Your Photonic Age</h1>
         <p className="support dashboard-page__lede">
           {snapshot.isSample
-            ? 'Sample dashboard until TipTraQ nights are uploaded.'
-            : `${snapshot.nightsCount} nights processed.`}
+            ? 'Sample dashboard until you connect your health app.'
+            : snapshot.hasPhoneData
+              ? `Free tier score from synced sleep history.`
+              : `${snapshot.nightsCount} sleep study nights processed.`}
         </p>
         <PhosDashboardView snapshot={snapshot} />
       </div>

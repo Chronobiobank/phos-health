@@ -15,7 +15,9 @@ export function PhosDashboardView({ snapshot }: PhosDashboardViewProps) {
   return (
     <div className="phos-dashboard">
       {snapshot.isSample ? (
-        <p className="support phos-dashboard__sample-note">Showing sample data until TipTraQ nights are uploaded.</p>
+        <p className="support phos-dashboard__sample-note">
+          Sample dashboard until you connect your health app.
+        </p>
       ) : null}
 
       <div className="phos-dashboard__summary">
@@ -32,6 +34,14 @@ export function PhosDashboardView({ snapshot }: PhosDashboardViewProps) {
           <p className="dash-card__label">Lost light years</p>
         </div>
       </div>
+
+      {snapshot.confidenceScore != null ? (
+        <p className="support phos-dashboard__confidence">
+          {snapshot.confidenceLabel} confidence ({snapshot.confidenceScore}%)
+          {snapshot.confidenceBandMinutes != null ? ` · ±${snapshot.confidenceBandMinutes} min` : null}
+          {snapshot.tier === 'free' ? ' · Free tier' : null}
+        </p>
+      ) : null}
 
       <article className="pitch-tile dash-card dash-card--featured phos-dashboard__tile">
         <header className="pitch-tile__header">
@@ -55,7 +65,7 @@ export function PhosDashboardView({ snapshot }: PhosDashboardViewProps) {
                     strokeWidth="1.2"
                   />
                 </svg>
-                Sun window {snapshot.lightWindow.start} to {snapshot.lightWindow.end}
+                Light time {snapshot.lightWindow.start} to {snapshot.lightWindow.end}
               </p>
             ) : null}
           </div>
@@ -69,11 +79,15 @@ export function PhosDashboardView({ snapshot }: PhosDashboardViewProps) {
           <p className="dash-card__label">Lost light years</p>
         </div>
 
-        <DailyCueTimeline />
+        <DailyCueTimeline stops={snapshot.cueTimeline} />
 
         <div className="pitch-tile__advice">
-          <p className="dash-card__label pitch-tile__cue-type">Daily Cue: Anchor</p>
-          <p className="pitch-tile__advice-copy">Catch first light, before 08:30.</p>
+          <p className="dash-card__label pitch-tile__cue-type">
+            Daily Cue: {snapshot.dailyCueType ?? 'Anchor'}
+          </p>
+          <p className="pitch-tile__advice-copy">
+            {snapshot.dailyCueCopy ?? 'Catch first light, before 08:30.'}
+          </p>
         </div>
       </article>
 
@@ -88,13 +102,26 @@ export function PhosDashboardView({ snapshot }: PhosDashboardViewProps) {
       </div>
 
       <div className="phos-dashboard__actions">
-        {snapshot.canUpload ? (
-          <Link href="/dashboard/streams" className="btn btn--primary">
-            Upload TipTraQ nights →
+        {!snapshot.hasPhoneData && snapshot.canUpload ? (
+          <Link href={snapshot.onboardingPath} className="btn btn--primary">
+            Connect health app →
           </Link>
-        ) : (
-          <p className="support">Sign in and connect Supabase to enable live TipTraQ uploads.</p>
-        )}
+        ) : null}
+        {snapshot.canUpload && snapshot.tier !== 'premium' ? (
+          <Link href="/shop" className="btn btn--outline">
+            Upgrade measurement →
+          </Link>
+        ) : null}
+        {snapshot.canUpload ? (
+          <Link href="/daily-cue" className="btn btn--outline">
+            Open Daily Cue →
+          </Link>
+        ) : null}
+        {snapshot.canUpload && snapshot.tier === 'premium' ? (
+          <Link href="/dashboard/streams" className="btn btn--outline">
+            Sleep study uploads →
+          </Link>
+        ) : null}
         <Link href="/" className="btn btn--outline">
           Back to home
         </Link>

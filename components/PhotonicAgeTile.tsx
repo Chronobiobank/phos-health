@@ -14,8 +14,8 @@ type PhotonicAgeTileProps = {
 }
 
 export function PhotonicAgeTile({
-  ctaHref = '/tiptraq',
-  ctaLabel = 'How we measure it →',
+  ctaHref = '/shop',
+  ctaLabel = 'Tighten your band →',
   ctaOutside = true,
 }: PhotonicAgeTileProps) {
   const cta = (

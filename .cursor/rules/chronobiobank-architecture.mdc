@@ -1,0 +1,95 @@
+---
+description: PHOS Chronobiobank platform architecture, tier model, data ownership, routes, and build order
+alwaysApply: true
+---
+
+# PHOS Chronobiobank architecture
+
+Read before scaffolding routes, schema, or ingestion.
+
+## Two axes (never collapse)
+
+1. **Product ladder** (Free → Basic → Premium): money up for tighter Photonic Age confidence.
+2. **Chronobiobank commons** (Research): opt-in data contribution; licensing revenue funds Free tier.
+
+Research is NOT a paid tier. Same metric at every tier; confidence band narrows.
+
+## Tiers and SKUs
+
+| Tier | Input | Shop SKU |
+|------|-------|----------|
+| Free | Apple HealthKit / Google Health Connect | None |
+| Basic | City Labs blood panel (vitamin D + assay) | Photonic Panel |
+| Premium | TipTraQ 3-night sleep study | Photonic Sleep Study |
+
+Never sell vendor names in the shop. Labs and TipTraQ are fulfilment partners.
+
+## Photonic Age engine
+
+`Photonic Age = f(D1, D2, D3)` — always return score + confidence band + per-domain provenance.
+
+- **D1** phase alignment: Free = sleep midpoint (phone); Premium = TipTraQ proxy DLMO
+- **D2** social jet lag: phone sleep timing (all tiers)
+- **D3** personal light: Free = inferred; Basic = adjusted serum vitamin D
+
+Lost Light Years = Photonic Age − chronological age (4.2 baseline reference).
+Light Time = daily peak window; deliver as Daily Cue, not stored age.
+
+## Data ownership
+
+- **PHOS Operating Co**: app, dashboards, chatbot, billing, fulfilment
+- **Chronobiobank charity**: holds member data; licenses access not copies
+- Schema assumes member-level ownership and revocable typed consents
+
+## Five surfaces
+
+1. Consumer onboarding (Free entry): `/onboarding`
+2. Member dashboard: `/dashboard`
+3. Daily Cue: `/daily-cue`
+4. Employer aggregate: `/org` (no individual row access) — **implemented**
+5. Automated ingestion: `/api/ingest/*` (not manual upload in production)
+
+## Consents (three separate, revocable)
+
+- `service` — required to use PHOS
+- `employer_aggregate` — optional; cohort numbers only
+- `research_chronobiobank` — optional; never via employer invite
+
+## Core tables
+
+`organisations`, `members`, `consents`, `subscriptions`, `kits`, `kit_assignments`, `photonic_age_profiles`, `phone_observations`, `blood_panels`, `sleep_studies`, `cue_events`, `research_contributions`, `org_aggregates`
+
+RLS: employer roles read `org_aggregates` only. Research writes require active `research_chronobiobank` consent.
+
+## Routes (target)
+
+`/onboarding`, `/dashboard`, `/shop`, `/daily-cue`, `/chronobiobank`, `/org`, `/api/health/sync`, `/api/ingest/tiptraq`, `/api/ingest/labs`, `/api/shop/checkout`, `/api/chronobiobank/opt-in`, `/api/chronobiobank/revoke`
+
+## Ingestion (step 2, live)
+
+- `POST /api/ingest/tiptraq` — signed webhook (`TIPTRAQ_INGEST_WEBHOOK_SECRET`, header `x-phos-signature`)
+- Payload: `{ serial, report?, storage_path?, external_id? }` — structured `report` preferred over EDF
+- `POST /api/kits/assign` — member binds kit serial before reports arrive
+- `lib/tiptraq/process-night.ts` — shared insert + MLux + Premium tier recompute
+- `/api/tiptraq/extract` — dev self-upload only; not the production path
+
+Env: `TIPTRAQ_INGEST_WEBHOOK_SECRET`, `SUPABASE_SERVICE_ROLE_KEY`
+
+## Build order
+
+1. Free spine: health sync → engine → dashboard → Daily Cue
+2. Ingestion: webhook + serial↔member (extend DIOS TipTraQ pipeline) — **implemented**
+3. Shop + fulfilment — **implemented** (`POST /api/shop/checkout`, kit assign at purchase, `fulfilment_events` → orders@phos.org.uk)
+4. Employer tenancy + aggregates — **implemented** (`/org`, `org_aggregates`, `/api/org/join`, aggregate-only RLS)
+5. Chronobiobank opt-in — **implemented** (`/chronobiobank`, `research_contributions`, `/api/chronobiobank/opt-in`, `/api/chronobiobank/revoke`)
+
+## UI copy rules (consumer surfaces)
+
+Plain language only: "body clock", "daylight", "wind down". No "circadian", "DLMO", "melatonin" in UI.
+Wordmark: PHʘS (U+0298) in `Wordmark` only. Elsewhere: PHOS.
+
+## Code conventions
+
+- Use `members` not `patients` in new schema and code
+- Confidence band is first-class: store, display, never footnote
+- Premium TipTraQ path extends existing `lib/mlux.ts` + `lib/tiptraq/*`; do not rebuild

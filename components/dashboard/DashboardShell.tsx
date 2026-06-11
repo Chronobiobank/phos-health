@@ -19,8 +19,20 @@ export function DashboardShell({ children, signedIn }: DashboardShellProps) {
             <Link href="/dashboard" className="dashboard-shell__link">
               Overview
             </Link>
-            <Link href="/dashboard/streams" className="dashboard-shell__link">
-              Upload nights
+            <Link href="/onboarding" className="dashboard-shell__link">
+              Connect
+            </Link>
+            <Link href="/daily-cue" className="dashboard-shell__link">
+              Daily Cue
+            </Link>
+            <Link href="/shop" className="dashboard-shell__link">
+              Shop
+            </Link>
+            <Link href="/chronobiobank" className="dashboard-shell__link">
+              Chronobiobank
+            </Link>
+            <Link href="/org/join" className="dashboard-shell__link">
+              Firm join
             </Link>
             {signedIn ? (
               <form action="/auth/signout" method="post">

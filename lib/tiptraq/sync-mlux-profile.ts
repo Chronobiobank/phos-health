@@ -1,8 +1,6 @@
 import { calculateRollingMLux, type MLuxResult, type RollingMLux } from '@/lib/mlux'
 import { mapFetchError, mapProfileUpsertError } from '@/lib/tiptraq/extraction'
-import type { createClient } from '@/lib/supabase/server'
-
-type SupabaseServerClient = Awaited<ReturnType<typeof createClient>>
+import type { SupabaseClient } from '@supabase/supabase-js'
 
 type NightSummaryRow = {
   mlux_phase_minutes: number | null
@@ -64,7 +62,7 @@ export function photonicCalibration(nightsCount: number): PhotonicCalibration {
 }
 
 export async function syncMLuxProfileForPatient(
-  supabase: SupabaseServerClient,
+  supabase: SupabaseClient,
   patientId: string,
 ): Promise<{ error: string | null; rolling: RollingMLux | null; calibration: PhotonicCalibration }> {
   const { data: allNights, error: fetchError } = await supabase

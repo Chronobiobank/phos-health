@@ -127,7 +127,7 @@ export default function PhotonicAgePaper() {
           <p className="section-number">02</p>
           <h2 className="section-title">Worked example</h2>
 
-          <PhotonicAgeTile ctaHref="/tiptraq" ctaLabel="How we measure it →" />
+          <PhotonicAgeTile ctaHref="/shop" ctaLabel="Tighten your band →" />
         </div>
       </section>
 
