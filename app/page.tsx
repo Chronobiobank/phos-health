@@ -43,9 +43,9 @@ export default function Home() {
         </video>
         <div className="hero__veil" aria-hidden="true" />
         <div className="container hero__content">
-          <h1 className="display-xl">Your light outruns your birthday.</h1>
+          <h1 className="display-xl">Is light stealing years from you?</h1>
           <p className="lede">
-            Eighty eight thousand people proved light ages you past your passport.
+            Join eighty eight thousand who uncovered how light shifts their true age.
           </p>
           <div className="copy-actions">
             <Link href="#science" className="btn btn--outline">
@@ -85,9 +85,9 @@ export default function Home() {
       >
         <div className="container photonic-age-panel__content">
           <p className="section-number">02</p>
-          <h2 className="section-title">Photonic Age is your body clock age.</h2>
+          <h2 className="section-title">Reclaim the years light stole.</h2>
           <p className="lede">
-            Lost Light Years are the gap you can still close tonight.
+            Reset your body clock tonight. Those lost years can still be closed.
           </p>
         </div>
       </section>
@@ -96,9 +96,9 @@ export default function Home() {
       <section id="diagnostic" className="fade-in snap-section photonic-age-panel" data-nav-theme="light">
         <div className="container photonic-age-panel__content">
           <p className="section-number">03</p>
-          <h2 className="section-title">What is your number?</h2>
+          <h2 className="section-title">Ready for your Photonic Age?</h2>
           <p className="lede">
-            Seven questions, two minutes. Your protocol and Photonic Age follow.
+            Two minutes unlock your score and personalised protocol to follow.
           </p>
           <div className="copy-actions">
             <Link href="/score" className="btn btn--primary">
@@ -117,19 +117,19 @@ export default function Home() {
         <div className="hibernation-panel__veil" aria-hidden="true" />
         <div className="container hibernation-panel__content">
           <p className="section-number">04</p>
-          <h2 className="section-title">You own your data forever.</h2>
+          <h2 className="section-title">Your data, your control forever.</h2>
           <p className="lede">
-            Opt in after your score. Chronobiobank is charity held, never sold.
+            After your score, opt into Chronobiobank charity. Never sold to corporations.
           </p>
           <div className="fact-tiles">
             <article className="fact-tile">
-              <h3 className="fact-tile__head">Not feeding a corporate model.</h3>
+              <h3 className="fact-tile__head">Not for profit, for progress.</h3>
             </article>
             <article className="fact-tile">
-              <h3 className="fact-tile__head">Held in charitable trust for you.</h3>
+              <h3 className="fact-tile__head">Your data fuels research in trust.</h3>
             </article>
             <article className="fact-tile">
-              <h3 className="fact-tile__head">You are a founding contributor.</h3>
+              <h3 className="fact-tile__head">Founding members shape light health.</h3>
             </article>
           </div>
         </div>
