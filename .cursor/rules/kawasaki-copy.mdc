@@ -9,8 +9,10 @@ All marketing pages follow Guy Kawasaki density: big type, few words, one idea p
 
 ## Copy limits
 
-- Section opener: one `.lede` sentence, never a paragraph
-- Statement blocks: one `.display-md` claim + at most one `.support` line (max 15 words)
+- **Heads** (`.display-xl`, `.section-title`, `.display-md`, `.fact-tile__head`): **5 to 6 words**, one claim, no stacking two heads in one block
+- **Subs** (`.lede`, `.support`): **10 to 12 words**, one line only, never a second sub under the same head
+- **Buttons**: **3 to 5 words** plus arrow if needed
+- Each snap section: **one head + one sub** (+ fact-tiles or CTA only when the section needs proof or action)
 - No paragraph over 25 words on any landing page
 - Detail belongs in tables, figures, the calculator, or the white paper, never in prose
 - No em dashes, en dashes, or bullet points in copy
