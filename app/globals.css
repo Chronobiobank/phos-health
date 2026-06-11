@@ -983,6 +983,14 @@ a:hover { color: var(--photon); }
   color: rgba(255, 255, 255, 0.85);
 }
 
+.hero .lede {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.hero .support {
+  color: rgba(255, 255, 255, 0.85);
+}
+
 .hero .label {
   color: rgba(255, 255, 255, 0.72);
 }
@@ -1081,6 +1089,29 @@ a:hover { color: var(--photon); }
 
 .hibernation-panel .support {
   color: rgba(255, 255, 255, 0.85);
+}
+
+.hibernation-panel .display-md {
+  color: #ffffff;
+}
+
+.hibernation-panel .fact-tiles {
+  margin-top: var(--stack-lg);
+}
+
+.hibernation-panel .fact-tile__head {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.trust-line {
+  padding-top: 48px;
+  padding-bottom: 24px;
+}
+
+.trust-line__copy {
+  max-width: 44ch;
+  text-align: center;
+  margin: 0 auto;
 }
 
 /* ── COMMERCIAL CASE + MODEL — sections 04–05 ────────────── */
