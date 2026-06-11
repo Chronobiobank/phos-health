@@ -28,18 +28,35 @@ export function HashScroll() {
     const pathChanged = previousPath.current !== null && previousPath.current !== pathname
     previousPath.current = pathname
 
-    if (hash) {
-      scrollToHash()
-    } else if (pathChanged) {
-      if (pathname === '/') {
-        scrollToHome()
-      } else {
-        scrollToPageTop()
+    const run = () => {
+      if (hash) {
+        scrollToHash()
+        return
+      }
+      if (pathChanged) {
+        if (pathname === '/') {
+          scrollToHome()
+        } else {
+          scrollToPageTop()
+        }
       }
     }
 
+    run()
+    const timers = [
+      window.requestAnimationFrame(run),
+      window.setTimeout(run, 0),
+      window.setTimeout(run, 50),
+    ]
+
     window.addEventListener('hashchange', scrollToHash)
-    return () => window.removeEventListener('hashchange', scrollToHash)
+    return () => {
+      timers.forEach((id) => {
+        window.clearTimeout(id)
+        window.cancelAnimationFrame(id)
+      })
+      window.removeEventListener('hashchange', scrollToHash)
+    }
   }, [pathname])
 
   return null

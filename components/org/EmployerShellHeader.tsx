@@ -1,9 +1,9 @@
 'use client'
 
-import Link from 'next/link'
 import { useMemo, useRef } from 'react'
 
 import { CondensedNavMenu, type CondensedNavItem } from '@/components/CondensedNavMenu'
+import { HomeLink } from '@/components/HomeLink'
 import Wordmark from '@/components/Wordmark'
 
 type EmployerShellHeaderProps = {
@@ -18,7 +18,7 @@ export function EmployerShellHeader({ signedIn }: EmployerShellHeaderProps) {
       { kind: 'link', href: '/org', label: 'Cohort' },
       { kind: 'link', href: '/for-firms', label: 'Model' },
       { kind: 'link', href: '/dashboard', label: 'My profile' },
-      { kind: 'link', href: '/', label: 'Home' },
+      { kind: 'home', href: '/#hero', label: 'Home' },
     ]
 
     if (signedIn) {
@@ -33,9 +33,9 @@ export function EmployerShellHeader({ signedIn }: EmployerShellHeaderProps) {
   return (
     <header ref={barRef} className="dashboard-shell__bar">
       <div className="container dashboard-shell__inner">
-        <Link href="/org" className="dashboard-shell__logo" aria-label="PHOS employer dashboard">
+        <HomeLink className="dashboard-shell__logo" aria-label="PHOS home">
           <Wordmark />
-        </Link>
+        </HomeLink>
         <CondensedNavMenu
           items={items}
           measureRef={barRef}

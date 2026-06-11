@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 
 import { scrollToHome } from '@/lib/scroll-home'
 
@@ -21,18 +21,26 @@ export function HomeLink({
   children,
 }: HomeLinkProps) {
   const pathname = usePathname()
+  const router = useRouter()
+  const goesHome = href === '/#hero' || href === '/' || href.endsWith('#hero')
 
   return (
     <Link
-      href={href}
+      href={goesHome ? '/#hero' : href}
       aria-label={ariaLabel}
       className={className}
       onClick={(event) => {
         onNavigate?.()
+        if (!goesHome) return
+
         if (pathname === '/') {
           event.preventDefault()
           scrollToHome()
+          return
         }
+
+        event.preventDefault()
+        router.push('/#hero')
       }}
     >
       {children}
