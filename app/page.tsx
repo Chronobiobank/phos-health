@@ -45,7 +45,7 @@ export default function Home() {
         <div className="container hero__content">
           <h1 className="display-xl">Is light stealing years from you?</h1>
           <p className="lede">
-            Join eighty eight thousand who uncovered how light shifts their true age.
+            Join 88,000 who uncovered how light shifts their true age.
           </p>
           <div className="copy-actions">
             <Link href="#science" className="btn btn--outline">
