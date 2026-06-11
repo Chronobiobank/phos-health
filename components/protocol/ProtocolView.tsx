@@ -4,7 +4,11 @@ import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { Suspense, useEffect, useState } from 'react'
 
-import { loadAssessmentSession, type AssessmentSessionPayload } from '@/lib/assessments/session'
+import {
+  loadAssessmentSession,
+  saveAssessmentSession,
+  type AssessmentSessionPayload,
+} from '@/lib/assessments/session'
 
 const FOCUS_LABELS: Record<string, string> = {
   anchor: 'Anchor reset',
@@ -16,14 +20,62 @@ const FOCUS_LABELS: Record<string, string> = {
 function ProtocolContent() {
   const searchParams = useSearchParams()
   const [result, setResult] = useState<AssessmentSessionPayload | null>(null)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const session = loadAssessmentSession()
-    const id = searchParams.get('id')
-    if (session && (!id || session.assessmentId === id)) {
-      setResult(session)
+    let cancelled = false
+
+    async function loadProtocol() {
+      const id = searchParams.get('id')
+      const session = loadAssessmentSession()
+
+      if (session && (!id || session.assessmentId === id)) {
+        if (!cancelled) {
+          setResult(session)
+          setLoading(false)
+        }
+        return
+      }
+
+      if (!id) {
+        if (!cancelled) setLoading(false)
+        return
+      }
+
+      try {
+        const response = await fetch(`/api/assessments/${id}`)
+        if (!response.ok) {
+          if (!cancelled) setLoading(false)
+          return
+        }
+
+        const payload = (await response.json()) as AssessmentSessionPayload
+        if (!cancelled) {
+          saveAssessmentSession(payload)
+          setResult(payload)
+          setLoading(false)
+        }
+      } catch {
+        if (!cancelled) setLoading(false)
+      }
+    }
+
+    void loadProtocol()
+
+    return () => {
+      cancelled = true
     }
   }, [searchParams])
+
+  if (loading) {
+    return (
+      <div className="auth-page">
+        <div className="container auth-page__content">
+          <p className="support">Loading your protocol...</p>
+        </div>
+      </div>
+    )
+  }
 
   if (!result) {
     return (

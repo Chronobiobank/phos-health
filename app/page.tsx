@@ -36,6 +36,9 @@ export default function Home() {
           </h1>
 
           <p className="display-sm" style={{ marginTop: '24px', maxWidth: '44ch' }}>
+            Photonic Age is how old your body clock thinks you are.
+          </p>
+          <p className="display-sm" style={{ marginTop: '12px', maxWidth: '44ch' }}>
             88,000 people. 8 years. Three journals.
           </p>
           <p className="support" style={{ marginTop: '12px', maxWidth: '44ch' }}>
