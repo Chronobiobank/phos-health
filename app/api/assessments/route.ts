@@ -1,3 +1,5 @@
+import { randomUUID } from 'node:crypto'
+
 import { NextResponse } from 'next/server'
 
 import { buildAssessmentRow } from '@/lib/assessments/map-score'
@@ -74,15 +76,16 @@ export async function POST(request: Request) {
     consented_chronobiobank: Boolean(body.consented_chronobiobank),
   })
 
+  const assessmentId = randomUUID()
   const supabase = await createClient()
-  const { data, error } = await supabase.from('phos_assessments').insert(row).select('id').single()
+  const { error } = await supabase.from('phos_assessments').insert({ ...row, id: assessmentId })
 
   if (error) {
     return NextResponse.json({ error: 'Could not save assessment.' }, { status: 500 })
   }
 
   return NextResponse.json({
-    id: data.id,
+    id: assessmentId,
     photonicAge: score.photonicAge,
     calendarAge: score.calendarAge,
     lostLightYears: score.lostLightYears,
