@@ -64,8 +64,8 @@
   --page-inset-marketing: clamp(88px, 11vh, 120px);
 
   /* Card tiles */
-  --card-pad: 20px;
-  --card-stack: 8px;
+  --card-pad: 16px;
+  --card-stack: 6px;
 
   /* Copy block → button spacing only; never for tile interiors */
   --copy-action-gap: clamp(28px, 3.5vh, 40px);
@@ -2748,12 +2748,18 @@ a:hover { color: var(--photon); }
   margin-top: 0;
 }
 
-.dashboard-page .support {
+.dashboard-page__content > .support,
+.dashboard-page__content > :is(.section-title, .dashboard-page__title) + .support {
   margin-top: var(--stack-sm);
 }
 
-.dashboard-page__content > :is(.section-title, .dashboard-page__title) + .support {
-  margin-top: var(--stack-sm);
+.dashboard-page .dash-card .support,
+.dashboard-page .dash-card .dash-card__support {
+  margin-top: 0;
+}
+
+.dashboard-page .dash-card :is(.display-md, h2, h3) {
+  margin: 0;
 }
 
 
@@ -3010,6 +3016,7 @@ a:hover { color: var(--photon); }
   padding: var(--card-pad);
   display: grid;
   gap: var(--card-stack);
+  align-content: start;
 }
 
 .shop-page__price {
