@@ -45,7 +45,7 @@ export default function Home() {
         <div className="container hero__content">
           <h1 className="display-xl">Is light stealing your youth?</h1>
           <p className="lede">
-            88,000 people discovered how light controls your true age.
+            A recent UK Biobank study of 88,000 people showed light controls your true age.
           </p>
           <div className="copy-actions">
             <Link href="#science" className="btn btn--outline">

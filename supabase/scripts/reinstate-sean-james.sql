@@ -1,6 +1,6 @@
 -- Sean James account + 3 TipTraQ nights live in DIOS Supabase (dios-health).
 -- Email: s.james@tutamail.com — use repair-sean-james-dios.sql first.
--- PHOS is a separate project; run this file only in PHOS after migration.
+-- PHOS is a separate project; migrate with: node scripts/migrate-sean-dios-to-phos.mjs --apply
 
 -- ── 1) DIAGNOSTIC: find Sean's auth account ──────────────────────────────────
 select id, email, raw_user_meta_data->>'full_name' as full_name, created_at, deleted_at
