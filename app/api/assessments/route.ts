@@ -81,6 +81,7 @@ export async function POST(request: Request) {
   const { error } = await supabase.from('phos_assessments').insert({ ...row, id: assessmentId })
 
   if (error) {
+    console.error('phos_assessments insert failed', error.code, error.message)
     return NextResponse.json({ error: 'Could not save assessment.' }, { status: 500 })
   }
 
