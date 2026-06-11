@@ -43,13 +43,13 @@ export default function Home() {
         </video>
         <div className="hero__veil" aria-hidden="true" />
         <div className="container hero__content">
-          <h1 className="display-xl">Is light stealing years from you?</h1>
+          <h1 className="display-xl">Is light stealing your youth?</h1>
           <p className="lede">
-            Join 88,000 who uncovered how light shifts their true age.
+            88,000 people discovered how light controls your true age.
           </p>
           <div className="copy-actions">
             <Link href="#science" className="btn btn--outline">
-              See the proof ↓
+              See the proof
             </Link>
           </div>
         </div>
