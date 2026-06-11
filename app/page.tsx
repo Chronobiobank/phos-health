@@ -29,6 +29,17 @@ export default function Home() {
       <Nav />
 
       <section id="hero" className="fade-in hero snap-section" data-nav-theme="dark">
+        <video
+          className="hero__video"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          aria-hidden="true"
+        >
+          <source src="/first-light.mp4" type="video/mp4" />
+        </video>
         <div className="hero__veil" aria-hidden="true" />
         <div className="container hero__content">
           <h1 className="display-xl">Your light is ageing you.</h1>

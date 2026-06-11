@@ -70,6 +70,8 @@
   /* Copy block → button spacing only; never for tile interiors */
   --copy-action-gap: clamp(28px, 3.5vh, 40px);
   --copy-action-gap-tight: clamp(14px, 1.8vh, 18px);
+  /* Head (.display-xl, .section-title) → sub (.lede, .support) */
+  --head-sub-gap: clamp(36px, 5.5vh, 72px);
 
   /* Spacing law:
      --stack-*     vertical rhythm inside sections and tiles
@@ -615,6 +617,21 @@ a:hover { color: var(--photon); }
   max-width: 36ch;
 }
 
+/* Head → sub: one clear beat between claim and support line */
+.display-xl + :is(.lede, .support),
+.section-title + :is(.lede, .support),
+.display-md + :is(.lede, .support) {
+  margin-top: var(--head-sub-gap);
+}
+
+.section-title:has(+ :is(.lede, .support)) {
+  margin-bottom: 0;
+}
+
+.photonic-age-panel .section-title + :is(.lede, .support) {
+  margin-top: calc(var(--head-sub-gap) - clamp(16px, 2.5vh, 28px));
+}
+
 /* ── PULL QUOTE ──────────────────────────────────────────── */
 .pull-quote {
   margin: 40px 0;
@@ -904,6 +921,17 @@ a:hover { color: var(--photon); }
   background: var(--cosmos);
   color: var(--corona);
   border-color: var(--cosmos);
+}
+
+.hero .btn--outline {
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+.hero .btn--outline:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  border-color: #ffffff;
 }
 
 .btn--outline {
@@ -1237,7 +1265,7 @@ a:hover { color: var(--photon); }
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: clamp(28px, 4vh, 48px);
+  gap: clamp(16px, 2.5vh, 28px);
   padding-top: clamp(24px, 4vh, 48px);
   padding-bottom: clamp(24px, 4vh, 48px);
   width: 100%;
@@ -2256,6 +2284,10 @@ a:hover { color: var(--photon); }
     gap: clamp(20px, 3vh, 32px);
     padding-top: clamp(20px, 3vh, 32px);
     padding-bottom: clamp(20px, 3vh, 32px);
+  }
+
+  .photonic-age-panel .section-title + :is(.lede, .support) {
+    margin-top: calc(var(--head-sub-gap) - clamp(20px, 3vh, 32px));
   }
 
   .photonic-age-panel .section-number {
