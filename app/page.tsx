@@ -138,12 +138,6 @@ export default function Home() {
         </div>
       </section>
 
-      <div className="container trust-line">
-        <p className="support trust-line__copy">
-          Registered charity. Your light data held in trust, never sold.
-        </p>
-      </div>
-
       <Footer />
     </main>
   )
