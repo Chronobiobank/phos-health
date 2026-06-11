@@ -91,6 +91,11 @@ export default function Home() {
           <p className="lede">
             Reset your body clock tonight. Those lost years can still be closed.
           </p>
+          <div className="copy-actions">
+            <Link href="/auth/signin?next=/onboarding" className="btn btn--primary">
+              Sign up for free →
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -133,6 +138,11 @@ export default function Home() {
             <article className="fact-tile">
               <h3 className="fact-tile__head">Founding members shape light health.</h3>
             </article>
+          </div>
+          <div className="copy-actions">
+            <Link href="/chronobiobank" className="btn btn--primary">
+              Control your data, forever →
+            </Link>
           </div>
         </div>
       </section>
