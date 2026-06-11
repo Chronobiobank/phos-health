@@ -4,6 +4,7 @@ import { NextResponse } from 'next/server'
 
 import { buildAssessmentRow } from '@/lib/assessments/map-score'
 import { latitudeFromUkPostcode } from '@/lib/assessments/postcode'
+import { sessionFromAssessmentRow } from '@/lib/assessments/row-to-session'
 import { createAdminClient } from '@/lib/supabase/admin'
 
 export const dynamic = 'force-dynamic'
@@ -64,7 +65,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Enter a valid D3 dose in IU.' }, { status: 400 })
   }
 
-  const { score, ...row } = buildAssessmentRow({
+  const { score: _score, ...row } = buildAssessmentRow({
     chronological_age: age,
     postcode_lat: postcodeLat,
     sleep_time: body.sleep_time,
@@ -85,18 +86,18 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Could not save assessment.' }, { status: 500 })
   }
 
-  return NextResponse.json({
-    id: assessmentId,
-    photonicAge: score.photonicAge,
-    calendarAge: score.calendarAge,
-    lostLightYears: score.lostLightYears,
-    riskLevel: row.risk_level,
-    lightTimeStart: score.lightTime.start,
-    lightTimeEnd: score.lightTime.end,
-    protocolFocus: score.protocol.focus,
-    protocolHeadline: score.protocol.headline,
-    protocolSupport: score.protocol.support,
-    confidenceLabel: score.confidenceLabel,
-    domains: score.domains,
-  })
+  return NextResponse.json(
+    sessionFromAssessmentRow(assessmentId, {
+      chronological_age: row.chronological_age,
+      postcode_lat: row.postcode_lat,
+      sleep_time: row.sleep_time,
+      wake_time: row.wake_time,
+      screen_after_9pm: row.screen_after_9pm,
+      outdoor_hours: row.outdoor_hours,
+      current_d3: row.current_d3,
+      current_d3_dose: row.current_d3_dose,
+      risk_level: row.risk_level,
+      consented_chronobiobank: row.consented_chronobiobank,
+    }),
+  )
 }

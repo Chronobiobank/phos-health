@@ -3,9 +3,8 @@
 import { useRouter } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
 
-import { saveAssessmentSession } from '@/lib/assessments/session'
+import { saveAssessmentSession, type AssessmentSessionPayload } from '@/lib/assessments/session'
 import { scrollToPageTop } from '@/lib/scroll-home'
-import type { DomainResult } from '@/lib/phos/engine/types'
 
 type FormState = {
   chronological_age: string
@@ -112,44 +111,17 @@ export function ScoreFlow() {
         }),
       })
 
-      const payload = (await response.json()) as {
-        error?: string
-        id?: string
-        photonicAge?: number
-        calendarAge?: number
-        lostLightYears?: number
-        riskLevel?: 'low' | 'elevated' | 'high'
-        lightTimeStart?: string
-        lightTimeEnd?: string
-        protocolFocus?: string
-        protocolHeadline?: string
-        protocolSupport?: string
-        confidenceLabel?: string
-        domains?: DomainResult[]
-      }
+      const payload = (await response.json()) as AssessmentSessionPayload & { error?: string }
 
-      if (!response.ok || !payload.id) {
+      if (!response.ok || !payload.assessmentId) {
         setError(payload.error ?? 'Could not save your assessment.')
         setLoading(false)
         return
       }
 
-      saveAssessmentSession({
-        assessmentId: payload.id,
-        photonicAge: payload.photonicAge ?? 0,
-        calendarAge: payload.calendarAge ?? 0,
-        lostLightYears: payload.lostLightYears ?? 0,
-        riskLevel: payload.riskLevel ?? 'elevated',
-        lightTimeStart: payload.lightTimeStart ?? '08:00',
-        lightTimeEnd: payload.lightTimeEnd ?? '14:00',
-        protocolFocus: payload.protocolFocus ?? 'balanced',
-        protocolHeadline: payload.protocolHeadline ?? 'Hold your rhythm.',
-        protocolSupport: payload.protocolSupport ?? 'Keep morning light and a steady sleep window.',
-        confidenceLabel: payload.confidenceLabel ?? 'Wide',
-        domains: payload.domains ?? [],
-      })
+      saveAssessmentSession(payload)
 
-      router.push(`/protocol?id=${payload.id}`)
+      router.push(`/protocol?id=${payload.assessmentId}`)
     } catch {
       setError('Could not save your assessment.')
       setLoading(false)

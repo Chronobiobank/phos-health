@@ -148,8 +148,8 @@ function ProtocolContent() {
           <Link href="/score" className="btn btn--outline">
             Run again
           </Link>
-          <Link href="/shop" className="btn btn--primary">
-            View upgrades
+          <Link href="/shop#protocol" className="btn btn--primary">
+            Start your protocol →
           </Link>
         </div>
       </div>

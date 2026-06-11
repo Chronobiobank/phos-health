@@ -12,6 +12,7 @@ export type AssessmentDbRow = {
   current_d3: boolean
   current_d3_dose: number | null
   risk_level: string
+  consented_chronobiobank: boolean
 }
 
 function clockFromDbTime(value: string): string {
@@ -45,6 +46,12 @@ export function sessionFromAssessmentRow(id: string, row: AssessmentDbRow): Asse
     protocolHeadline: score.protocol.headline,
     protocolSupport: score.protocol.support,
     confidenceLabel: score.confidenceLabel,
+    confidenceScore: score.confidenceScore,
+    confidenceBandMinutes: score.confidenceBandMinutes,
+    dailyCueType: score.lightTime.cueType,
+    dailyCueCopy: score.lightTime.cueCopy,
+    cueTimeline: score.lightTime.timeline,
+    consentedChronobiobank: row.consented_chronobiobank,
     domains: score.domains,
   }
 }

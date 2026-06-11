@@ -1,5 +1,6 @@
-import type { DiagnosticScore } from '@/lib/phos/engine/diagnostic-types'
 import type { RiskLevel } from '@/lib/assessments/map-score'
+import type { DiagnosticScore } from '@/lib/phos/engine/diagnostic-types'
+import type { DailyCueStop } from '@/lib/phos/types'
 
 export const ASSESSMENT_SESSION_KEY = 'phos_assessment_result'
 
@@ -15,6 +16,12 @@ export type AssessmentSessionPayload = {
   protocolHeadline: string
   protocolSupport: string
   confidenceLabel: string
+  confidenceScore: number
+  confidenceBandMinutes: number
+  dailyCueType: string
+  dailyCueCopy: string
+  cueTimeline: DailyCueStop[]
+  consentedChronobiobank: boolean
   domains: DiagnosticScore['domains']
 }
 

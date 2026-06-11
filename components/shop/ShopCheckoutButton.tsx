@@ -3,17 +3,23 @@
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
-import { formatPrice, type ShopSkuId } from '@/lib/shop/catalog'
+import { formatPrice, getShopSku, type ShopSkuId } from '@/lib/shop/catalog'
 
 type ShopCheckoutButtonProps = {
   skuId: ShopSkuId
   pricePence: number
+  ctaLabel?: string
 }
 
-export function ShopCheckoutButton({ skuId, pricePence }: ShopCheckoutButtonProps) {
+export function ShopCheckoutButton({ skuId, pricePence, ctaLabel }: ShopCheckoutButtonProps) {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState<string | null>(null)
+  const sku = getShopSku(skuId)
+
+  const buttonLabel =
+    ctaLabel ??
+    (sku?.category === 'protocol' ? 'Start protocol →' : `Order ${formatPrice(pricePence)} →`)
 
   async function checkout() {
     setLoading(true)
@@ -49,7 +55,7 @@ export function ShopCheckoutButton({ skuId, pricePence }: ShopCheckoutButtonProp
   return (
     <div className="shop-checkout">
       <button type="button" className="btn btn--primary shop-page__cta" onClick={checkout} disabled={loading}>
-        {loading ? 'Processing…' : `Order ${formatPrice(pricePence)} →`}
+        {loading ? 'Processing…' : buttonLabel}
       </button>
       {message ? <p className="support shop-checkout__message">{message}</p> : null}
     </div>
