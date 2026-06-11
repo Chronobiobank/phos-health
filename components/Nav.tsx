@@ -23,12 +23,7 @@ export function Nav() {
   const [onDark, setOnDark] = useState(pathname === '/')
 
   const items = useMemo<CondensedNavItem[]>(
-    () =>
-      SITE_LINKS.map((link) =>
-        link.href === '/#hero'
-          ? { kind: 'home' as const, href: link.href, label: link.label }
-          : { kind: 'link' as const, href: link.href, label: link.label },
-      ),
+    () => SITE_LINKS.map((link) => ({ kind: 'link' as const, href: link.href, label: link.label })),
     [],
   )
 

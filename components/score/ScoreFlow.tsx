@@ -1,9 +1,10 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { saveAssessmentSession } from '@/lib/assessments/session'
+import { scrollToPageTop } from '@/lib/scroll-home'
 import type { DomainResult } from '@/lib/phos/engine/types'
 
 type FormState = {
@@ -40,6 +41,10 @@ export function ScoreFlow() {
   const [loading, setLoading] = useState(false)
 
   const progress = useMemo(() => Math.round((step / STEP_COUNT) * 100), [step])
+
+  useEffect(() => {
+    scrollToPageTop()
+  }, [step])
 
   function continueStep() {
     setError(null)
