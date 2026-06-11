@@ -1360,6 +1360,14 @@ a:hover { color: var(--photon); }
   width: 100%;
   background-color: var(--dash-surface);
   overflow: hidden;
+  container-type: inline-size;
+  container-name: pitch-tile;
+  /* Lost light years dial — scales with tile width (container query inline units) */
+  --pitch-dial-width: clamp(168px, 82cqi, 480px);
+  --pitch-dial-value: clamp(40px, 21cqi, 84px);
+  --pitch-dial-stroke: clamp(3px, 0.55cqi, 6px);
+  --pitch-dial-stroke-heavy: clamp(5px, 0.9cqi, 9px);
+  --pitch-dial-tick: clamp(8px, 2.2cqi, 12px);
 }
 
 .pitch-tile__header {
@@ -1411,30 +1419,31 @@ a:hover { color: var(--photon); }
 .pitch-tile__gauge {
   display: grid;
   justify-items: center;
-  gap: 8px;
-  padding: 8px 24px 16px;
+  gap: clamp(8px, 1.5cqi, 14px);
+  padding: clamp(8px, 2cqi, 16px) 24px clamp(12px, 2.5cqi, 20px);
   background: var(--dash-surface);
 }
 
 .pitch-tile .photon-dial--pitch {
-  width: min(100%, 260px);
+  width: var(--pitch-dial-width);
+  max-width: 100%;
 }
 
 .pitch-tile .photon-dial__track {
-  stroke-width: 4;
+  stroke-width: var(--pitch-dial-stroke);
 }
 
 .pitch-tile .photon-dial__lost,
 .pitch-tile .photon-dial__remaining {
-  stroke-width: 6;
+  stroke-width: var(--pitch-dial-stroke-heavy);
 }
 
 .pitch-tile .photon-dial__tick text {
-  font-size: 10px;
+  font-size: var(--pitch-dial-tick);
 }
 
 .pitch-tile .photon-dial__value {
-  font-size: 56px;
+  font-size: var(--pitch-dial-value);
 }
 
 .daily-cue-timeline {
@@ -2362,14 +2371,6 @@ a:hover { color: var(--photon); }
     padding: 0 16px 8px;
   }
 
-  .photonic-age-panel .loss-pitch-panel .photon-dial--pitch {
-    width: min(100%, 220px);
-  }
-
-  .photonic-age-panel .loss-pitch-panel .photon-dial__value {
-    font-size: 48px;
-  }
-
   .photonic-age-panel .daily-cue-timeline {
     padding: 12px 16px 8px;
   }
@@ -2752,6 +2753,36 @@ a:hover { color: var(--photon); }
   margin-top: var(--copy-action-gap);
 }
 
+/* Product surfaces — centre action rows and tile CTAs */
+.dashboard-page :is(
+  .copy-actions,
+  .dashboard-page__actions,
+  .phos-dashboard__actions,
+  .detail-page__actions
+) {
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.dashboard-page :is(
+  .dashboard-status-panels__cta,
+  .daily-cue-view__message > .daily-cue-view__cta,
+  .shop-page__cta,
+  .shop-checkout
+) {
+  justify-self: center;
+}
+
+.dashboard-page .daily-cue-view__shop-row {
+  justify-content: center;
+  text-align: center;
+}
+
+.dashboard-page .daily-cue-view__shop-copy {
+  text-align: center;
+}
+
 .biology-page__lede {
   margin-top: 16px;
   color: rgba(255, 255, 255, 0.88);
@@ -2834,6 +2865,8 @@ a:hover { color: var(--photon); }
 .dashboard-page {
   min-height: 100dvh;
   background: var(--dash-page);
+  --card-pad: clamp(20px, 4vw, 24px);
+  --card-stack: 8px;
 }
 
 .dashboard-page__content {
@@ -3083,14 +3116,10 @@ a:hover { color: var(--photon); }
   max-width: 48ch;
 }
 
-.daily-cue-view {
-  margin-top: var(--stack-lg);
-}
-
 .daily-cue-view__thread {
   display: grid;
-  gap: 16px;
-  max-width: 560px;
+  gap: var(--stack-md);
+  width: 100%;
 }
 
 .daily-cue-view__message {
@@ -3099,17 +3128,62 @@ a:hover { color: var(--photon); }
   gap: var(--card-stack);
 }
 
-.daily-cue-view__label {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--muted);
+.daily-cue-view__cta {
+  justify-self: start;
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
+.daily-cue-view__shop-rows {
+  display: grid;
+  gap: 0;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.daily-cue-view__shop-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 12px 0;
+  border-top: 1px solid var(--dash-border);
+}
+
+.daily-cue-view__shop-row:first-child {
+  border-top: none;
+  padding-top: 4px;
+}
+
+.daily-cue-view__shop-copy {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.daily-cue-view__shop-name {
+  font-family: var(--font-body);
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--dash-ink);
   margin: 0;
 }
 
-.daily-cue-view__cta {
-  justify-self: start;
+.daily-cue-view__shop-row .daily-cue-view__cta {
+  margin-top: 0;
+}
+
+/* Daily Cue page — match dashboard tile insets on all sides */
+.dashboard-page .daily-cue-view__message .daily-cue-timeline {
+  margin: 12px calc(-1 * var(--card-pad)) 0;
+  padding: 12px var(--card-pad) 8px;
+}
+
+.dashboard-page .daily-cue-view__message .daily-cue-timeline__track {
+  left: calc(var(--card-pad) + 8px);
+  right: calc(var(--card-pad) + 8px);
 }
 
 .shop-page__section + .shop-page__section {
@@ -3134,6 +3208,7 @@ a:hover { color: var(--photon); }
   display: grid;
   gap: var(--card-stack);
   align-content: start;
+  scroll-margin-top: calc(var(--shell-nav-height, 64px) + 16px);
 }
 
 .shop-page__price {
@@ -3156,6 +3231,7 @@ a:hover { color: var(--photon); }
 .shop-checkout {
   display: grid;
   gap: 8px;
+  justify-items: center;
 }
 
 .dashboard-status-panels {
@@ -3167,12 +3243,26 @@ a:hover { color: var(--photon); }
 
 .dashboard-status-panels__card {
   display: grid;
-  gap: var(--card-stack);
+  gap: var(--stack-sm);
   align-content: start;
+  padding: var(--card-pad);
+}
+
+.dashboard-status-panels__card .eyebrow {
+  margin-bottom: 0;
+}
+
+.dashboard-status-panels__card :is(.display-md, h2) {
+  margin: 0;
+}
+
+.dashboard-status-panels__card .support {
+  margin: 0;
+  max-width: none;
 }
 
 .dashboard-status-panels__cta {
-  justify-self: start;
+  justify-self: center;
   margin-top: 4px;
 }
 
@@ -3364,12 +3454,30 @@ a:hover { color: var(--photon); }
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--stack-md);
+  align-items: stretch;
 }
 
 .phos-dashboard__stat {
   padding: var(--card-pad);
   text-align: center;
   background: var(--dash-surface);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Summary row — one metric size, shared baseline band across all three tiles */
+.phos-dashboard__summary .dash-card__metric,
+.phos-dashboard__summary .dash-card__metric--lg,
+.phos-dashboard__summary .dash-card__metric--xl {
+  font-size: clamp(36px, 9vw, 48px);
+  line-height: 1;
+  min-height: 1.1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
 }
 
 .phos-dashboard__stat--accent .dash-card__metric {
@@ -3377,8 +3485,8 @@ a:hover { color: var(--photon); }
 }
 
 .phos-dashboard__tile {
-  max-width: 480px;
-  margin: 0 auto;
+  max-width: none;
+  margin: 0;
   width: 100%;
 }
 
@@ -3390,6 +3498,41 @@ a:hover { color: var(--photon); }
 
 .phos-dashboard__metric {
   padding: var(--card-pad);
+}
+
+/* Dashboard pitch tile — match page inset on all breakpoints */
+.dashboard-page .pitch-tile__header {
+  padding: var(--card-pad) var(--card-pad) 12px;
+}
+
+/* Dashboard hero tile — larger dial relative to full-width tile */
+.dashboard-page .phos-dashboard__tile.pitch-tile {
+  --pitch-dial-width: clamp(200px, 88cqi, 520px);
+  --pitch-dial-value: clamp(48px, 24cqi, 96px);
+  --pitch-dial-stroke: clamp(3.5px, 0.65cqi, 7px);
+  --pitch-dial-stroke-heavy: clamp(6px, 1.05cqi, 10px);
+  --pitch-dial-tick: clamp(9px, 2.5cqi, 13px);
+}
+
+.dashboard-page .pitch-tile__gauge {
+  padding: clamp(10px, 2.5cqi, 20px) var(--card-pad) clamp(14px, 3cqi, 24px);
+}
+
+.dashboard-page .daily-cue-timeline {
+  padding: 12px var(--card-pad) 8px;
+}
+
+.dashboard-page .daily-cue-timeline__track {
+  left: calc(var(--card-pad) + 8px);
+  right: calc(var(--card-pad) + 8px);
+}
+
+.dashboard-page .pitch-tile__advice {
+  padding: 12px var(--card-pad) var(--card-pad);
+}
+
+.dashboard-page .pitch-tile__footer {
+  padding: 0 var(--card-pad) var(--card-pad);
 }
 
 
@@ -3567,7 +3710,6 @@ a:hover { color: var(--photon); }
   .org-dashboard__grid {
     grid-template-columns: 1fr;
   }
-
 }
 
 /* ── COST CALCULATOR ─────────────────────────────────────── */

@@ -104,15 +104,15 @@ function ProtocolContent() {
 
         <div className="phos-dashboard__summary" style={{ marginTop: 'var(--stack-lg)' }}>
           <div className="phos-dashboard__stat dash-card">
-            <p className="dash-card__metric dash-card__metric--lg">{result.calendarAge}</p>
+            <p className="dash-card__metric">{result.calendarAge}</p>
             <p className="dash-card__label">Calendar age</p>
           </div>
           <div className="phos-dashboard__stat dash-card dash-card--featured">
-            <p className="dash-card__metric dash-card__metric--xl">{result.photonicAge}</p>
+            <p className="dash-card__metric">{result.photonicAge}</p>
             <p className="dash-card__label">Photonic age</p>
           </div>
           <div className="phos-dashboard__stat dash-card phos-dashboard__stat--accent">
-            <p className="dash-card__metric dash-card__metric--lg">{result.lostLightYears}</p>
+            <p className="dash-card__metric">{result.lostLightYears}</p>
             <p className="dash-card__label">Lost light years</p>
           </div>
         </div>

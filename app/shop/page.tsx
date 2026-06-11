@@ -22,7 +22,7 @@ export default function ShopPage() {
 
           <div className="shop-page__grid shop-page__grid--three">
             {SHOP_PROTOCOL_SKUS.map((sku) => (
-              <article key={sku.id} className="dash-card shop-page__card">
+              <article key={sku.id} id={sku.id} className="dash-card shop-page__card">
                 <h2 className="display-md">{sku.name}</h2>
                 <p className="support">{sku.summary}</p>
                 <p className="shop-page__price">{formatSkuPrice(sku)}</p>
@@ -36,7 +36,7 @@ export default function ShopPage() {
           </div>
         </section>
 
-        <section className="shop-page__section">
+        <section id="upgrades" className="shop-page__section">
           <p className="eyebrow">Upgrades</p>
           <h2 className="section-title">Tighten your confidence band</h2>
           <p className="support dashboard-page__lede">
@@ -45,7 +45,7 @@ export default function ShopPage() {
 
           <div className="shop-page__grid">
             {SHOP_UPGRADE_SKUS.map((sku) => (
-              <article key={sku.id} className="dash-card shop-page__card">
+              <article key={sku.id} id={sku.id} className="dash-card shop-page__card">
                 <p className="eyebrow">{sku.tierLabel}</p>
                 <h3 className="display-md">{sku.name}</h3>
                 <p className="shop-page__price">{formatSkuPrice(sku)}</p>

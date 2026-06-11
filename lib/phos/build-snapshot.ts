@@ -1,6 +1,11 @@
 import { TERRY_MOCK_SNAPSHOT } from '@/lib/phos/mock-snapshot'
 import type { DailyCueStop, PhosMetric, PhosSnapshot } from '@/lib/phos/types'
-import { photonicCalibration } from '@/lib/tiptraq/sync-mlux-profile'
+import { addMinutesToClock } from '@/lib/phos/engine/time'
+import {
+  adjustLightWindowForLocation,
+  dailyCueCopyForLightWindow,
+} from '@/lib/patient/light-window'
+import { memberLocationFromFields } from '@/lib/patient/member-location'
 import type { createClient } from '@/lib/supabase/server'
 
 type SupabaseServerClient = Awaited<ReturnType<typeof createClient>>
@@ -27,14 +32,26 @@ function buildCueTimeline(
   if (!start) return defaultCueTimeline()
 
   const anchor = start
-  const peak = end ?? '15:00'
+  const peak = end ?? addMinutesToClock(anchor, 390)
+  const fuel = addMinutesToClock(anchor, 660)
+  const dim = addMinutesToClock(anchor, 780)
 
   return [
     { time: anchor, label: cueType ?? 'Anchor', icon: 'anchor', active: true },
     { time: peak, label: 'Peak', icon: 'peak' },
-    { time: '19:30', label: 'Fuel', icon: 'fuel' },
-    { time: '21:30', label: 'Dim', icon: 'dim' },
+    { time: fuel, label: 'Fuel', icon: 'fuel' },
+    { time: dim, label: 'Dim', icon: 'dim' },
   ]
+}
+
+function locationAdjustedLightWindow(
+  start: string | null,
+  end: string | null,
+  timeZone: string,
+): { start: string | null; end: string | null } {
+  if (!start || !end) return { start, end }
+  const adjusted = adjustLightWindowForLocation(start, end, timeZone)
+  return { start: adjusted.start, end: adjusted.end }
 }
 
 async function buildFromPhotonicProfile(
@@ -43,7 +60,11 @@ async function buildFromPhotonicProfile(
   canUpload: boolean,
 ): Promise<PhosSnapshot | null> {
   const [{ data: member }, { data: profile }, { data: nights }] = await Promise.all([
-    supabase.from('members').select('full_name, date_of_birth').eq('id', userId).maybeSingle(),
+    supabase
+      .from('members')
+      .select('full_name, date_of_birth, location_city, location_country, latitude')
+      .eq('id', userId)
+      .maybeSingle(),
     supabase.from('photonic_age_profiles').select('*').eq('member_id', userId).maybeSingle(),
     supabase
       .from('tiptraq_nights')
@@ -53,6 +74,15 @@ async function buildFromPhotonicProfile(
   ])
 
   if (!profile) return null
+
+  const location = memberLocationFromFields({
+    locationCity: member?.location_city,
+    locationCountry: member?.location_country,
+    latitude: member?.latitude,
+  })
+  const lightStart = formatTime(profile.light_time_start)
+  const lightEnd = formatTime(profile.light_time_end)
+  const adjustedLight = locationAdjustedLightWindow(lightStart, lightEnd, location.timeZone)
 
   const metrics: PhosMetric[] = [
     {
@@ -99,17 +129,19 @@ async function buildFromPhotonicProfile(
     confidenceBandMinutes: profile.confidence_band_minutes,
     chronotype: null,
     lightWindow:
-      profile.light_time_start && profile.light_time_end
+      adjustedLight.start && adjustedLight.end
         ? {
-            start: formatTime(profile.light_time_start) ?? '',
-            end: formatTime(profile.light_time_end) ?? '',
+            start: adjustedLight.start,
+            end: adjustedLight.end,
           }
         : null,
     dailyCueType: profile.daily_cue_type,
-    dailyCueCopy: profile.daily_cue_copy,
+    dailyCueCopy: adjustedLight.start
+      ? dailyCueCopyForLightWindow(adjustedLight.start)
+      : profile.daily_cue_copy,
     cueTimeline: buildCueTimeline(
-      formatTime(profile.light_time_start),
-      formatTime(profile.light_time_end),
+      adjustedLight.start,
+      adjustedLight.end,
       profile.daily_cue_type,
     ),
     metrics,
@@ -133,26 +165,47 @@ async function buildFromTipTraq(
   userId: string,
   canUpload: boolean,
 ): Promise<PhosSnapshot | null> {
-  const [{ data: profile }, { data: patient }, { data: mlux }, { data: nights }] = await Promise.all([
-    supabase.from('profiles').select('full_name').eq('id', userId).maybeSingle(),
-    supabase
-      .from('patient_profiles')
-      .select('date_of_birth, location_city')
-      .eq('id', userId)
-      .maybeSingle(),
-    supabase.from('mlux_profiles').select('*').eq('patient_id', userId).maybeSingle(),
-    supabase
-      .from('tiptraq_nights')
-      .select('id, report_date, sleep_efficiency_pct, tst_minutes, waso_minutes, mlux_phase_time')
-      .eq('patient_id', userId)
-      .order('report_date', { ascending: false }),
-  ])
+  const [{ data: profile }, { data: patient }, { data: member }, { data: mlux }, nightsResult }] =
+    await Promise.all([
+      supabase.from('profiles').select('full_name').eq('id', userId).maybeSingle(),
+      supabase
+        .from('patient_profiles')
+        .select('date_of_birth, location_city, location_country')
+        .eq('id', userId)
+        .maybeSingle(),
+      supabase
+        .from('members')
+        .select('full_name, date_of_birth, location_city, location_country')
+        .eq('id', userId)
+        .maybeSingle(),
+      supabase.from('mlux_profiles').select('*').eq('patient_id', userId).maybeSingle(),
+      supabase
+        .from('tiptraq_nights')
+        .select('id, report_date, sleep_efficiency_pct, tst_minutes, waso_minutes, mlux_phase_time')
+        .eq('patient_id', userId)
+        .order('report_date', { ascending: false }),
+    ])
+
+  const { data: nights, error: nightsError } = nightsResult
+  if (nightsError) {
+    console.error('[buildPhosSnapshot] tiptraq_nights:', nightsError.message)
+    return null
+  }
 
   if (!nights?.length) return null
 
-  const calendarAge = patient?.date_of_birth
+  const location = memberLocationFromFields({
+    locationCity: patient?.location_city ?? member?.location_city,
+    locationCountry: patient?.location_country ?? member?.location_country,
+  })
+  const rawLightStart = formatTime(mlux?.light_dose_window_start)
+  const rawLightEnd = formatTime(mlux?.light_dose_window_end)
+  const adjustedLight = locationAdjustedLightWindow(rawLightStart, rawLightEnd, location.timeZone)
+
+  const calendarAge = patient?.date_of_birth ?? member?.date_of_birth
     ? Math.floor(
-        (Date.now() - new Date(patient.date_of_birth).getTime()) / (365.25 * 24 * 60 * 60 * 1000),
+        (Date.now() - new Date((patient?.date_of_birth ?? member?.date_of_birth) as string).getTime()) /
+          (365.25 * 24 * 60 * 60 * 1000),
       )
     : TERRY_MOCK_SNAPSHOT.calendarAge
 
@@ -164,7 +217,6 @@ async function buildFromTipTraq(
   )
   const lostLightYears = TERRY_MOCK_SNAPSHOT.lostLightYears
   const photonicAge = Math.round((calendarAge + lostLightYears) * 10) / 10
-  const calibration = photonicCalibration(mlux?.nights_count ?? nights.length)
 
   const metrics: PhosMetric[] = [
     {
@@ -182,28 +234,11 @@ async function buildFromTipTraq(
       value: formatTime(mlux?.mlux_phase_time) ?? 'Pending',
       note: mlux?.chronotype ?? 'Calibrating',
     },
-    {
-      label: 'Confidence',
-      value: mlux?.confidence_score != null ? `${mlux.confidence_score}%` : 'Pending',
-      note: mlux?.confidence_label ?? calibration.displayLabel,
-    },
-    {
-      label: 'Sun window',
-      value:
-        mlux?.light_dose_window_start && mlux?.light_dose_window_end
-          ? `${formatTime(mlux.light_dose_window_start)} to ${formatTime(mlux.light_dose_window_end)}`
-          : 'Pending',
-      note: 'Outdoor light window',
-    },
-    {
-      label: 'Nights uploaded',
-      value: String(nights.length),
-      note: calibration.displayLabel,
-    },
   ]
 
   return {
-    subjectName: profile?.full_name?.split(' ')[0] ?? 'You',
+    subjectName:
+      profile?.full_name?.split(' ')[0] ?? member?.full_name?.split(' ')[0] ?? 'You',
     calendarAge,
     photonicAge,
     lostLightYears,
@@ -214,21 +249,17 @@ async function buildFromTipTraq(
     confidenceBandMinutes: mlux?.confidence_band_minutes ?? null,
     chronotype: mlux?.chronotype ?? null,
     lightWindow:
-      mlux?.light_dose_window_start && mlux?.light_dose_window_end
+      adjustedLight.start && adjustedLight.end
         ? {
-            start: formatTime(mlux.light_dose_window_start) ?? '',
-            end: formatTime(mlux.light_dose_window_end) ?? '',
+            start: adjustedLight.start,
+            end: adjustedLight.end,
           }
         : null,
     dailyCueType: 'Anchor',
-    dailyCueCopy: mlux?.light_dose_window_start
-      ? `Catch first light, before ${formatTime(mlux.light_dose_window_start)}.`
+    dailyCueCopy: adjustedLight.start
+      ? dailyCueCopyForLightWindow(adjustedLight.start)
       : 'Catch first light, before 08:30.',
-    cueTimeline: buildCueTimeline(
-      formatTime(mlux?.light_dose_window_start),
-      formatTime(mlux?.light_dose_window_end),
-      'Anchor',
-    ),
+    cueTimeline: buildCueTimeline(adjustedLight.start, adjustedLight.end, 'Anchor'),
     metrics,
     nights: nights.map((night) => ({
       id: night.id,
@@ -253,18 +284,19 @@ export async function buildPhosSnapshot(
     return { ...TERRY_MOCK_SNAPSHOT, canUpload }
   }
 
-  try {
-    const fromProfile = await buildFromPhotonicProfile(supabase, userId, canUpload)
-    if (fromProfile) return fromProfile
-  } catch {
-    // Migration 002 not applied yet; fall through to TipTraQ path.
-  }
-
+  // TipTraQ nights take precedence — sleep study dashboard, not phone diagnostic tiles.
   try {
     const fromTipTraq = await buildFromTipTraq(supabase, userId, canUpload)
     if (fromTipTraq) return fromTipTraq
   } catch {
     // Legacy tables unavailable.
+  }
+
+  try {
+    const fromProfile = await buildFromPhotonicProfile(supabase, userId, canUpload)
+    if (fromProfile) return fromProfile
+  } catch {
+    // Migration 002 not applied yet; fall through to mock.
   }
 
   return {

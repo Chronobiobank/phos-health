@@ -166,6 +166,7 @@ async function ensurePhosProfiles(phos, phosUserId, diosPatientProfile, dryRun) 
       date_of_birth: diosPatientProfile?.date_of_birth ?? SEAN.dateOfBirth,
       location_city: diosPatientProfile?.location_city ?? SEAN.locationCity,
       location_country: diosPatientProfile?.location_country ?? SEAN.locationCountry,
+      latitude: diosPatientProfile?.latitude ?? -36.85,
     },
   }
 

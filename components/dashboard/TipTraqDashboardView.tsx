@@ -8,22 +8,26 @@ type TipTraqDashboardViewProps = {
   snapshot: PhosSnapshot
 }
 
+/** Retired metric tiles — data lives in the hero tile or page lede instead. */
+const HIDDEN_DASHBOARD_METRICS = new Set(['Confidence', 'Sun window', 'Nights uploaded'])
+
 export function TipTraqDashboardView({ snapshot }: TipTraqDashboardViewProps) {
   const greeting = `Hey, ${snapshot.subjectName}`
+  const metrics = snapshot.metrics.filter((metric) => !HIDDEN_DASHBOARD_METRICS.has(metric.label))
 
   return (
     <div className="phos-dashboard">
       <div className="phos-dashboard__summary">
         <div className="phos-dashboard__stat dash-card">
-          <p className="dash-card__metric dash-card__metric--lg">{snapshot.calendarAge}</p>
+          <p className="dash-card__metric">{snapshot.calendarAge}</p>
           <p className="dash-card__label">Calendar age</p>
         </div>
         <div className="phos-dashboard__stat dash-card dash-card--featured">
-          <p className="dash-card__metric dash-card__metric--xl">{snapshot.photonicAge}</p>
+          <p className="dash-card__metric">{snapshot.photonicAge}</p>
           <p className="dash-card__label">Photonic age</p>
         </div>
         <div className="phos-dashboard__stat dash-card phos-dashboard__stat--accent">
-          <p className="dash-card__metric dash-card__metric--lg">{snapshot.lostLightYears}</p>
+          <p className="dash-card__metric">{snapshot.lostLightYears}</p>
           <p className="dash-card__label">Lost light years</p>
         </div>
       </div>
@@ -67,24 +71,24 @@ export function TipTraqDashboardView({ snapshot }: TipTraqDashboardViewProps) {
         <DailyCueTimeline stops={snapshot.cueTimeline} />
 
         <div className="pitch-tile__advice">
-          <p className="dash-card__label pitch-tile__cue-type">
-            Daily Cue: {snapshot.dailyCueType ?? 'Anchor'}
-          </p>
+          <p className="dash-card__label pitch-tile__cue-type">{snapshot.dailyCueType ?? 'Anchor'}</p>
           <p className="pitch-tile__advice-copy">
             {snapshot.dailyCueCopy ?? 'Catch first light, before 08:30.'}
           </p>
         </div>
       </article>
 
-      <div className="phos-dashboard__grid">
-        {snapshot.metrics.map((metric) => (
-          <div key={metric.label} className="phos-dashboard__metric dash-card">
-            <p className="dash-card__metric">{metric.value}</p>
-            <p className="dash-card__label">{metric.label}</p>
-            <p className="dash-card__support">{metric.note}</p>
-          </div>
-        ))}
-      </div>
+      {metrics.length > 0 ? (
+        <div className="phos-dashboard__grid">
+          {metrics.map((metric) => (
+            <div key={metric.label} className="phos-dashboard__metric dash-card">
+              <p className="dash-card__metric">{metric.value}</p>
+              <p className="dash-card__label">{metric.label}</p>
+              <p className="dash-card__support">{metric.note}</p>
+            </div>
+          ))}
+        </div>
+      ) : null}
 
       <div className="phos-dashboard__actions">
         {snapshot.canUpload ? (

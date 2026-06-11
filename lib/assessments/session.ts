@@ -29,6 +29,10 @@ export function saveAssessmentSession(payload: AssessmentSessionPayload): void {
   sessionStorage.setItem(ASSESSMENT_SESSION_KEY, JSON.stringify(payload))
 }
 
+export function clearAssessmentSession(): void {
+  sessionStorage.removeItem(ASSESSMENT_SESSION_KEY)
+}
+
 export function loadAssessmentSession(): AssessmentSessionPayload | null {
   const raw = sessionStorage.getItem(ASSESSMENT_SESSION_KEY)
   if (!raw) return null

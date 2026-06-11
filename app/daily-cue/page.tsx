@@ -10,7 +10,7 @@ export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'Daily Cue · PHOS',
-  description: 'Daily cues and Light Time for your body clock.',
+  description: 'Light Time and body clock prompts.',
 }
 
 export default async function DailyCuePage() {
@@ -33,8 +33,7 @@ export default async function DailyCuePage() {
     <section className="dashboard-page daily-cue-page">
       <div className="container dashboard-page__content">
         <p className="eyebrow">Daily Cue</p>
-        <h1 className="section-title dashboard-page__title">Your daily cues</h1>
-        <p className="support dashboard-page__lede">Light Time and prompts for today.</p>
+        <h1 className="section-title dashboard-page__title">Light Time for today</h1>
         <DailyCueCompanion snapshot={snapshot} />
       </div>
     </section>

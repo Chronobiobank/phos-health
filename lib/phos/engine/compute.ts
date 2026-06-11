@@ -12,6 +12,11 @@ import type {
   PhotonicAgeComputation,
   PremiumD1Input,
 } from '@/lib/phos/engine/types'
+import {
+  adjustLightWindowForLocation,
+  dailyCueCopyForLightWindow,
+} from '@/lib/patient/light-window'
+import { approximateEarliestOutdoorLightMinutes } from '@/lib/patient/timezone'
 
 const IDEAL_SLEEP_MIDPOINT_MINUTES = 3 * 60 + 30
 
@@ -52,9 +57,23 @@ function buildLightTimeCue(wakeTime: string | null): LightTimeCue {
   }
 }
 
+function winterLightPenalty(latitude: number, timeZone?: string): number {
+  const absLat = Math.abs(latitude)
+  let penalty = absLat > 55 ? 0.35 : absLat > 50 ? 0.3 : absLat > 45 ? 0.2 : absLat > 35 ? 0.15 : 0.1
+
+  if (timeZone && timeZone !== 'UTC') {
+    const sunriseMinutes = approximateEarliestOutdoorLightMinutes(timeZone)
+    if (sunriseMinutes >= 7 * 60 + 15) penalty += 0.05
+    if (sunriseMinutes >= 7 * 60 + 45) penalty += 0.05
+  }
+
+  return penalty
+}
+
 function computeFreeDomains(
   observations: PhoneObservation[],
   latitude = 51.5,
+  timeZone?: string,
 ): { domains: DomainResult[]; confidenceScore: number; confidenceBandMinutes: number } {
   const midpoint = averageSleepMidpoint(observations)
   const jetLag = socialJetLagMinutes(observations)
@@ -64,7 +83,7 @@ function computeFreeDomains(
     midpoint == null ? 1.5 : Math.abs(midpoint - IDEAL_SLEEP_MIDPOINT_MINUTES) / 60
   const d1Contribution = Math.min(2.8, phaseDeviationHours * 0.55)
   const d2Contribution = Math.min(1.8, jetLag / 45)
-  const winterPenalty = latitude > 50 ? 0.35 : 0.15
+  const winterPenalty = winterLightPenalty(latitude, timeZone)
   const activityPenalty = steps != null && steps < 6500 ? 0.45 : 0.15
   const d3Contribution = Math.min(1.6, winterPenalty + activityPenalty)
 
@@ -156,14 +175,15 @@ export function computePhotonicAge(input: {
   calendarAge: number
   observations: PhoneObservation[]
   latitude?: number
+  timeZone?: string
   premium?: PremiumD1Input | null
 }): PhotonicAgeComputation {
-  const { tier, calendarAge, observations, latitude = 51.5, premium } = input
+  const { tier, calendarAge, observations, latitude = 51.5, timeZone, premium } = input
 
   const usePremium = tier === 'premium' && premium?.mluxPhaseMinutes != null
   const { domains, confidenceScore, confidenceBandMinutes } = usePremium
     ? computePremiumDomains(premium!, observations)
-    : computeFreeDomains(observations, latitude)
+    : computeFreeDomains(observations, latitude, timeZone)
 
   const lostLightYears = round1(
     Math.min(
@@ -173,18 +193,28 @@ export function computePhotonicAge(input: {
   )
   const photonicAge = round1(calendarAge + lostLightYears)
   const wakeTime = averageWakeTime(observations)
-  const lightTime = usePremium && premium?.lightWindowStart && premium?.lightWindowEnd
-    ? {
-        start: premium.lightWindowStart.slice(0, 5),
-        end: premium.lightWindowEnd.slice(0, 5),
-        cueType: 'Anchor',
-        cueCopy: `Catch first light, before ${premium.lightWindowStart.slice(0, 5)}.`,
-        timeline: buildLightTimeCue(premium.lightWindowStart.slice(0, 5)).timeline.map((stop, index) => ({
-          ...stop,
-          active: index === 0,
-        })),
-      }
-    : buildLightTimeCue(wakeTime)
+  const lightTime =
+    usePremium && premium?.lightWindowStart && premium?.lightWindowEnd
+      ? (() => {
+          const rawStart = premium.lightWindowStart.slice(0, 5)
+          const rawEnd = premium.lightWindowEnd.slice(0, 5)
+          const adjusted =
+            timeZone && timeZone !== 'UTC'
+              ? adjustLightWindowForLocation(rawStart, rawEnd, timeZone)
+              : { start: rawStart, end: rawEnd }
+
+          return {
+            start: adjusted.start,
+            end: adjusted.end,
+            cueType: 'Anchor',
+            cueCopy: dailyCueCopyForLightWindow(adjusted.start),
+            timeline: buildLightTimeCue(adjusted.start).timeline.map((stop, index) => ({
+              ...stop,
+              active: index === 0,
+            })),
+          }
+        })()
+      : buildLightTimeCue(wakeTime)
 
   return {
     tier: usePremium ? 'premium' : tier,
@@ -199,6 +229,7 @@ export function computePhotonicAge(input: {
     provenance: {
       observationCount: observations.length,
       latitude,
+      timeZone: timeZone ?? null,
       premiumAttached: usePremium,
     },
   }

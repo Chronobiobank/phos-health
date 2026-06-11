@@ -7,6 +7,8 @@
 // van der Meijden et al. 2022,
 // Hannay & Moreno 2020
 
+import { adjustLightWindowForLocation } from '@/lib/patient/light-window'
+
 export interface TipTraQNight {
   sleep_onset: string // "HH:MM"
   sleep_offset: string // "HH:MM"
@@ -230,7 +232,10 @@ export function calculateNightMLux(night: TipTraQNight): MLuxResult {
 
 // Rolling average across multiple nights
 // Confidence grows with each night
-export function calculateRollingMLux(nights: MLuxResult[]): RollingMLux {
+export function calculateRollingMLux(
+  nights: MLuxResult[],
+  options?: { timeZone?: string },
+): RollingMLux {
   const n = nights.length
 
   // Weighted average — more recent nights
@@ -291,8 +296,14 @@ export function calculateRollingMLux(nights: MLuxResult[]): RollingMLux {
 
   // Light dose window: DLMO + 10h to DLMO + 12h
   // (morning entrainment around wake)
-  const lightStart = toTime(roundedDlmo + ZEITGEber_LIGHT_START_OFFSET)
-  const lightEnd = toTime(roundedDlmo + ZEITGEber_LIGHT_END_OFFSET)
+  let lightStart = toTime(roundedDlmo + ZEITGEber_LIGHT_START_OFFSET)
+  let lightEnd = toTime(roundedDlmo + ZEITGEber_LIGHT_END_OFFSET)
+
+  if (options?.timeZone) {
+    const adjusted = adjustLightWindowForLocation(lightStart, lightEnd, options.timeZone)
+    lightStart = adjusted.start
+    lightEnd = adjusted.end
+  }
 
   return {
     proxy_dlmo_time: dlmoTime,

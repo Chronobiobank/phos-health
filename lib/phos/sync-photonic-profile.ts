@@ -1,5 +1,6 @@
 import { computePhotonicAge } from '@/lib/phos/engine/compute'
 import type { MemberTier, PhoneObservation, PremiumD1Input } from '@/lib/phos/engine/types'
+import { memberLocationFromFields } from '@/lib/patient/member-location'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 function estimateCalendarAge(dateOfBirth: string | null | undefined, fallback = 35): number {
@@ -16,7 +17,6 @@ export async function ensureMemberRecord(
     {
       id: userId,
       full_name: fullName ?? null,
-      location_country: 'United Kingdom',
     },
     { onConflict: 'id' },
   )
@@ -73,7 +73,7 @@ export async function recomputePhotonicProfile(
   const [{ data: member }, { data: subscription }, { data: observations }, { data: mlux }] = await Promise.all([
     supabase
       .from('members')
-      .select('date_of_birth, latitude, full_name')
+      .select('date_of_birth, latitude, full_name, location_city, location_country')
       .eq('id', memberId)
       .maybeSingle(),
     supabase.from('subscriptions').select('tier').eq('member_id', memberId).maybeSingle(),
@@ -105,11 +105,18 @@ export async function recomputePhotonicProfile(
         }
       : null)
 
+  const location = memberLocationFromFields({
+    locationCity: member?.location_city,
+    locationCountry: member?.location_country,
+    latitude: member?.latitude,
+  })
+
   const computation = computePhotonicAge({
     tier,
     calendarAge: estimateCalendarAge(member?.date_of_birth),
     observations,
-    latitude: member?.latitude != null ? Number(member.latitude) : 51.5,
+    latitude: location.latitude,
+    timeZone: location.timeZone,
     premium,
   })
 

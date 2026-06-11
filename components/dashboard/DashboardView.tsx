@@ -8,13 +8,18 @@ import { AssessmentStatusPanels } from '@/components/dashboard/AssessmentStatusP
 import { PhosDashboardView } from '@/components/dashboard/PhosDashboardView'
 import { TipTraqDashboardView } from '@/components/dashboard/TipTraqDashboardView'
 import {
+  clearAssessmentSession,
   loadAssessmentSession,
   saveAssessmentSession,
   type AssessmentSessionPayload,
 } from '@/lib/assessments/session'
 import type { PhosSnapshot } from '@/lib/phos/types'
 
-type DashboardMode = 'assessment' | 'tiptraq' | 'empty'
+type DashboardMode = 'assessment' | 'tiptraq' | 'empty' | 'unauthenticated'
+
+function hasTipTraqSnapshot(snapshot: PhosSnapshot): boolean {
+  return !snapshot.isSample && snapshot.nightsCount > 0
+}
 
 function DashboardContent() {
   const searchParams = useSearchParams()
@@ -27,36 +32,24 @@ function DashboardContent() {
     let cancelled = false
 
     async function loadDashboard() {
-      const id = searchParams.get('id')
-
-      if (id) {
-        try {
-          const response = await fetch(`/api/assessments/${id}`)
-          if (!response.ok) {
-            if (!cancelled) setLoading(false)
-            return
-          }
-
-          const payload = (await response.json()) as AssessmentSessionPayload
-          if (!cancelled) {
-            saveAssessmentSession(payload)
-            setAssessment(payload)
-            setSnapshot(null)
-            setMode('assessment')
-            setLoading(false)
-          }
-        } catch {
-          if (!cancelled) setLoading(false)
-        }
-        return
-      }
+      const assessmentId = searchParams.get('id')
 
       try {
         const snapshotResponse = await fetch('/api/dashboard/snapshot')
+
+        if (snapshotResponse.status === 401) {
+          if (!cancelled) {
+            setMode('unauthenticated')
+            setLoading(false)
+          }
+          return
+        }
+
         if (snapshotResponse.ok) {
-          const tiptraqSnapshot = (await snapshotResponse.json()) as PhosSnapshot
-          if (!cancelled && !tiptraqSnapshot.isSample && tiptraqSnapshot.nightsCount > 0) {
-            setSnapshot(tiptraqSnapshot)
+          const liveSnapshot = (await snapshotResponse.json()) as PhosSnapshot
+          if (!cancelled && hasTipTraqSnapshot(liveSnapshot)) {
+            clearAssessmentSession()
+            setSnapshot(liveSnapshot)
             setAssessment(null)
             setMode('tiptraq')
             setLoading(false)
@@ -64,7 +57,27 @@ function DashboardContent() {
           }
         }
       } catch {
-        // Fall through to sessionStorage assessment.
+        // Fall through to assessment paths.
+      }
+
+      if (assessmentId) {
+        try {
+          const response = await fetch(`/api/assessments/${assessmentId}`)
+          if (response.ok) {
+            const payload = (await response.json()) as AssessmentSessionPayload
+            if (!cancelled) {
+              saveAssessmentSession(payload)
+              setAssessment(payload)
+              setSnapshot(null)
+              setMode('assessment')
+              setLoading(false)
+            }
+            return
+          }
+        } catch {
+          if (!cancelled) setLoading(false)
+          return
+        }
       }
 
       const session = loadAssessmentSession()
@@ -89,6 +102,20 @@ function DashboardContent() {
 
   if (loading) {
     return <p className="support">Loading your dashboard...</p>
+  }
+
+  if (mode === 'unauthenticated') {
+    return (
+      <>
+        <h1 className="section-title dashboard-page__title">Your Photonic Age</h1>
+        <p className="support dashboard-page__lede">Sign in to load your TipTraQ nights and score.</p>
+        <div className="copy-actions dashboard-page__actions">
+          <Link href="/auth/signin?next=/dashboard" className="btn btn--primary">
+            Sign in →
+          </Link>
+        </div>
+      </>
+    )
   }
 
   if (mode === 'empty') {

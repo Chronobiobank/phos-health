@@ -79,8 +79,9 @@ export function computeD3PersonalLight(input: {
   contribution: number
 } {
   const { latitude, eveningScreenHours, outdoorMinutesDaily } = input
+  const absLat = Math.abs(latitude)
 
-  const latitudePenalty = latitude > 55 ? 0.4 : latitude > 50 ? 0.35 : latitude > 45 ? 0.2 : 0.1
+  const latitudePenalty = absLat > 55 ? 0.4 : absLat > 50 ? 0.35 : absLat > 45 ? 0.2 : 0.1
 
   const clampedScreen = Math.max(0, Math.min(6, eveningScreenHours))
   const screenPenalty = Math.min(0.5, clampedScreen * 0.1)

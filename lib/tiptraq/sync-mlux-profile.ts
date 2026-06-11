@@ -1,4 +1,5 @@
 import { calculateRollingMLux, type MLuxResult, type RollingMLux } from '@/lib/mlux'
+import { loadMemberLocation } from '@/lib/patient/member-location'
 import { mapFetchError, mapProfileUpsertError } from '@/lib/tiptraq/extraction'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
@@ -105,7 +106,9 @@ export async function syncMLuxProfileForPatient(
     return { error: null, rolling: null, calibration: photonicCalibration(0) }
   }
 
-  const rolling = calculateRollingMLux(toRollingNightResults(allNights))
+  const rolling = calculateRollingMLux(toRollingNightResults(allNights), {
+    timeZone: (await loadMemberLocation(supabase, patientId)).timeZone,
+  })
 
   const { error: upsertError } = await supabase.from('mlux_profiles').upsert(
     {

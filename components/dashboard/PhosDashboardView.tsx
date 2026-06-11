@@ -20,15 +20,15 @@ export function PhosDashboardView({ assessment }: PhosDashboardViewProps) {
     <div className="phos-dashboard">
       <div className="phos-dashboard__summary">
         <div className="phos-dashboard__stat dash-card">
-          <p className="dash-card__metric dash-card__metric--lg">{assessment.calendarAge}</p>
+          <p className="dash-card__metric">{assessment.calendarAge}</p>
           <p className="dash-card__label">Calendar age</p>
         </div>
         <div className="phos-dashboard__stat dash-card dash-card--featured">
-          <p className="dash-card__metric dash-card__metric--xl">{assessment.photonicAge}</p>
+          <p className="dash-card__metric">{assessment.photonicAge}</p>
           <p className="dash-card__label">Photonic age</p>
         </div>
         <div className="phos-dashboard__stat dash-card phos-dashboard__stat--accent">
-          <p className="dash-card__metric dash-card__metric--lg">{assessment.lostLightYears}</p>
+          <p className="dash-card__metric">{assessment.lostLightYears}</p>
           <p className="dash-card__label">Lost light years</p>
         </div>
       </div>
@@ -70,7 +70,7 @@ export function PhosDashboardView({ assessment }: PhosDashboardViewProps) {
 
         <div className="pitch-tile__advice">
           <p className="dash-card__label pitch-tile__cue-type">
-            Daily Cue: {assessment.dailyCueType} · {focusLabel}
+            {assessment.dailyCueType} · {focusLabel}
           </p>
           <p className="pitch-tile__advice-copy">{assessment.dailyCueCopy}</p>
         </div>

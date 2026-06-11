@@ -1,7 +1,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { calculateNightMLux } from '@/lib/mlux'
-import { resolvePatientTimeZone } from '@/lib/patient/timezone'
+import { loadMemberLocation } from '@/lib/patient/member-location'
 import { recomputePhotonicProfile } from '@/lib/phos/sync-photonic-profile'
 import {
   logPostgrestError,
@@ -31,23 +31,8 @@ async function loadMemberTimeZone(
   supabase: SupabaseClient,
   memberId: string,
 ): Promise<string> {
-  const { data: member } = await supabase
-    .from('members')
-    .select('location_city, location_country')
-    .eq('id', memberId)
-    .maybeSingle()
-
-  if (member?.location_city || member?.location_country) {
-    return resolvePatientTimeZone(member.location_city, member.location_country)
-  }
-
-  const { data: patient } = await supabase
-    .from('patient_profiles')
-    .select('location_city, location_country')
-    .eq('id', memberId)
-    .maybeSingle()
-
-  return resolvePatientTimeZone(patient?.location_city, patient?.location_country)
+  const location = await loadMemberLocation(supabase, memberId)
+  return location.timeZone
 }
 
 export async function processTipTraqNight(
