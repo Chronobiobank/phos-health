@@ -71,9 +71,11 @@ export default function Home() {
               <h3 className="fact-tile__head">Five diseases tied to night light.</h3>
             </article>
           </div>
-          <p className="support">
-            The Windred cohort in PNAS, Lancet, and JAMA agrees.
-          </p>
+          <div className="copy-actions">
+            <Link href="/evidence" className="btn btn--primary">
+              Read the science →
+            </Link>
+          </div>
         </div>
       </section>
 
