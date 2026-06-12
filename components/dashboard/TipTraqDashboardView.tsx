@@ -91,7 +91,7 @@ export function TipTraqDashboardView({ snapshot }: TipTraqDashboardViewProps) {
             <div key={metric.label} className="phos-dashboard__metric dash-card">
               <p className="dash-card__metric">{metric.value}</p>
               <p className="dash-card__label">{metric.label}</p>
-              <p className="dash-card__support">{metric.note}</p>
+              <p className="dash-card__copy">{metric.note}</p>
             </div>
           ))}
         </div>

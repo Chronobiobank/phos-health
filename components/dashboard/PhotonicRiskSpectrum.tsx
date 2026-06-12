@@ -72,6 +72,10 @@ export function PhotonicRiskSpectrum({ nodes }: PhotonicRiskSpectrumProps) {
   const [openNodeId, setOpenNodeId] = useState<SpectrumNodeId | null>(null)
   const openNode = nodes.find((node) => node.id === openNodeId) ?? null
 
+  const toggleNode = (id: SpectrumNodeId) => {
+    setOpenNodeId((current) => (current === id ? null : id))
+  }
+
   return (
     <div className="photonic-risk-spectrum">
       <div className="photonic-risk-spectrum__axis">
@@ -79,39 +83,30 @@ export function PhotonicRiskSpectrum({ nodes }: PhotonicRiskSpectrumProps) {
         <span>Chronic disease risk</span>
       </div>
 
-      <div className="photonic-risk-spectrum__rail">
+      <div className="photonic-risk-spectrum__columns">
         <div className="photonic-risk-spectrum__track" aria-hidden />
-        <div className="photonic-risk-spectrum__dots">
-          {nodes.map((node) => (
-            <SpectrumDot
-              key={node.id}
-              node={node}
-              isOpen={openNodeId === node.id}
-              onSelect={() => setOpenNodeId((current) => (current === node.id ? null : node.id))}
-            />
-          ))}
-        </div>
-      </div>
-
-      <div className="photonic-risk-spectrum__labels">
         {nodes.map((node) => (
-          <button
-            key={`${node.id}-label`}
-            type="button"
-            onClick={() => setOpenNodeId((current) => (current === node.id ? null : node.id))}
-            className={`photonic-risk-spectrum__label-btn${
-              isElevatedSeverity(node.severity) ? ' photonic-risk-spectrum__label-btn--concern' : ''
-            }`}
-          >
-            <span className="photonic-risk-spectrum__label-stack">
-              <span className="photonic-risk-spectrum__label-line photonic-risk-spectrum__label-line--primary">
-                {node.labelLines[0]}
+          <div key={node.id} className="photonic-risk-spectrum__column">
+            <div className="photonic-risk-spectrum__dot-cell">
+              <SpectrumDot node={node} isOpen={openNodeId === node.id} onSelect={() => toggleNode(node.id)} />
+            </div>
+            <button
+              type="button"
+              onClick={() => toggleNode(node.id)}
+              className={`photonic-risk-spectrum__label-btn${
+                isElevatedSeverity(node.severity) ? ' photonic-risk-spectrum__label-btn--concern' : ''
+              }`}
+            >
+              <span className="photonic-risk-spectrum__label-stack">
+                <span className="photonic-risk-spectrum__label-line photonic-risk-spectrum__label-line--primary">
+                  {node.labelLines[0]}
+                </span>
+                <span className="photonic-risk-spectrum__label-line photonic-risk-spectrum__label-line--secondary">
+                  {node.labelLines[1]}
+                </span>
               </span>
-              <span className="photonic-risk-spectrum__label-line photonic-risk-spectrum__label-line--secondary">
-                {node.labelLines[1]}
-              </span>
-            </span>
-          </button>
+            </button>
+          </div>
         ))}
       </div>
 
@@ -120,16 +115,16 @@ export function PhotonicRiskSpectrum({ nodes }: PhotonicRiskSpectrumProps) {
           const style = dotStyleForSeverity(severity)
           return (
             <span key={severity} className="photonic-risk-spectrum__legend-item">
-              <span
-                className="photonic-risk-spectrum__legend-dot"
-                style={{
-                  width: style.size,
-                  height: style.size,
-                  backgroundColor: style.fill,
-                  borderColor: style.border,
-                  borderWidth: style.borderWidth,
-                }}
-              />
+              <span className="photonic-risk-spectrum__legend-dot-wrap">
+                <span
+                  className="photonic-risk-spectrum__legend-dot"
+                  style={{
+                    backgroundColor: style.fill,
+                    borderColor: style.border,
+                    borderWidth: style.borderWidth,
+                  }}
+                />
+              </span>
               <span>{label}</span>
             </span>
           )
@@ -139,8 +134,8 @@ export function PhotonicRiskSpectrum({ nodes }: PhotonicRiskSpectrumProps) {
       {openNode ? (
         <article className="photonic-risk-spectrum__detail dash-card">
           <p className="dash-card__label">{openNode.label}</p>
-          <p className="support">{openNode.reason}</p>
-          <p className="support photonic-risk-spectrum__action">{openNode.action}</p>
+          <p className="dash-card__copy">{openNode.reason}</p>
+          <p className="dash-card__copy photonic-risk-spectrum__action">{openNode.action}</p>
         </article>
       ) : null}
     </div>

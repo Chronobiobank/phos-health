@@ -66,6 +66,8 @@
   /* Card tiles */
   --card-pad: 16px;
   --card-stack: 6px;
+  --dash-card-copy-size: 17px;
+  --dash-card-copy-leading: 1.5;
 
   /* Copy block → button spacing only; never for tile interiors */
   --copy-action-gap: clamp(28px, 3.5vh, 40px);
@@ -1803,11 +1805,18 @@ a:hover { color: var(--photon); }
   font-size: 56px;
 }
 
-.dash-card__support {
+.dash-card__support,
+.dash-card__copy {
   font-family: var(--font-body);
-  font-size: 14px;
-  line-height: 1.4;
+  font-size: var(--dash-card-copy-size, 17px);
+  line-height: var(--dash-card-copy-leading, 1.5);
   color: var(--dash-support);
+  margin: 0;
+}
+
+.dash-card__support + .dash-card__support,
+.dash-card__copy + .dash-card__copy {
+  margin-top: var(--stack-xs);
 }
 
 /* Impact card — section 02 tile */
@@ -2894,7 +2903,8 @@ a:hover { color: var(--photon); }
 }
 
 .dashboard-page .dash-card .support,
-.dashboard-page .dash-card .dash-card__support {
+.dashboard-page .dash-card .dash-card__support,
+.dashboard-page .dash-card .dash-card__copy {
   margin-top: 0;
 }
 
@@ -3505,6 +3515,8 @@ a:hover { color: var(--photon); }
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--stack-md);
+  width: 100%;
+  min-width: 0;
 }
 
 .phos-dashboard__risk-spectrum {
@@ -3520,7 +3532,8 @@ a:hover { color: var(--photon); }
 
 .photonic-risk-spectrum {
   --spectrum-max-dot: 16px;
-  --spectrum-dot-inset: calc(var(--spectrum-max-dot) / 2);
+  --spectrum-legend-dot: 11px;
+  --spectrum-column-count: 7;
   width: 100%;
   min-width: 0;
 }
@@ -3536,29 +3549,41 @@ a:hover { color: var(--photon); }
   color: var(--muted);
 }
 
-.photonic-risk-spectrum__rail {
+.photonic-risk-spectrum__columns {
   position: relative;
-  min-height: 2.25rem;
+  display: grid;
+  grid-template-columns: repeat(var(--spectrum-column-count), minmax(0, 1fr));
+  gap: 0;
   width: 100%;
+  min-width: 0;
+  margin-top: var(--stack-xs);
 }
 
 .photonic-risk-spectrum__track {
   position: absolute;
-  left: var(--spectrum-dot-inset);
-  right: var(--spectrum-dot-inset);
-  top: 50%;
+  left: calc(100% / var(--spectrum-column-count) / 2);
+  right: calc(100% / var(--spectrum-column-count) / 2);
+  top: calc(2.25rem / 2);
   transform: translateY(-50%);
   border-top: 2px dotted color-mix(in srgb, var(--muted) 35%, transparent);
   pointer-events: none;
   z-index: 0;
 }
 
-.photonic-risk-spectrum__dots {
+.photonic-risk-spectrum__column {
   position: relative;
   z-index: 1;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
+  min-width: 0;
+  gap: var(--stack-sm);
+}
+
+.photonic-risk-spectrum__dot-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   min-height: 2.25rem;
 }
@@ -3605,17 +3630,8 @@ a:hover { color: var(--photon); }
   pointer-events: none;
 }
 
-.photonic-risk-spectrum__labels {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 0.125rem;
-  width: 100%;
-  margin-top: var(--stack-sm);
-}
-
 .photonic-risk-spectrum__label-btn {
-  flex: 1 1 0;
+  width: 100%;
   min-width: 0;
   display: flex;
   align-items: flex-start;
@@ -3695,11 +3711,23 @@ a:hover { color: var(--photon); }
   padding-inline: 0.35rem;
 }
 
+.photonic-risk-spectrum__legend-dot-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--spectrum-legend-dot);
+  height: var(--spectrum-legend-dot);
+  flex-shrink: 0;
+}
+
 .photonic-risk-spectrum__legend-dot {
   display: block;
+  width: var(--spectrum-legend-dot);
+  height: var(--spectrum-legend-dot);
   border-style: solid;
   border-radius: 50%;
   box-sizing: border-box;
+  flex-shrink: 0;
 }
 
 .photonic-risk-spectrum__detail {
@@ -3712,6 +3740,20 @@ a:hover { color: var(--photon); }
 
 .phos-dashboard__metric {
   padding: var(--card-pad);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--stack-sm);
+  text-align: center;
+  min-width: 0;
+}
+
+.phos-dashboard__metric .dash-card__metric,
+.phos-dashboard__metric .dash-card__label,
+.phos-dashboard__metric .dash-card__copy,
+.phos-dashboard__metric .dash-card__support {
+  margin: 0;
 }
 
 /* Dashboard pitch tile — match page inset on all breakpoints */
@@ -3917,7 +3959,6 @@ a:hover { color: var(--photon); }
 }
 
 @media (max-width: 720px) {
-  .phos-dashboard__grid,
   .shop-page__grid,
   .dashboard-status-panels,
   .org-dashboard__grid {
@@ -3936,6 +3977,18 @@ a:hover { color: var(--photon); }
   .phos-dashboard__summary .dash-card__metric--lg,
   .phos-dashboard__summary .dash-card__metric--xl {
     font-size: clamp(26px, 7.5vw, 40px);
+  }
+
+  .phos-dashboard__grid {
+    gap: var(--stack-sm);
+  }
+
+  .phos-dashboard__metric {
+    padding: 12px 8px;
+  }
+
+  .phos-dashboard__metric .dash-card__metric {
+    font-size: clamp(22px, 6.5vw, 32px);
   }
 }
 
