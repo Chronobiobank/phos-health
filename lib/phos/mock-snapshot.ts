@@ -1,4 +1,5 @@
 import type { PhosSnapshot } from '@/lib/phos/types'
+import { TERRY_MOCK_RISK_SPECTRUM } from '@/lib/phos/risk-spectrum/mock-spectrum'
 
 export const TERRY_MOCK_SNAPSHOT: PhosSnapshot = {
   subjectName: 'Terry',
@@ -29,6 +30,7 @@ export const TERRY_MOCK_SNAPSHOT: PhosSnapshot = {
     { label: 'Observations', value: '90 days', note: 'Sleep history synced' },
   ],
   nights: [],
+  riskSpectrum: TERRY_MOCK_RISK_SPECTRUM,
   isSample: true,
   hasPhoneData: false,
   canUpload: false,

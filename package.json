@@ -11,7 +11,9 @@
     "test:watch": "vitest",
     "sean:reset-password": "node scripts/reset-sean-password.mjs",
     "sean:migrate": "node scripts/migrate-sean-dios-to-phos.mjs --apply",
-    "sean:migrate:dry-run": "node scripts/migrate-sean-dios-to-phos.mjs"
+    "sean:migrate:dry-run": "node scripts/migrate-sean-dios-to-phos.mjs",
+    "phos:verify-db": "node scripts/verify-phos-db.mjs",
+    "audit:signed-in": "node scripts/audit-signed-in-routes.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.10.3",

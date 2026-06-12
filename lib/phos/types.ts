@@ -1,4 +1,5 @@
 import type { MemberTier } from '@/lib/phos/engine/types'
+import type { SpectrumNode } from '@/lib/phos/risk-spectrum/types'
 
 export type PhosMetric = {
   label: string
@@ -38,6 +39,7 @@ export type PhosSnapshot = {
   cueTimeline: DailyCueStop[]
   metrics: PhosMetric[]
   nights: PhosNightRow[]
+  riskSpectrum: SpectrumNode[]
   isSample: boolean
   hasPhoneData: boolean
   canUpload: boolean

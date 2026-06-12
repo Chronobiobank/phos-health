@@ -2,6 +2,7 @@ import Link from 'next/link'
 
 import { DailyCueTimeline } from '@/components/DailyCueTimeline'
 import { PhotonDepletionArc } from '@/components/PhotonDepletionArc'
+import { PhotonicRiskSpectrum } from '@/components/dashboard/PhotonicRiskSpectrum'
 import type { PhosSnapshot } from '@/lib/phos/types'
 
 type TipTraqDashboardViewProps = {
@@ -76,6 +77,15 @@ export function TipTraqDashboardView({ snapshot }: TipTraqDashboardViewProps) {
             {snapshot.dailyCueCopy ?? 'Catch first light, before 08:30.'}
           </p>
         </div>
+      </article>
+
+      <article className="dash-card phos-dashboard__risk-spectrum">
+        <p className="eyebrow">UK Biobank evidence</p>
+        <h2 className="display-md">Your light-dark risk spectrum</h2>
+        <p className="support">
+          Mild drift left. Severe chronic risk right in 89k cohort.
+        </p>
+        <PhotonicRiskSpectrum nodes={snapshot.riskSpectrum} />
       </article>
 
       {metrics.length > 0 ? (

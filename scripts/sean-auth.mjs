@@ -154,6 +154,7 @@ export async function ensureSeanAuthUser(admin, options) {
 
 export function defaultDiosEnvPath() {
   return resolveEnvFile(process.env.DIOS_ENV_FILE, [
+    resolve('.env.dios.local'),
     resolve('..', 'dios-health', '.env.local'),
     resolve('..', 'dios-health', '.env.production.local'),
   ])

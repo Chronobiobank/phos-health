@@ -102,19 +102,159 @@ function remapStoragePath(path, fromId, toId) {
   return path.split(fromId).join(toId)
 }
 
+const PHOS_TIPTRAQ_NIGHT_COLUMNS = new Set([
+  'report_date',
+  'pdf_path',
+  'recording_start',
+  'recording_end',
+  'trt_minutes',
+  'signal_quality_pct',
+  'sleep_onset',
+  'sleep_offset',
+  'sleep_latency_minutes',
+  'tst_minutes',
+  'waso_minutes',
+  'sleep_efficiency_pct',
+  'rem_duration_minutes',
+  'rem_pct_tst',
+  'nrem_duration_minutes',
+  'first_rem_onset',
+  'ahi',
+  'ahi_severity',
+  'rdi',
+  'odi_3pct',
+  'odi_4pct',
+  't90_pct',
+  'min_spo2',
+  'mean_spo2',
+  'hypoxic_burden',
+  'event_count',
+  'mean_pr',
+  'min_pr',
+  'max_pr',
+  'sns_pct',
+  'pns_pct',
+  'snoring_minutes',
+  'algorithm_version',
+  'mlux_phase_time',
+  'mlux_phase_minutes',
+  'dlmo_baseline_estimate',
+  'dlmo_rem_correction_min',
+  'dlmo_ans_correction_min',
+  'dlmo_ahi_modifier_min',
+  'confidence_score',
+  'confidence_band_minutes',
+  'confidence_label',
+  'chronotype_signal',
+  'non_dipper_flag',
+  'high_sympathetic_flag',
+  'rem_delay_flag',
+  'apnea_confound_flag',
+  'extraction_model',
+  'created_at',
+])
+
+const PHOS_MLUX_PROFILE_COLUMNS = new Set([
+  'nights_count',
+  'mlux_phase_time',
+  'mlux_phase_minutes',
+  'confidence_score',
+  'confidence_band_minutes',
+  'confidence_label',
+  'chronotype',
+  'non_dipper_confirmed',
+  'simvastatin_optimal_time',
+  'ramipril_optimal_time',
+  'prednisolone_optimal_time',
+  'salmeterol_optimal_time',
+  'light_dose_window_start',
+  'light_dose_window_end',
+  'has_tiptraq',
+  'created_at',
+])
+
+function pickPhosColumns(row, allowed) {
+  const picked = {}
+  for (const [key, value] of Object.entries(row)) {
+    if (allowed.has(key)) picked[key] = value
+  }
+  return picked
+}
+
+const PHOS_NUMERIC_LIMITS = {
+  rem_pct_tst: 999.99,
+  ahi: 999.99,
+  rdi: 999.99,
+  odi_3pct: 999.99,
+  odi_4pct: 999.99,
+  t90_pct: 999.99,
+  hypoxic_burden: 9999.99,
+}
+
+function clampPhosNumerics(row) {
+  for (const [key, max] of Object.entries(PHOS_NUMERIC_LIMITS)) {
+    if (row[key] == null) continue
+    const value = Number(row[key])
+    if (!Number.isFinite(value)) {
+      delete row[key]
+      continue
+    }
+    if (Math.abs(value) > max) row[key] = null
+  }
+  return row
+}
+
+const PHOS_TIMESTAMPTZ_FIELDS = new Set([
+  'recording_start',
+  'recording_end',
+  'sleep_onset',
+  'sleep_offset',
+  'first_rem_onset',
+])
+
+function normalizePhosTimestamptz(value, reportDate) {
+  if (value == null) return null
+  const text = String(value)
+  if (/^\d{4}-\d{2}-\d{2}/.test(text)) return text
+  if (reportDate && /^\d{2}:\d{2}(:\d{2})?$/.test(text)) {
+    const time = text.length === 5 ? `${text}:00` : text
+    return `${reportDate}T${time}+12:00`
+  }
+  return null
+}
+
+function normalizePhosTimestamps(row, reportDate) {
+  for (const key of PHOS_TIMESTAMPTZ_FIELDS) {
+    if (key in row) row[key] = normalizePhosTimestamptz(row[key], reportDate)
+  }
+  return row
+}
+
 function stripNightForInsert(night, phosPatientId, diosPatientId) {
   const { id: _id, patient_id: _patientId, ...rest } = night
+
+  if (rest.mlux_phase_minutes == null && rest.proxy_dlmo_minutes_from_midnight != null) {
+    rest.mlux_phase_minutes = rest.proxy_dlmo_minutes_from_midnight
+  }
+  if (rest.mlux_phase_time == null && rest.proxy_dlmo_time != null) {
+    rest.mlux_phase_time = rest.proxy_dlmo_time
+  }
+
+  const picked = pickPhosColumns(rest, PHOS_TIPTRAQ_NIGHT_COLUMNS)
+  clampPhosNumerics(picked)
+  normalizePhosTimestamps(picked, picked.report_date ?? rest.report_date)
+
   return {
-    ...rest,
+    ...picked,
     patient_id: phosPatientId,
     pdf_path: remapStoragePath(rest.pdf_path, diosPatientId, phosPatientId),
   }
 }
 
 function stripMluxForInsert(mlux, phosPatientId) {
-  const { id: _id, patient_id: _patientId, created_at: _createdAt, ...rest } = mlux
+  const { id: _id, patient_id: _patientId, last_updated: _lastUpdated, ...rest } = mlux
   return {
-    ...rest,
+    ...pickPhosColumns(rest, PHOS_MLUX_PROFILE_COLUMNS),
     patient_id: phosPatientId,
     last_updated: new Date().toISOString(),
   }
@@ -346,6 +486,7 @@ async function ensurePremiumTier(phos, phosUserId, dryRun) {
 
 async function main() {
   const diosEnvPath = resolveEnvFile(process.env.DIOS_ENV_FILE, [
+    '.env.dios.local',
     resolve('..', 'dios-health', '.env.local'),
     resolve('..', 'dios-health', '.env.production.local'),
   ])

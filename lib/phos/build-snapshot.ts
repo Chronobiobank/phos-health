@@ -1,5 +1,9 @@
 import { TERRY_MOCK_SNAPSHOT } from '@/lib/phos/mock-snapshot'
 import type { DailyCueStop, PhosMetric, PhosSnapshot } from '@/lib/phos/types'
+import { buildPhotonicRiskSpectrum } from '@/lib/phos/risk-spectrum/build-nodes'
+import { meanAhiFromValues } from '@/lib/phos/risk-spectrum/indicators'
+import type { BuildPhotonicRiskSpectrumInput, TipTraqNightFlags } from '@/lib/phos/risk-spectrum/types'
+import { TERRY_MOCK_RISK_SPECTRUM } from '@/lib/phos/risk-spectrum/mock-spectrum'
 import { addMinutesToClock } from '@/lib/phos/engine/time'
 import {
   adjustLightWindowForLocation,
@@ -8,7 +12,40 @@ import {
 import { memberLocationFromFields } from '@/lib/patient/member-location'
 import type { createClient } from '@/lib/supabase/server'
 
+const TIPTRAQ_NIGHT_SELECT =
+  'id, report_date, sleep_efficiency_pct, tst_minutes, waso_minutes, mlux_phase_time, ahi, non_dipper_flag, rem_delay_flag, high_sympathetic_flag'
+
 type SupabaseServerClient = Awaited<ReturnType<typeof createClient>>
+
+function lightAlignmentFromLostYears(lostLightYears: number): number {
+  return Math.max(0, Math.min(100, Math.round(100 - lostLightYears * 18)))
+}
+
+function isEveningChronotype(chronotype: string | null | undefined): boolean {
+  const label = chronotype?.toLowerCase() ?? ''
+  return label.includes('evening') || label.includes('night') || label.includes('late')
+}
+
+function nightFlagsFromRow(
+  row: {
+    ahi?: number | null
+    non_dipper_flag?: boolean | null
+    rem_delay_flag?: boolean | null
+    high_sympathetic_flag?: boolean | null
+  } | null,
+): TipTraqNightFlags | null {
+  if (!row) return null
+  return {
+    ahi: row.ahi ?? null,
+    non_dipper_flag: row.non_dipper_flag ?? null,
+    rem_delay_flag: row.rem_delay_flag ?? null,
+    high_sympathetic_flag: row.high_sympathetic_flag ?? null,
+  }
+}
+
+function buildRiskSpectrum(input: BuildPhotonicRiskSpectrumInput) {
+  return buildPhotonicRiskSpectrum(input)
+}
 
 function formatTime(value: string | null | undefined): string | null {
   if (!value) return null
@@ -68,12 +105,16 @@ async function buildFromPhotonicProfile(
     supabase.from('photonic_age_profiles').select('*').eq('member_id', userId).maybeSingle(),
     supabase
       .from('tiptraq_nights')
-      .select('id, report_date, sleep_efficiency_pct, tst_minutes, waso_minutes, mlux_phase_time')
+      .select(TIPTRAQ_NIGHT_SELECT)
       .eq('patient_id', userId)
       .order('report_date', { ascending: false }),
   ])
 
   if (!profile) return null
+
+  const lostLightYears = Number(profile.lost_light_years)
+  const latestNightRow = nights?.[0] ?? null
+  const meanAhi = meanAhiFromValues((nights ?? []).map((night) => night.ahi ?? NaN).filter((v) => !Number.isNaN(v)))
 
   const location = memberLocationFromFields({
     locationCity: member?.location_city,
@@ -153,6 +194,17 @@ async function buildFromPhotonicProfile(
         tstMinutes: night.tst_minutes,
         dlmoTime: formatTime(night.mlux_phase_time),
       })) ?? [],
+    riskSpectrum: buildRiskSpectrum({
+      lostLightYears,
+      lightAlignmentScore: lightAlignmentFromLostYears(lostLightYears),
+      chronotypeEvening: (profile.d2_value ?? 0) >= 45,
+      hasTipTraq: (nights?.length ?? 0) > 0,
+      tipTraqNightsCount: nights?.length ?? 0,
+      meanAhi,
+      latestNight: nightFlagsFromRow(latestNightRow),
+      hasBloodPanel: profile.tier === 'basic' || profile.tier === 'premium',
+      vitaminDLow: false,
+    }),
     isSample: false,
     hasPhoneData: true,
     canUpload,
@@ -180,7 +232,7 @@ async function buildFromTipTraq(
       supabase.from('mlux_profiles').select('*').eq('patient_id', userId).maybeSingle(),
       supabase
         .from('tiptraq_nights')
-        .select('id, report_date, sleep_efficiency_pct, tst_minutes, waso_minutes, mlux_phase_time')
+        .select(TIPTRAQ_NIGHT_SELECT)
         .eq('patient_id', userId)
         .order('report_date', { ascending: false }),
     ])
@@ -221,6 +273,9 @@ async function buildFromTipTraq(
   )
   const lostLightYears = TERRY_MOCK_SNAPSHOT.lostLightYears
   const photonicAge = Math.round((calendarAge + lostLightYears) * 10) / 10
+  const latestNightRow = nights[0] ?? null
+  const meanAhi = meanAhiFromValues(nights.map((night) => night.ahi ?? NaN).filter((v) => !Number.isNaN(v)))
+  const chronotype = mlux?.chronotype ?? null
 
   const metrics: PhosMetric[] = [
     {
@@ -251,7 +306,7 @@ async function buildFromTipTraq(
     confidenceScore: mlux?.confidence_score ?? null,
     confidenceLabel: mlux?.confidence_label ?? null,
     confidenceBandMinutes: mlux?.confidence_band_minutes ?? null,
-    chronotype: mlux?.chronotype ?? null,
+    chronotype,
     lightWindow:
       adjustedLight.start && adjustedLight.end
         ? {
@@ -272,6 +327,17 @@ async function buildFromTipTraq(
       tstMinutes: night.tst_minutes,
       dlmoTime: formatTime(night.mlux_phase_time),
     })),
+    riskSpectrum: buildRiskSpectrum({
+      lostLightYears,
+      lightAlignmentScore: lightAlignmentFromLostYears(lostLightYears),
+      chronotypeEvening: isEveningChronotype(chronotype),
+      hasTipTraq: nights.length > 0,
+      tipTraqNightsCount: mlux?.nights_count ?? nights.length,
+      meanAhi,
+      latestNight: nightFlagsFromRow(latestNightRow),
+      hasBloodPanel: false,
+      vitaminDLow: false,
+    }),
     isSample: false,
     hasPhoneData: false,
     canUpload,
@@ -285,7 +351,7 @@ export async function buildPhosSnapshot(
   canUpload: boolean,
 ): Promise<PhosSnapshot> {
   if (!userId) {
-    return { ...TERRY_MOCK_SNAPSHOT, canUpload }
+    return { ...TERRY_MOCK_SNAPSHOT, riskSpectrum: TERRY_MOCK_RISK_SPECTRUM, canUpload }
   }
 
   // TipTraQ nights take precedence — sleep study dashboard, not phone diagnostic tiles.
@@ -306,6 +372,7 @@ export async function buildPhosSnapshot(
   return {
     ...TERRY_MOCK_SNAPSHOT,
     subjectName: 'You',
+    riskSpectrum: TERRY_MOCK_RISK_SPECTRUM,
     isSample: true,
     canUpload,
   }
