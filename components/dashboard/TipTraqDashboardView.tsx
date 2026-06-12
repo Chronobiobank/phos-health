@@ -2,6 +2,7 @@ import Link from 'next/link'
 
 import { DailyCueTimeline } from '@/components/DailyCueTimeline'
 import { PhotonDepletionArc } from '@/components/PhotonDepletionArc'
+import { DashboardMetricTile } from '@/components/dashboard/DashboardMetricTile'
 import { PhotonicRiskSpectrum } from '@/components/dashboard/PhotonicRiskSpectrum'
 import type { PhosSnapshot } from '@/lib/phos/types'
 
@@ -88,11 +89,7 @@ export function TipTraqDashboardView({ snapshot }: TipTraqDashboardViewProps) {
       {metrics.length > 0 ? (
         <div className="phos-dashboard__grid">
           {metrics.map((metric) => (
-            <div key={metric.label} className="phos-dashboard__metric dash-card">
-              <p className="dash-card__metric">{metric.value}</p>
-              <p className="dash-card__label">{metric.label}</p>
-              <p className="dash-card__copy">{metric.note}</p>
-            </div>
+            <DashboardMetricTile key={metric.label} metric={metric} />
           ))}
         </div>
       ) : null}

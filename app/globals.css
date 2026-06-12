@@ -1784,7 +1784,51 @@ a:hover { color: var(--photon); }
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--dash-label);
-  line-height: 1;
+  line-height: 1.25;
+}
+
+.dash-card__label-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+  min-height: calc(11px * 1.25 * 2 + 0.15rem);
+  width: 100%;
+}
+
+.dash-card__label-line {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dash-label);
+  line-height: 1.25;
+  white-space: nowrap;
+  min-width: 9ch;
+  text-align: center;
+}
+
+.dash-card__copy-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1rem;
+  min-height: calc(var(--dash-card-copy-size) * var(--dash-card-copy-leading) * 2 + 0.1rem);
+  width: 100%;
+}
+
+.dash-card__copy-line {
+  display: block;
+  font-family: var(--font-body);
+  font-size: var(--dash-card-copy-size);
+  line-height: var(--dash-card-copy-leading);
+  color: var(--dash-support);
+  white-space: nowrap;
+  min-width: 9ch;
+  text-align: center;
 }
 
 .dash-card__metric {
@@ -3266,9 +3310,11 @@ a:hover { color: var(--photon); }
   margin: 0;
 }
 
-.dashboard-status-panels__card .support {
+.dashboard-status-panels__card .support,
+.dashboard-status-panels__card .dash-card__copy {
   margin: 0;
   max-width: none;
+  text-wrap: pretty;
 }
 
 .dashboard-status-panels__cta {
@@ -3751,6 +3797,8 @@ a:hover { color: var(--photon); }
 
 .phos-dashboard__metric .dash-card__metric,
 .phos-dashboard__metric .dash-card__label,
+.phos-dashboard__metric .dash-card__label-stack,
+.phos-dashboard__metric .dash-card__copy-stack,
 .phos-dashboard__metric .dash-card__copy,
 .phos-dashboard__metric .dash-card__support {
   margin: 0;

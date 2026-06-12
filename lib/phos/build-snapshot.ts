@@ -1,5 +1,10 @@
 import { TERRY_MOCK_SNAPSHOT } from '@/lib/phos/mock-snapshot'
 import type { DailyCueStop, PhosMetric, PhosSnapshot } from '@/lib/phos/types'
+import {
+  tipTraqBodyClockMetric,
+  tipTraqSleepEfficiencyMetric,
+  tipTraqTotalSleepMetric,
+} from '@/lib/phos/metric-display'
 import { buildPhotonicRiskSpectrum } from '@/lib/phos/risk-spectrum/build-nodes'
 import { meanAhiFromValues } from '@/lib/phos/risk-spectrum/indicators'
 import type { BuildPhotonicRiskSpectrumInput, TipTraqNightFlags } from '@/lib/phos/risk-spectrum/types'
@@ -278,21 +283,9 @@ async function buildFromTipTraq(
   const chronotype = mlux?.chronotype ?? null
 
   const metrics: PhosMetric[] = [
-    {
-      label: 'Sleep efficiency',
-      value: `${avgEfficiency}%`,
-      note: `${nights.length}-night average`,
-    },
-    {
-      label: 'Total sleep',
-      value: `${Math.floor(avgTst / 60)}h ${avgTst % 60}m`,
-      note: 'Per night',
-    },
-    {
-      label: 'Body clock phase',
-      value: formatTime(mlux?.mlux_phase_time) ?? 'Pending',
-      note: mlux?.chronotype ?? 'Calibrating',
-    },
+    tipTraqSleepEfficiencyMetric(nights.length, avgEfficiency),
+    tipTraqTotalSleepMetric(avgTst),
+    tipTraqBodyClockMetric(formatTime(mlux?.mlux_phase_time), chronotype),
   ]
 
   return {

@@ -3,8 +3,10 @@ import type { SpectrumNode } from '@/lib/phos/risk-spectrum/types'
 
 export type PhosMetric = {
   label: string
+  labelLines?: readonly [string, string]
   value: string
   note: string
+  noteLines?: readonly [string, string]
 }
 
 export type PhosNightRow = {

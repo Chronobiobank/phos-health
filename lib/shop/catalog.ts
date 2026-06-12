@@ -64,7 +64,8 @@ export const SHOP_UPGRADE_SKUS: ShopSku[] = [
     kitType: 'panel',
     pricePence: 14900,
     currency: 'GBP',
-    summary: 'Lab vitamin D panel for a tighter personal light read.',
+    summary:
+      'The Photonic Panel is a City Labs blood test for vitamin D and related markers. One sample adjusts your personal light score and narrows your Photonic Age confidence band.',
   },
   {
     id: 'photonic-sleep-study',
@@ -75,7 +76,8 @@ export const SHOP_UPGRADE_SKUS: ShopSku[] = [
     kitType: 'tiptraq',
     pricePence: 24900,
     currency: 'GBP',
-    summary: 'Three home nights for your tightest Photonic Age band.',
+    summary:
+      'A TipTraQ ring for three home nights records breathing, heart rate, and sleep timing. PHOS uses those nights to score sleep apnoea and body clock phase with your tightest confidence band.',
   },
 ]
 
