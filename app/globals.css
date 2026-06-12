@@ -3679,8 +3679,10 @@ a:hover { color: var(--photon); }
 .photonic-risk-spectrum__legend {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--stack-sm);
+  gap: var(--stack-md) var(--stack-lg);
   justify-content: center;
+  margin-top: var(--stack-md);
+  padding-top: var(--stack-xs);
   font-family: var(--font-mono);
   font-size: 11px;
   color: var(--muted);
@@ -3689,7 +3691,8 @@ a:hover { color: var(--photon); }
 .photonic-risk-spectrum__legend-item {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.5rem;
+  padding-inline: 0.35rem;
 }
 
 .photonic-risk-spectrum__legend-dot {
