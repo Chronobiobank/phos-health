@@ -47,35 +47,35 @@ export default function Home() {
         <div className="hero__veil" aria-hidden="true" />
         <div className="container hero__content">
           <h1 className="display-xl">
-            Night light predicts earlier <span className="landing-accent">mortality</span>.
+            Win your <span className="landing-accent">best hours</span> today.
           </h1>
-          <p className="support">UK Biobank, eighty eight thousand adults.</p>
+          <p className="support">Free score. Your window. One cue tonight.</p>
           <div className="copy-actions">
             <Link href={FREE_SCORE_HREF} className="btn btn--primary">
-              Free score →
+              Get your window →
             </Link>
           </div>
         </div>
       </section>
 
-      <section id="science" className="fade-in snap-section biology-panel landing__snap" data-nav-theme="dark">
+      <section id="outcomes" className="fade-in snap-section biology-panel landing__snap" data-nav-theme="dark">
         <div className="container biology-panel__content">
           <p className="section-number">01</p>
-          <h2 className="section-title">Brighter nights shorten lives.</h2>
+          <h2 className="section-title">Sleep deeper. Sharper afternoons.</h2>
           <div className="fact-tiles">
             <article className="fact-tile">
-              <h3 className="fact-tile__head">Mortality up thirty four percent.</h3>
+              <h3 className="fact-tile__head">Your peak window, mapped daily.</h3>
             </article>
             <article className="fact-tile">
-              <h3 className="fact-tile__head">Diabetes up fifty three percent.</h3>
+              <h3 className="fact-tile__head">One thing to do tonight.</h3>
             </article>
             <article className="fact-tile">
-              <h3 className="fact-tile__head">Five diseases tied to night light.</h3>
+              <h3 className="fact-tile__head">Circadian risk you can change.</h3>
             </article>
           </div>
           <div className="copy-actions">
             <Link href={FREE_SCORE_HREF} className="btn btn--primary">
-              Free score →
+              Get your window →
             </Link>
           </div>
         </div>
@@ -88,11 +88,11 @@ export default function Home() {
       >
         <div className="container photonic-age-panel__content">
           <p className="section-number">02</p>
-          <h2 className="section-title">Social jet lag in two minutes.</h2>
-          <p className="support">Free. Wide honest band.</p>
+          <h2 className="section-title">Your window and one move tonight.</h2>
+          <p className="support">Free jet lag score plus your Daily Cue.</p>
           <div className="copy-actions">
             <Link href={FREE_SCORE_HREF} className="btn btn--primary">
-              Free score →
+              Get tonight&apos;s cue →
             </Link>
           </div>
         </div>
@@ -105,7 +105,7 @@ export default function Home() {
       >
         <div className="container photonic-age-panel__content">
           <p className="section-number">03</p>
-          <h2 className="section-title">Pay to sharpen, not see.</h2>
+          <h2 className="section-title">Better fix. Visible progress.</h2>
           <LandingPricingLadder />
         </div>
       </section>
@@ -123,10 +123,10 @@ export default function Home() {
       <section id="close" className="fade-in snap-section landing-close-panel landing__snap" data-nav-theme="dark">
         <div className="container landing-close-panel__content">
           <p className="section-number">05</p>
-          <h2 className="section-title">Start with free score.</h2>
+          <h2 className="section-title">Tonight&apos;s cue is free.</h2>
           <div className="copy-actions">
             <Link href={FREE_SCORE_HREF} className="btn btn--primary">
-              Free score →
+              Get tonight&apos;s cue →
             </Link>
           </div>
           <p className="support landing-close-panel__safety">Urgent symptoms: 111 or 999.</p>

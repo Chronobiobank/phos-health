@@ -20,26 +20,26 @@ const RUNGS: LadderRung[] = [
   {
     tier: 'Free',
     price: '£0',
-    line: 'Drift hours from your phone.',
+    line: 'Best window and one thing tonight.',
     bandWidth: 100,
     ctaHref: FREE_SCORE_HREF,
-    ctaLabel: 'Free score →',
+    ctaLabel: 'Get your window →',
   },
   {
     tier: 'Basic',
     price: basicSku ? formatSkuPrice(basicSku) : '£149',
-    line: 'Blood panel sharpens metabolic timing.',
+    line: 'Protocol tuned to your blood timing.',
     bandWidth: 68,
     ctaHref: '/shop#photonic-panel',
-    ctaLabel: 'Order panel →',
+    ctaLabel: 'Sharpen protocol →',
   },
   {
     tier: 'Premium',
     price: premiumSku ? formatSkuPrice(premiumSku) : '£249',
-    line: 'Three nights sharpen body clock read.',
+    line: 'Track your timing improving nightly.',
     bandWidth: 38,
     ctaHref: '/shop#photonic-sleep-study',
-    ctaLabel: 'Order study →',
+    ctaLabel: 'Sharpen protocol →',
   },
 ]
 
