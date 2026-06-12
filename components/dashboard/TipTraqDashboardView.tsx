@@ -81,10 +81,7 @@ export function TipTraqDashboardView({ snapshot }: TipTraqDashboardViewProps) {
 
       <article className="dash-card phos-dashboard__risk-spectrum">
         <p className="eyebrow">UK Biobank evidence</p>
-        <h2 className="display-md">Your light-dark risk spectrum</h2>
-        <p className="support">
-          Mild drift left. Severe chronic risk right in 89k cohort.
-        </p>
+        <h2 className="display-md">Your light-dark risk mild left, chronic right in 89k.</h2>
         <PhotonicRiskSpectrum nodes={snapshot.riskSpectrum} />
       </article>
 
