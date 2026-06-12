@@ -1352,6 +1352,51 @@ a:hover { color: var(--photon); }
 }
 
 /* ── LANDING — free, pricing ladder, close ───────────────── */
+/* ── LANDING — Kawasaki density, mobile-first ────────────── */
+.landing .landing__snap {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.landing .hero {
+  padding: clamp(64px, 8vh, 96px) 0 clamp(32px, 5vh, 56px);
+}
+
+.landing .section-title {
+  margin-bottom: var(--stack-sm);
+  max-width: 16ch;
+}
+
+.landing .support {
+  max-width: 36ch;
+  margin: 0;
+}
+
+.landing .copy-actions {
+  margin-top: var(--stack-md);
+}
+
+.landing .biology-panel__content,
+.landing .photonic-age-panel__content {
+  padding-top: clamp(48px, 8vh, 72px);
+  padding-bottom: clamp(48px, 8vh, 72px);
+}
+
+.landing .fact-tiles {
+  margin-top: var(--stack-md);
+  gap: var(--stack-xs);
+}
+
+.landing .fact-tile {
+  padding: clamp(14px, 3vw, 20px);
+}
+
+.landing .fact-tile__head {
+  font-size: clamp(18px, 0.7vw + 16px, 24px);
+}
+
 #free.landing-free-panel {
   background: linear-gradient(
     180deg,
@@ -1362,6 +1407,34 @@ a:hover { color: var(--photon); }
   border-top: 2px solid color-mix(in srgb, var(--stellar) 28%, #ffffff);
 }
 
+.landing-accent {
+  background: var(--spectrum);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.landing-trust-panel {
+  background: var(--dash-page);
+  border-top: 1px solid var(--dash-border);
+}
+
+.landing-trust-panel__content {
+  display: grid;
+  gap: var(--stack-sm);
+  padding: clamp(48px, 8vh, 72px) 0;
+}
+
+.landing-trust-panel__link {
+  color: var(--muted);
+  text-decoration: none;
+  width: fit-content;
+}
+
+.landing-trust-panel__link:hover {
+  color: var(--corona);
+}
+
 #pricing.landing-pricing-panel {
   background: var(--dash-page);
   border-top: 1px solid var(--dash-border);
@@ -1369,20 +1442,20 @@ a:hover { color: var(--photon); }
 
 .landing-ladder {
   display: grid;
-  gap: var(--stack-lg);
-  margin-top: clamp(28px, 4vh, 40px);
+  gap: var(--stack-md);
+  margin-top: var(--stack-md);
 }
 
 .landing-ladder__rungs {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--space-sm);
+  grid-template-columns: 1fr;
+  gap: var(--stack-xs);
 }
 
 .landing-ladder__rung {
   display: grid;
-  gap: var(--stack-sm);
-  padding: clamp(20px, 3vw, 28px);
+  gap: var(--stack-xs);
+  padding: clamp(16px, 3vw, 22px);
   align-content: start;
 }
 
@@ -1398,7 +1471,7 @@ a:hover { color: var(--photon); }
 .landing-ladder__price {
   margin: 0;
   font-family: var(--font-display);
-  font-size: clamp(32px, 2vw + 24px, 44px);
+  font-size: clamp(28px, 2vw + 22px, 40px);
   font-weight: 600;
   line-height: 1;
   color: var(--corona);
@@ -1406,22 +1479,11 @@ a:hover { color: var(--photon); }
   font-variant-numeric: tabular-nums;
 }
 
-.landing-ladder__band {
-  display: grid;
-  gap: 6px;
-}
-
-.landing-ladder__band-label {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
 .landing-ladder__band-track {
   display: block;
-  height: 6px;
+  height: 4px;
+  width: 100%;
+  max-width: 120px;
   border-radius: 999px;
   background: color-mix(in srgb, var(--corona) 8%, #ffffff);
   overflow: hidden;
@@ -1434,58 +1496,27 @@ a:hover { color: var(--photon); }
   background: linear-gradient(90deg, var(--stellar), var(--lilac-medium));
 }
 
-.landing-ladder__reveal {
+.landing-ladder__line {
   margin: 0;
-  max-width: 36ch;
+  max-width: 32ch;
 }
 
 .landing-ladder__cta {
-  margin-top: auto;
+  margin-top: var(--stack-xs);
   width: fit-content;
 }
 
-.landing-ladder__signpost,
-.landing-ladder__guarantee,
-.landing-ladder__safety {
-  margin: 0;
-  max-width: 52ch;
-}
-
-.landing-ladder__safety {
-  color: var(--muted);
+.landing-close-panel__safety {
+  margin: var(--stack-md) 0 0;
+  color: rgba(255, 255, 255, 0.72);
   font-size: 17px;
 }
 
-.landing-commons {
-  display: grid;
-  gap: var(--stack-sm);
-  padding: clamp(24px, 4vw, 36px);
-  border-radius: 16px;
-  background: linear-gradient(
-    145deg,
-    color-mix(in srgb, var(--deep) 92%, var(--stellar) 8%) 0%,
-    color-mix(in srgb, var(--eggplant-dark) 88%, var(--lilac-dark) 12%) 100%
-  );
-  color: #ffffff;
-}
-
-.landing-commons .eyebrow {
-  color: rgba(255, 255, 255, 0.72);
-}
-
-.landing-commons .display-md {
-  color: #ffffff;
-  margin: 0;
-}
-
-.landing-commons__copy {
-  color: rgba(255, 255, 255, 0.88);
-  margin: 0;
-  max-width: 44ch;
-}
-
-.landing-commons__cta {
-  width: fit-content;
+@media (min-width: 821px) {
+  .landing-ladder__rungs {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-sm);
+  }
 }
 
 .landing-close-panel {
@@ -1508,12 +1539,6 @@ a:hover { color: var(--photon); }
 
 .landing-close-panel .section-number {
   color: rgba(255, 255, 255, 0.72);
-}
-
-@media (max-width: 820px) {
-  .landing-ladder__rungs {
-    grid-template-columns: 1fr;
-  }
 }
 
 /* ── PHOTONIC AGE PANEL — section 02 ─────────────────────── */
@@ -4898,14 +4923,7 @@ a:hover { color: var(--photon); }
   .data-table th, .data-table td { padding: 10px 14px; }
 }
 
-/* ── PRINT ───────────────────────────────────────────────── */
-@media (max-width: 820px) {
-  .landing-ladder__rungs {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ── PATHWAY — signpost page (not clinical workflow) ─────── */
+/* ── PATHWAY — signpost page ─────────────────────────────── */
 .pathway-shell {
   background: var(--dash-page);
 }
@@ -5009,19 +5027,6 @@ a:hover { color: var(--photon); }
 
 .pathway-page__back {
   padding: var(--stack-lg) var(--space-md) clamp(48px, 6vh, 80px);
-}
-
-.landing-ladder__pathway,
-.landing-ladder__pathway-inline {
-  font-family: var(--font-body);
-  font-size: 17px;
-  color: var(--corona);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-.landing-ladder__pathway {
-  width: fit-content;
 }
 
 .phos-dashboard__pathway-cta {

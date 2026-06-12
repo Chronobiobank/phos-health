@@ -29,10 +29,10 @@ export default function Home() {
   }, [])
 
   return (
-    <main>
+    <main className="landing">
       <Nav />
 
-      <section id="hero" className="fade-in hero snap-section" data-nav-theme="dark">
+      <section id="hero" className="fade-in hero snap-section landing__snap" data-nav-theme="dark">
         <video
           className="hero__video"
           autoPlay
@@ -46,39 +46,36 @@ export default function Home() {
         </video>
         <div className="hero__veil" aria-hidden="true" />
         <div className="container hero__content">
-          <h1 className="display-xl">Is light stealing your youth?</h1>
-          <p className="lede">
-            UK Biobank studied eighty eight thousand people on light and ageing.
-          </p>
+          <h1 className="display-xl">
+            Night light predicts earlier <span className="landing-accent">mortality</span>.
+          </h1>
+          <p className="support">UK Biobank, eighty eight thousand adults.</p>
           <div className="copy-actions">
             <Link href={FREE_SCORE_HREF} className="btn btn--primary">
-              Get your free score →
+              Free score →
             </Link>
           </div>
         </div>
       </section>
 
-      <section id="science" className="fade-in snap-section biology-panel" data-nav-theme="dark">
+      <section id="science" className="fade-in snap-section biology-panel landing__snap" data-nav-theme="dark">
         <div className="container biology-panel__content">
           <p className="section-number">01</p>
-          <h2 className="section-title">Brighter nights already shorten lives.</h2>
+          <h2 className="section-title">Brighter nights shorten lives.</h2>
           <div className="fact-tiles">
             <article className="fact-tile">
               <h3 className="fact-tile__head">Mortality up thirty four percent.</h3>
-              <p className="fact-tile__cite">UK Biobank cohort, population level only.</p>
             </article>
             <article className="fact-tile">
               <h3 className="fact-tile__head">Diabetes up fifty three percent.</h3>
-              <p className="fact-tile__cite">UK Biobank cohort, population level only.</p>
             </article>
             <article className="fact-tile">
               <h3 className="fact-tile__head">Five diseases tied to night light.</h3>
-              <p className="fact-tile__cite">UK Biobank cohort, population level only.</p>
             </article>
           </div>
           <div className="copy-actions">
-            <Link href="/research/photonic-age" className="btn btn--primary">
-              Read the science →
+            <Link href={FREE_SCORE_HREF} className="btn btn--primary">
+              Free score →
             </Link>
           </div>
         </div>
@@ -86,16 +83,16 @@ export default function Home() {
 
       <section
         id="free"
-        className="fade-in snap-section landing-free-panel photonic-age-panel"
+        className="fade-in snap-section landing-free-panel photonic-age-panel landing__snap"
         data-nav-theme="light"
       >
         <div className="container photonic-age-panel__content">
           <p className="section-number">02</p>
           <h2 className="section-title">Social jet lag in two minutes.</h2>
-          <p className="support">Free, no device, no bloods. Wide honest band.</p>
+          <p className="support">Free. Wide honest band.</p>
           <div className="copy-actions">
             <Link href={FREE_SCORE_HREF} className="btn btn--primary">
-              Get your free score →
+              Free score →
             </Link>
           </div>
         </div>
@@ -103,27 +100,36 @@ export default function Home() {
 
       <section
         id="pricing"
-        className="fade-in snap-section landing-pricing-panel photonic-age-panel"
+        className="fade-in snap-section landing-pricing-panel photonic-age-panel landing__snap"
         data-nav-theme="light"
       >
         <div className="container photonic-age-panel__content">
           <p className="section-number">03</p>
-          <h2 className="section-title">The precision ladder, priced.</h2>
-          <p className="support">Same Photonic Age, tighter confidence as you climb.</p>
+          <h2 className="section-title">Pay to sharpen, not see.</h2>
           <LandingPricingLadder />
         </div>
       </section>
 
-      <section id="close" className="fade-in snap-section landing-close-panel" data-nav-theme="dark">
+      <section id="trust" className="fade-in snap-section landing-trust-panel landing__snap" data-nav-theme="light">
+        <div className="container landing-trust-panel__content">
+          <p className="section-number">04</p>
+          <h2 className="section-title">Your data is never sold.</h2>
+          <Link href="/chronobiobank" className="label landing-trust-panel__link">
+            Chronobiobank →
+          </Link>
+        </div>
+      </section>
+
+      <section id="close" className="fade-in snap-section landing-close-panel landing__snap" data-nav-theme="dark">
         <div className="container landing-close-panel__content">
           <p className="section-number">05</p>
-          <h2 className="section-title">Start with your free score.</h2>
-          <p className="support">Know your Photonic Age before you spend a penny.</p>
+          <h2 className="section-title">Start with free score.</h2>
           <div className="copy-actions">
             <Link href={FREE_SCORE_HREF} className="btn btn--primary">
-              Get your free score →
+              Free score →
             </Link>
           </div>
+          <p className="support landing-close-panel__safety">Urgent symptoms: 111 or 999.</p>
         </div>
       </section>
 
