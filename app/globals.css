@@ -3455,6 +3455,8 @@ a:hover { color: var(--photon); }
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--stack-md);
   align-items: stretch;
+  width: 100%;
+  min-width: 0;
 }
 
 .phos-dashboard__stat {
@@ -3464,7 +3466,16 @@ a:hover { color: var(--photon); }
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 8px;
+  min-width: 0;
+}
+
+.phos-dashboard__summary .dash-card__label {
+  white-space: normal;
+  text-wrap: balance;
+  line-height: 1.25;
+  max-width: 100%;
 }
 
 /* Summary row — one metric size, shared baseline band across all three tiles */
@@ -3903,12 +3914,25 @@ a:hover { color: var(--photon); }
 }
 
 @media (max-width: 720px) {
-  .phos-dashboard__summary,
   .phos-dashboard__grid,
   .shop-page__grid,
   .dashboard-status-panels,
   .org-dashboard__grid {
     grid-template-columns: 1fr;
+  }
+
+  .phos-dashboard__summary {
+    gap: var(--stack-sm);
+  }
+
+  .phos-dashboard__stat {
+    padding: 12px 8px;
+  }
+
+  .phos-dashboard__summary .dash-card__metric,
+  .phos-dashboard__summary .dash-card__metric--lg,
+  .phos-dashboard__summary .dash-card__metric--xl {
+    font-size: clamp(26px, 7.5vw, 40px);
   }
 }
 
