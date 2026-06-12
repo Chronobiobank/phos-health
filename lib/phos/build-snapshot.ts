@@ -3,7 +3,6 @@ import type { DailyCueStop, PhosMetric, PhosSnapshot } from '@/lib/phos/types'
 import {
   tipTraqBodyClockMetric,
   tipTraqSleepEfficiencyMetric,
-  tipTraqTotalSleepMetric,
 } from '@/lib/phos/metric-display'
 import { buildPhotonicRiskSpectrum } from '@/lib/phos/risk-spectrum/build-nodes'
 import { meanAhiFromValues } from '@/lib/phos/risk-spectrum/indicators'
@@ -273,9 +272,6 @@ async function buildFromTipTraq(
   const avgEfficiency = Math.round(
     nights.reduce((sum, night) => sum + (night.sleep_efficiency_pct ?? 0), 0) / nights.length,
   )
-  const avgTst = Math.round(
-    nights.reduce((sum, night) => sum + (night.tst_minutes ?? 0), 0) / nights.length,
-  )
   const lostLightYears = TERRY_MOCK_SNAPSHOT.lostLightYears
   const photonicAge = Math.round((calendarAge + lostLightYears) * 10) / 10
   const latestNightRow = nights[0] ?? null
@@ -284,7 +280,6 @@ async function buildFromTipTraq(
 
   const metrics: PhosMetric[] = [
     tipTraqSleepEfficiencyMetric(nights.length, avgEfficiency),
-    tipTraqTotalSleepMetric(avgTst),
     tipTraqBodyClockMetric(formatTime(mlux?.mlux_phase_time), chronotype),
   ]
 

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 
+import { DashboardPanel } from '@/components/dashboard/DashboardPanel'
 import { OrgJoinPanel } from '@/components/org/OrgJoinPanel'
 import { isSupabaseConfigured } from '@/lib/phos/build-snapshot'
 import { createClient } from '@/lib/supabase/server'
@@ -17,8 +18,12 @@ export default async function OrgJoinPage() {
     return (
       <section className="dashboard-page org-page">
         <div className="container dashboard-page__content">
-          <h1 className="section-title dashboard-page__title">Join your employer programme</h1>
-          <p className="support">Add Supabase env vars to enable organisation join.</p>
+          <div className="phos-dashboard">
+            <DashboardPanel
+              title="Join your employer programme"
+              lede="Add Supabase env vars to enable organisation join."
+            />
+          </div>
         </div>
       </section>
     )
@@ -36,9 +41,11 @@ export default async function OrgJoinPage() {
   return (
     <section className="dashboard-page org-page">
       <div className="container dashboard-page__content">
-        <p className="eyebrow">Employer programme</p>
-        <h1 className="section-title dashboard-page__title">Join your firm</h1>
-        <OrgJoinPanel />
+        <div className="phos-dashboard">
+          <DashboardPanel eyebrow="Employer programme" title="Join your firm">
+            <OrgJoinPanel />
+          </DashboardPanel>
+        </div>
       </div>
     </section>
   )

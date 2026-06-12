@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { Suspense, useEffect, useState } from 'react'
 
+import { PhotonicAgeSummaryRow } from '@/components/dashboard/PhotonicAgeSummaryRow'
 import {
   loadAssessmentSession,
   saveAssessmentSession,
@@ -102,20 +103,11 @@ function ProtocolContent() {
         <h1 className="section-title">{result.protocolHeadline}</h1>
         <p className="support">{result.protocolSupport}</p>
 
-        <div className="phos-dashboard__summary" style={{ marginTop: 'var(--stack-lg)' }}>
-          <div className="phos-dashboard__stat dash-card">
-            <p className="dash-card__metric">{result.calendarAge}</p>
-            <p className="dash-card__label">Calendar age</p>
-          </div>
-          <div className="phos-dashboard__stat dash-card dash-card--featured">
-            <p className="dash-card__metric">{result.photonicAge}</p>
-            <p className="dash-card__label">Photonic age</p>
-          </div>
-          <div className="phos-dashboard__stat dash-card phos-dashboard__stat--accent">
-            <p className="dash-card__metric">{result.lostLightYears}</p>
-            <p className="dash-card__label">Lost light years</p>
-          </div>
-        </div>
+        <PhotonicAgeSummaryRow
+          calendarAge={result.calendarAge}
+          photonicAge={result.photonicAge}
+          lostLightYears={result.lostLightYears}
+        />
 
         <div className="auth-form dash-card" style={{ marginTop: 'var(--stack-md)' }}>
           <p className="dash-card__label">Focus</p>

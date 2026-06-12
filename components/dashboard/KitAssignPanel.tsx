@@ -35,7 +35,7 @@ export function KitAssignPanel() {
   }
 
   return (
-    <form className="kit-assign dash-card" onSubmit={assignKit}>
+    <form className="kit-assign dash-card dash-tile" onSubmit={assignKit}>
       <h2 className="display-md kit-assign__title">Bind sleep study kit</h2>
       <p className="support kit-assign__lede">
         Enter the serial on your Photonic Sleep Study box so inbound reports route to you.

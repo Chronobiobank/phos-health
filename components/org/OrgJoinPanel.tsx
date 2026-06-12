@@ -43,7 +43,7 @@ export function OrgJoinPanel() {
   }
 
   return (
-    <form className="org-join dash-card" onSubmit={join}>
+    <form className="org-join dash-card dash-tile" onSubmit={join}>
       <h2 className="display-md">Join your employer programme</h2>
       <p className="support">
         Enter your firm invite code. You consent to anonymised cohort numbers only.

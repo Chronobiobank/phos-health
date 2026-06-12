@@ -10,7 +10,7 @@ export function DashboardMetricTile({ metric }: DashboardMetricTileProps) {
   const noteLines = metricNoteLines(metric)
 
   return (
-    <div className="phos-dashboard__metric dash-card">
+    <div className="phos-dashboard__metric dash-card dash-tile">
       <p className="dash-card__metric">{metric.value}</p>
       <span className="dash-card__label-stack" aria-label={metric.label}>
         <span className="dash-card__label-line">{labelLines[0]}</span>

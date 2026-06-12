@@ -1,5 +1,6 @@
 import Link from 'next/link'
 
+import { DashboardPanel, DashboardPanelTiles } from '@/components/dashboard/DashboardPanel'
 import type { AssessmentSessionPayload } from '@/lib/assessments/session'
 import {
   BLOOD_PANEL_SUB,
@@ -24,33 +25,39 @@ export function AssessmentStatusPanels({ assessment, tipTraqNights = 0 }: Assess
     : CHRONOBIOBANK_SUB_PENDING
 
   return (
-    <div className="dashboard-status-panels">
-      <article className="dash-card dashboard-status-panels__card">
-        <p className="eyebrow">Blood panel</p>
-        <h2 className="display-md">Not submitted</h2>
-        <p className="dash-card__copy">{BLOOD_PANEL_SUB}</p>
-        <Link href="/shop#photonic-panel" className="btn btn--outline dashboard-status-panels__cta">
-          Order panel →
-        </Link>
-      </article>
+    <DashboardPanel
+      title="Tighten your confidence band"
+      lede="Optional upgrades for blood panel, sleep study, and research."
+      titleAs="h2"
+    >
+      <DashboardPanelTiles columns={3} className="dashboard-status-panels">
+        <article className="dash-card dash-tile dashboard-status-panels__card">
+          <p className="eyebrow">Blood panel</p>
+          <h3 className="display-md">Not submitted</h3>
+          <p className="dash-card__copy">{BLOOD_PANEL_SUB}</p>
+          <Link href="/shop#photonic-panel" className="btn btn--outline dashboard-status-panels__cta">
+            Order panel →
+          </Link>
+        </article>
 
-      <article className="dash-card dashboard-status-panels__card">
-        <p className="eyebrow">TipTraQ</p>
-        <h2 className="display-md">{tipTraqLabel}</h2>
-        <p className="dash-card__copy">{tipTraqSupport}</p>
-        <Link href="/dashboard/streams" className="btn btn--outline dashboard-status-panels__cta">
-          {tipTraqNights > 0 ? 'View nights →' : 'Start study →'}
-        </Link>
-      </article>
+        <article className="dash-card dash-tile dashboard-status-panels__card">
+          <p className="eyebrow">TipTraQ</p>
+          <h3 className="display-md">{tipTraqLabel}</h3>
+          <p className="dash-card__copy">{tipTraqSupport}</p>
+          <Link href="/dashboard/streams" className="btn btn--outline dashboard-status-panels__cta">
+            {tipTraqNights > 0 ? 'View nights →' : 'Start study →'}
+          </Link>
+        </article>
 
-      <article className="dash-card dashboard-status-panels__card">
-        <p className="eyebrow">Chronobiobank</p>
-        <h2 className="display-md">{chronobiobankConsented ? 'Consented' : 'Not consented'}</h2>
-        <p className="dash-card__copy">{chronobiobankSupport}</p>
-        <Link href="/chronobiobank" className="btn btn--outline dashboard-status-panels__cta">
-          {chronobiobankConsented ? 'Manage consent →' : 'Opt in →'}
-        </Link>
-      </article>
-    </div>
+        <article className="dash-card dash-tile dashboard-status-panels__card">
+          <p className="eyebrow">Chronobiobank</p>
+          <h3 className="display-md">{chronobiobankConsented ? 'Consented' : 'Not consented'}</h3>
+          <p className="dash-card__copy">{chronobiobankSupport}</p>
+          <Link href="/chronobiobank" className="btn btn--outline dashboard-status-panels__cta">
+            {chronobiobankConsented ? 'Manage consent →' : 'Opt in →'}
+          </Link>
+        </article>
+      </DashboardPanelTiles>
+    </DashboardPanel>
   )
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 
+import { DashboardPanel } from '@/components/dashboard/DashboardPanel'
 import { KitAssignPanel } from '@/components/dashboard/KitAssignPanel'
 import { TipTraqNightList } from '@/components/dashboard/TipTraqNightList'
 import { TipTraqUploadPanel } from '@/components/dashboard/TipTraqUploadPanel'
@@ -17,10 +18,12 @@ export default async function DashboardStreamsPage() {
     return (
       <section className="dashboard-page">
         <div className="container dashboard-page__content">
-          <h1 className="section-title dashboard-page__title">Upload nights</h1>
-          <p className="support">
-            Add Supabase env vars to enable live TipTraQ upload and processing.
-          </p>
+          <div className="phos-dashboard">
+            <DashboardPanel
+              title="Upload nights"
+              lede="Add Supabase env vars to enable live TipTraQ upload and processing."
+            />
+          </div>
         </div>
       </section>
     )
@@ -40,16 +43,18 @@ export default async function DashboardStreamsPage() {
   return (
     <section className="dashboard-page">
       <div className="container dashboard-page__content">
-        <h1 className="section-title dashboard-page__title">Upload nights</h1>
-        <p className="support">Bind your kit serial for automated ingest, or use dev upload below.</p>
-
-        <KitAssignPanel />
-
-        <TipTraqUploadPanel />
-
-        <div className="dashboard-streams__history">
-          <h2 className="display-md dashboard-streams__history-title">Uploaded nights</h2>
-          <TipTraqNightList nights={snapshot.nights} canDelete />
+        <div className="phos-dashboard">
+          <DashboardPanel
+            title="Upload nights"
+            lede="Bind your kit serial for automated ingest, or use dev upload below."
+          >
+            <KitAssignPanel />
+            <TipTraqUploadPanel />
+            <article className="dash-card dash-tile dashboard-streams__history">
+              <h2 className="display-md dashboard-streams__history-title">Uploaded nights</h2>
+              <TipTraqNightList nights={snapshot.nights} canDelete />
+            </article>
+          </DashboardPanel>
         </div>
       </div>
     </section>

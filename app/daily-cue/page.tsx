@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 
 import { DailyCueCompanion } from '@/components/daily-cue/DailyCueCompanion'
+import { DashboardPanel } from '@/components/dashboard/DashboardPanel'
 import { buildPhosSnapshot, isSupabaseConfigured } from '@/lib/phos/build-snapshot'
 import { TERRY_MOCK_SNAPSHOT } from '@/lib/phos/mock-snapshot'
 import { createClient } from '@/lib/supabase/server'
@@ -32,9 +33,11 @@ export default async function DailyCuePage() {
   return (
     <section className="dashboard-page daily-cue-page">
       <div className="container dashboard-page__content">
-        <p className="eyebrow">Daily Cue</p>
-        <h1 className="section-title dashboard-page__title">Light Time for today</h1>
-        <DailyCueCompanion snapshot={snapshot} />
+        <div className="phos-dashboard">
+          <DashboardPanel eyebrow="Daily Cue" title="Light Time for today">
+            <DailyCueCompanion snapshot={snapshot} />
+          </DashboardPanel>
+        </div>
       </div>
     </section>
   )

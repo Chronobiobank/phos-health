@@ -4,7 +4,6 @@ import {
   chronotypeNoteLines,
   tipTraqBodyClockMetric,
   tipTraqSleepEfficiencyMetric,
-  tipTraqTotalSleepMetric,
 } from '@/lib/phos/metric-display'
 
 function visualLength(text: string): number {
@@ -15,7 +14,6 @@ describe('TipTraQ dashboard metric display', () => {
   it('keeps label and note lines within one character for symmetry', () => {
     const metrics = [
       tipTraqSleepEfficiencyMetric(3, 25),
-      tipTraqTotalSleepMetric(141),
       tipTraqBodyClockMetric('19:52', 'Morning type'),
     ]
 

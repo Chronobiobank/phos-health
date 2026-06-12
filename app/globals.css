@@ -111,6 +111,37 @@
     0 1px 2px rgba(17, 24, 39, 0.04),
     0 4px 12px rgba(17, 24, 39, 0.06),
     0 20px 40px -8px rgba(17, 24, 39, 0.12);
+
+  /* Glass tile system — same translucency as dashboard risk tile */
+  --dash-bg-color: var(--dash-page);
+  --dash-bg-image: none;
+  --dash-tile-fill: rgba(255, 255, 255, 0.52);
+  --dash-tile-fill-muted: rgba(255, 255, 255, 0.38);
+  --dash-tile-blur: 14px;
+  --dash-tile-border: rgba(255, 255, 255, 0.62);
+  --dash-tile-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.5) inset,
+    0 2px 8px rgba(17, 24, 39, 0.05),
+    0 8px 24px rgba(17, 24, 39, 0.07);
+  --dash-tile-shadow-hover:
+    0 0 0 1px rgba(255, 255, 255, 0.55) inset,
+    0 4px 12px rgba(17, 24, 39, 0.07),
+    0 12px 32px rgba(17, 24, 39, 0.1);
+
+  /* Buttons — black primary, light lilac secondary */
+  --btn-primary-bg: var(--corona);
+  --btn-primary-fg: #ffffff;
+  --btn-primary-hover-bg: var(--deep);
+  --btn-outline-bg: var(--lilac-light);
+  --btn-outline-fg: var(--corona);
+  --btn-outline-border: color-mix(in srgb, var(--lilac-dark) 48%, var(--corona) 10%);
+  --btn-outline-hover-bg: var(--lilac-medium);
+  --btn-outline-hover-border: var(--lilac-dark);
+
+  /* Dashboard copy over glass / video */
+  --dash-copy: var(--corona);
+  --dash-copy-muted: rgba(17, 17, 24, 0.72);
+  --dash-copy-soft: rgba(17, 17, 24, 0.58);
 }
 
 /* ── RESET ───────────────────────────────────────────────── */
@@ -875,7 +906,7 @@ a:hover { color: var(--photon); }
   line-height: 1.6;
 }
 
-/* ── BUTTONS — pill, monochrome only ─────────────────────── */
+/* ── BUTTONS — black primary, light lilac outline ─────────── */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -897,15 +928,15 @@ a:hover { color: var(--photon); }
 }
 
 .btn--primary {
-  background: var(--corona);
-  color: #ffffff;
-  border-color: var(--corona);
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-fg);
+  border-color: var(--btn-primary-bg);
 }
 
 .btn--primary:hover {
-  background: var(--deep);
-  color: #ffffff;
-  border-color: var(--deep);
+  background: var(--btn-primary-hover-bg);
+  color: var(--btn-primary-fg);
+  border-color: var(--btn-primary-hover-bg);
 }
 
 /* Invert on dark video and image panels */
@@ -926,6 +957,7 @@ a:hover { color: var(--photon); }
 }
 
 .hero .btn--outline {
+  background: transparent;
   color: #ffffff;
   border-color: #ffffff;
 }
@@ -937,14 +969,15 @@ a:hover { color: var(--photon); }
 }
 
 .btn--outline {
-  background: transparent;
-  color: var(--corona);
-  border-color: var(--corona);
+  background: var(--btn-outline-bg);
+  color: var(--btn-outline-fg);
+  border-color: var(--btn-outline-border);
 }
 
 .btn--outline:hover {
-  background: var(--corona);
-  color: #ffffff;
+  background: var(--btn-outline-hover-bg);
+  color: var(--btn-outline-fg);
+  border-color: var(--btn-outline-hover-border);
 }
 
 /* ── FADE IN ─────────────────────────────────────────────── */
@@ -1360,7 +1393,11 @@ a:hover { color: var(--photon); }
 
 .pitch-tile {
   width: 100%;
-  background-color: var(--dash-surface);
+  background: var(--dash-tile-fill);
+  backdrop-filter: blur(var(--dash-tile-blur));
+  -webkit-backdrop-filter: blur(var(--dash-tile-blur));
+  border: 1px solid var(--dash-tile-border);
+  box-shadow: var(--dash-tile-shadow);
   overflow: hidden;
   container-type: inline-size;
   container-name: pitch-tile;
@@ -1423,7 +1460,7 @@ a:hover { color: var(--photon); }
   justify-items: center;
   gap: clamp(8px, 1.5cqi, 14px);
   padding: clamp(8px, 2cqi, 16px) 24px clamp(12px, 2.5cqi, 20px);
-  background: var(--dash-surface);
+  background: transparent;
 }
 
 .pitch-tile .photon-dial--pitch {
@@ -1489,8 +1526,8 @@ a:hover { color: var(--photon); }
   height: 32px;
   border-radius: 50%;
   color: var(--dash-label);
-  background: var(--dash-surface);
-  border: 1px solid var(--dash-border);
+  background: var(--dash-tile-fill-muted);
+  border: 1px solid var(--dash-tile-border);
 }
 
 .daily-cue-timeline__icon--active {
@@ -1721,13 +1758,15 @@ a:hover { color: var(--photon); }
   margin-top: var(--copy-action-gap-tight);
 }
 
-/* ── DASH CARD — dashboard / data tiles ──────────────────── */
+/* ── DASH CARD — glass tiles site-wide ───────────────────── */
 .dash-card {
   position: relative;
-  background: var(--dash-surface);
-  border: 1px solid var(--dash-border);
+  background: var(--dash-tile-fill);
+  backdrop-filter: blur(var(--dash-tile-blur));
+  -webkit-backdrop-filter: blur(var(--dash-tile-blur));
+  border: 1px solid var(--dash-tile-border);
   border-radius: 12px;
-  box-shadow: var(--dash-shadow);
+  box-shadow: var(--dash-tile-shadow);
   transition:
     transform 200ms cubic-bezier(0.4, 0, 0.2, 1),
     box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -1735,7 +1774,11 @@ a:hover { color: var(--photon); }
 
 .dash-card:hover {
   transform: translateY(-2px);
-  box-shadow: var(--dash-shadow-hover);
+  box-shadow: var(--dash-tile-shadow-hover);
+}
+
+.pitch-tile.dash-card {
+  background: transparent;
 }
 
 .dash-card--featured {
@@ -1764,7 +1807,9 @@ a:hover { color: var(--photon); }
   position: absolute;
   inset: 1px;
   border-radius: 11px;
-  background: var(--dash-surface);
+  background: var(--dash-tile-fill);
+  backdrop-filter: blur(var(--dash-tile-blur));
+  -webkit-backdrop-filter: blur(var(--dash-tile-blur));
   z-index: 0;
 }
 
@@ -1774,8 +1819,33 @@ a:hover { color: var(--photon); }
 }
 
 .dash-card__nest {
-  background: var(--dash-surface-muted);
+  background: var(--dash-tile-fill-muted);
+  backdrop-filter: blur(var(--dash-tile-blur));
+  -webkit-backdrop-filter: blur(var(--dash-tile-blur));
   border-radius: 8px;
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .dash-card,
+  .dash-card--featured::after,
+  .pitch-tile,
+  .impact-card--evidence,
+  .impact-card--q-window,
+  .dummy-dashboard__stat,
+  .dummy-dashboard__metric,
+  .onboarding-connect__option,
+  .dashboard-shell__bar,
+  .employer-shell__org-bar {
+    background: var(--dash-surface);
+  }
+
+  .dash-card__nest,
+  .impact-card__hero,
+  .calc__result,
+  .tiptraq-upload__drop--active,
+  .daily-cue-timeline__icon {
+    background: var(--dash-surface-muted);
+  }
 }
 
 .dash-card__label {
@@ -1875,7 +1945,11 @@ a:hover { color: var(--photon); }
   max-width: none;
   display: flex;
   flex-direction: column;
-  background-color: var(--dash-surface);
+  background: var(--dash-tile-fill);
+  backdrop-filter: blur(var(--dash-tile-blur));
+  -webkit-backdrop-filter: blur(var(--dash-tile-blur));
+  border: 1px solid var(--dash-tile-border);
+  box-shadow: var(--dash-tile-shadow);
 }
 
 .impact-card__header--evidence {
@@ -1886,7 +1960,7 @@ a:hover { color: var(--photon); }
   gap: 8px 16px;
   padding: 24px;
   border-bottom: 1px solid var(--dash-border);
-  background: var(--dash-surface);
+  background: transparent;
   text-align: left;
   text-transform: none;
   letter-spacing: normal;
@@ -1914,7 +1988,7 @@ a:hover { color: var(--photon); }
   align-items: stretch;
   flex: 1;
   width: 100%;
-  background: var(--dash-surface);
+  background: transparent;
 }
 
 .impact-card__hero {
@@ -1924,7 +1998,7 @@ a:hover { color: var(--photon); }
   gap: 8px;
   padding: 24px;
   border-right: 1px solid var(--dash-border);
-  background: var(--dash-surface-muted);
+  background: var(--dash-tile-fill-muted);
   min-height: 100%;
   width: 100%;
 }
@@ -2028,7 +2102,7 @@ a:hover { color: var(--photon); }
   flex-direction: column;
   min-height: 100%;
   width: 100%;
-  background: var(--dash-surface);
+  background: transparent;
 }
 
 .impact-card__cascade-row {
@@ -2039,7 +2113,7 @@ a:hover { color: var(--photon); }
   gap: 8px;
   padding: 24px;
   border-bottom: 1px solid var(--dash-border);
-  background: var(--dash-surface);
+  background: transparent;
 }
 
 .impact-card__cascade-row:last-child {
@@ -2075,7 +2149,7 @@ a:hover { color: var(--photon); }
   width: 100%;
   text-align: center;
   border-top: 1px solid var(--dash-border);
-  background: var(--dash-surface-muted);
+  background: var(--dash-tile-fill-muted);
   font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 0.08em;
@@ -2087,7 +2161,11 @@ a:hover { color: var(--photon); }
 .impact-card--q-window {
   display: flex;
   flex-direction: column;
-  background-color: var(--dash-surface);
+  background: var(--dash-tile-fill);
+  backdrop-filter: blur(var(--dash-tile-blur));
+  -webkit-backdrop-filter: blur(var(--dash-tile-blur));
+  border: 1px solid var(--dash-tile-border);
+  box-shadow: var(--dash-tile-shadow);
 }
 
 .impact-card--q-window .impact-card__q-body {
@@ -2098,7 +2176,7 @@ a:hover { color: var(--photon); }
   text-align: center;
   flex: 1;
   width: 100%;
-  background: var(--dash-surface);
+  background: transparent;
 }
 
 .impact-card__figure--time {
@@ -2914,12 +2992,14 @@ a:hover { color: var(--photon); }
   padding-bottom: clamp(48px, 6vh, 80px);
 }
 
-/* ── DUMMY DASHBOARD — product preview ───────────────────── */
+/* ── DASHBOARD THEME — canvas behind glass tiles ───────────
+   Member shell: /dashboard, /shop, /daily-cue, /onboarding, /chronobiobank.
+   Tile translucency is global via --dash-tile-fill in :root.
+   Swap --dash-bg-color or --dash-bg-image on .dashboard-shell for backdrop.
+   ─────────────────────────────────────────────────────────── */
 .dashboard-page {
   min-height: 100dvh;
-  background: var(--dash-page);
-  --card-pad: clamp(20px, 4vw, 24px);
-  --card-stack: 8px;
+  background: transparent;
 }
 
 .dashboard-page__content {
@@ -2929,7 +3009,7 @@ a:hover { color: var(--photon); }
 
 .dashboard-shell .dashboard-page__content {
   padding-top: var(--page-inset-shell);
-  padding-bottom: clamp(40px, 5vh, 64px);
+  padding-bottom: clamp(28px, 4vh, 48px);
 }
 
 .dashboard-page .section-title,
@@ -2970,7 +3050,11 @@ a:hover { color: var(--photon); }
 .dummy-dashboard__stat {
   padding: 24px;
   text-align: center;
-  background-color: var(--dash-surface);
+  background: var(--dash-tile-fill);
+  backdrop-filter: blur(var(--dash-tile-blur));
+  -webkit-backdrop-filter: blur(var(--dash-tile-blur));
+  border: 1px solid var(--dash-tile-border);
+  box-shadow: var(--dash-tile-shadow);
 }
 
 .dummy-dashboard__stat-value {
@@ -3010,7 +3094,11 @@ a:hover { color: var(--photon); }
 
 .dummy-dashboard__metric {
   padding: 24px;
-  background-color: var(--dash-surface);
+  background: var(--dash-tile-fill);
+  backdrop-filter: blur(var(--dash-tile-blur));
+  -webkit-backdrop-filter: blur(var(--dash-tile-blur));
+  border: 1px solid var(--dash-tile-border);
+  box-shadow: var(--dash-tile-shadow);
 }
 
 .dummy-dashboard__metric-value {
@@ -3053,17 +3141,80 @@ a:hover { color: var(--photon); }
 }
 
 .dashboard-shell {
+  position: relative;
+  isolation: isolate;
   min-height: 100dvh;
-  background: var(--dash-page);
+  background-color: var(--dash-bg-color);
+  background-image: var(--dash-bg-image);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  /* Glass — outer panel + inner tile */
+  --dash-tile-fill: rgba(255, 255, 255, 0.32);
+  --dash-tile-fill-muted: rgba(255, 255, 255, 0.18);
+  --dash-tile-blur: 16px;
+  --dash-tile-border: rgba(255, 255, 255, 0.42);
+  --dash-tile-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.38) inset,
+    0 2px 6px rgba(17, 24, 39, 0.04),
+    0 6px 18px rgba(17, 24, 39, 0.05);
+
+  /*
+   * Panel system — three levels, one rhythm:
+   * 1. Page stack     panels on the canvas
+   * 2. Outer panel    .dash-panel (header, body, footer)
+   * 3. Inner tiles    .dash-tile inside the body
+   */
+  --dash-stack-gap: 12px;
+  --dash-panel-pad: 14px;
+  --dash-panel-gap: 12px;
+  --dash-header-gap: 8px;
+  --dash-body-gap: 12px;
+  --dash-tile-gap: 10px;
+  --dash-tile-pad: 12px;
+  --card-pad: var(--dash-tile-pad);
+  --card-stack: 6px;
+}
+
+.dashboard-shell--video {
+  --dash-bg-color: #0a0a12;
+}
+
+.dashboard-shell__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.dashboard-shell__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .dashboard-shell__bar {
   position: sticky;
   top: 0;
   z-index: 40;
-  background: rgba(255, 255, 255, 0.92);
-  border-bottom: 1px solid var(--dash-border);
-  backdrop-filter: blur(12px);
+  background: var(--dash-tile-fill);
+  border-bottom: 1px solid var(--dash-tile-border);
+  backdrop-filter: blur(var(--dash-tile-blur));
+  -webkit-backdrop-filter: blur(var(--dash-tile-blur));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dashboard-shell__video {
+    display: none;
+  }
+
+  .dashboard-shell--video {
+    --dash-bg-color: var(--dash-page);
+  }
 }
 
 .dashboard-shell__inner {
@@ -3074,21 +3225,176 @@ a:hover { color: var(--photon); }
 
 .dashboard-shell__logo {
   text-decoration: none;
-  color: var(--dash-ink);
+  color: var(--dash-copy);
+}
+
+.dashboard-shell__logo .wordmark {
+  color: var(--dash-copy);
 }
 
 .dashboard-shell__main {
+  position: relative;
+  z-index: 1;
   min-height: calc(100dvh - var(--shell-nav-height));
+}
+
+/* Dashboard shell — copy legible over video and glass tiles */
+.dashboard-shell :is(.section-title, .dashboard-page__title, .display-md, .display-xl) {
+  color: var(--dash-copy);
+  margin: 0;
+}
+
+/* Marketing head→sub gap must not apply inside the panel system */
+.dashboard-shell :is(.section-title, .display-md, .display-xl) + :is(.lede, .support, .dash-panel__lede) {
+  margin-top: 0;
+}
+
+.dashboard-shell :is(.support, .dash-panel__lede) {
+  margin: 0;
+}
+
+.dashboard-shell .lede {
+  color: color-mix(in srgb, var(--dash-copy) 88%, transparent);
+}
+
+.dashboard-shell :is(
+  .support,
+  .dashboard-page__lede,
+  .phos-dashboard__confidence,
+  .phos-dashboard__sample-note,
+  .onboarding-connect__lede,
+  .shop-page__fulfilment
+) {
+  color: var(--dash-copy-muted);
+}
+
+.dashboard-shell .eyebrow {
+  color: var(--dash-copy-soft);
+}
+
+.dashboard-shell .dash-card :is(.display-md, h2, h3, .pitch-tile__greeting) {
+  color: var(--dash-copy);
+}
+
+.dashboard-shell :is(.dash-card__copy, .dash-card__support, .pitch-tile__advice-copy) {
+  color: var(--dash-copy-muted);
+}
+
+.dashboard-shell .dash-card__label,
+.dashboard-shell .pitch-tile__sun-window,
+.dashboard-shell .pitch-tile__cue-type {
+  color: var(--dash-copy-soft);
 }
 
 .dashboard-page__lede {
   max-width: 44ch;
 }
 
-.phos-dashboard {
-  margin-top: var(--stack-lg);
+.dashboard-page__content > .phos-dashboard {
+  margin-top: 0;
+}
+
+/* ── DASH PANEL — outer tile; .dash-tile = inner tiles in __body ── */
+.dash-panel {
+  display: grid;
+  gap: var(--dash-panel-gap);
+  padding: var(--dash-panel-pad);
+  background: var(--dash-tile-fill);
+  backdrop-filter: blur(var(--dash-tile-blur));
+  -webkit-backdrop-filter: blur(var(--dash-tile-blur));
+  border: 1px solid var(--dash-tile-border);
+  border-radius: 12px;
+  box-shadow: var(--dash-tile-shadow);
+  width: 100%;
+  min-width: 0;
+}
+
+.dash-panel__header {
+  display: grid;
+  gap: var(--dash-header-gap);
+}
+
+.dash-panel__lede {
+  max-width: 44ch;
+}
+
+.dash-panel__body {
+  display: grid;
+  gap: var(--dash-body-gap);
+  min-width: 0;
+}
+
+.dash-panel__tiles {
+  display: grid;
+  gap: var(--dash-tile-gap);
+  width: 100%;
+  min-width: 0;
+}
+
+.dash-panel__tiles--cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.dash-panel__tiles--cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.dash-panel__tiles--cols-1 {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.dash-panel__footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--dash-tile-gap);
+}
+
+.dash-panel .dash-tile {
+  padding: var(--dash-tile-pad);
+  background: var(--dash-tile-fill-muted);
+  backdrop-filter: blur(var(--dash-tile-blur));
+  -webkit-backdrop-filter: blur(var(--dash-tile-blur));
+  border: 1px solid color-mix(in srgb, var(--dash-tile-border) 72%, transparent);
+  border-radius: 8px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+
+.dash-panel .dash-tile:hover {
+  transform: none;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.dash-panel .dash-tile.dash-card--featured:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--dash-tile-shadow-hover);
+}
+
+.dash-panel .pitch-tile.dash-tile.dash-card {
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.dash-panel .pitch-tile.dash-tile.dash-card:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.dash-panel .phos-dashboard__confidence {
+  max-width: none;
+  margin: 0;
+}
+
+.onboarding-connect__options {
   display: grid;
   gap: var(--stack-md);
+}
+
+.phos-dashboard {
+  display: grid;
+  gap: var(--dash-stack-gap);
+  margin-top: 0;
 }
 
 .phos-dashboard__actions {
@@ -3132,15 +3438,18 @@ a:hover { color: var(--photon); }
   padding: var(--card-pad);
   text-align: left;
   cursor: pointer;
-  border: 1.5px solid var(--dash-border);
-  background: var(--dash-surface);
-  transition: border-color 0.2s ease, background 0.2s ease;
+  border: 1px solid var(--dash-tile-border);
+  background: var(--dash-tile-fill);
+  backdrop-filter: blur(var(--dash-tile-blur));
+  -webkit-backdrop-filter: blur(var(--dash-tile-blur));
+  box-shadow: var(--dash-tile-shadow);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .onboarding-connect__option:hover:not(:disabled),
 .onboarding-connect__option:focus-visible {
   border-color: var(--eggplant);
-  background: var(--dash-surface-muted);
+  box-shadow: var(--dash-tile-shadow-hover);
 }
 
 .onboarding-connect__option:disabled {
@@ -3289,17 +3598,17 @@ a:hover { color: var(--photon); }
 }
 
 .dashboard-status-panels {
-  margin-top: var(--stack-lg);
+  margin-top: 0;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--stack-md);
+  gap: var(--dash-tile-gap);
 }
 
 .dashboard-status-panels__card {
   display: grid;
-  gap: var(--stack-sm);
+  gap: var(--card-stack);
   align-content: start;
-  padding: var(--card-pad);
+  padding: var(--dash-tile-pad);
 }
 
 .dashboard-status-panels__card .eyebrow {
@@ -3336,8 +3645,10 @@ a:hover { color: var(--photon); }
 }
 
 .employer-shell__org-bar {
-  border-bottom: 1px solid var(--dash-border);
-  background: var(--dash-surface);
+  border-bottom: 1px solid var(--dash-tile-border);
+  background: var(--dash-tile-fill);
+  backdrop-filter: blur(var(--dash-tile-blur));
+  -webkit-backdrop-filter: blur(var(--dash-tile-blur));
   padding: 10px 0;
 }
 
@@ -3509,21 +3820,24 @@ a:hover { color: var(--photon); }
 .phos-dashboard__summary {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--stack-md);
+  gap: var(--dash-tile-gap);
   align-items: stretch;
   width: 100%;
   min-width: 0;
 }
 
+.phos-dashboard__summary.dash-panel__tiles--cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
 .phos-dashboard__stat {
-  padding: var(--card-pad);
+  padding: var(--dash-tile-pad);
   text-align: center;
-  background: var(--dash-surface);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: var(--card-stack);
   min-width: 0;
 }
 
@@ -3534,7 +3848,7 @@ a:hover { color: var(--photon); }
   max-width: 100%;
 }
 
-/* Summary row — one metric size, shared baseline band across all three tiles */
+/* Summary row — centre lost light years, calendar and photonic age on the flanks */
 .phos-dashboard__summary .dash-card__metric,
 .phos-dashboard__summary .dash-card__metric--lg,
 .phos-dashboard__summary .dash-card__metric--xl {
@@ -3547,6 +3861,11 @@ a:hover { color: var(--photon); }
   margin: 0;
 }
 
+.phos-dashboard__stat--centre .dash-card__metric {
+  color: var(--eggplant);
+  font-size: clamp(42px, 10vw, 56px);
+}
+
 .phos-dashboard__stat--accent .dash-card__metric {
   color: var(--eggplant);
 }
@@ -3557,19 +3876,24 @@ a:hover { color: var(--photon); }
   width: 100%;
 }
 
+.phos-dashboard__metrics-pair {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--dash-tile-gap);
+}
+
 .phos-dashboard__grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--stack-md);
+  gap: var(--dash-tile-gap);
   width: 100%;
   min-width: 0;
 }
 
 .phos-dashboard__risk-spectrum {
-  padding: var(--card-pad);
+  padding: var(--dash-tile-pad);
   display: flex;
   flex-direction: column;
-  gap: var(--stack-sm);
+  gap: var(--card-stack);
 }
 
 .phos-dashboard__risk-spectrum .display-md {
@@ -3785,12 +4109,12 @@ a:hover { color: var(--photon); }
 }
 
 .phos-dashboard__metric {
-  padding: var(--card-pad);
+  padding: var(--dash-tile-pad);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  gap: var(--stack-sm);
+  gap: var(--card-stack);
   text-align: center;
   min-width: 0;
 }
@@ -3805,8 +4129,9 @@ a:hover { color: var(--photon); }
 }
 
 /* Dashboard pitch tile — match page inset on all breakpoints */
+/* Hero pitch tile — inner sections use same tile pad token */
 .dashboard-page .pitch-tile__header {
-  padding: var(--card-pad) var(--card-pad) 12px;
+  padding: var(--dash-tile-pad) var(--dash-tile-pad) var(--card-stack);
 }
 
 /* Dashboard hero tile — larger dial relative to full-width tile */
@@ -3819,24 +4144,24 @@ a:hover { color: var(--photon); }
 }
 
 .dashboard-page .pitch-tile__gauge {
-  padding: clamp(10px, 2.5cqi, 20px) var(--card-pad) clamp(14px, 3cqi, 24px);
+  padding: var(--card-stack) var(--dash-tile-pad);
 }
 
 .dashboard-page .daily-cue-timeline {
-  padding: 12px var(--card-pad) 8px;
+  padding: var(--card-stack) var(--dash-tile-pad);
 }
 
 .dashboard-page .daily-cue-timeline__track {
-  left: calc(var(--card-pad) + 8px);
-  right: calc(var(--card-pad) + 8px);
+  left: calc(var(--dash-tile-pad) + 8px);
+  right: calc(var(--dash-tile-pad) + 8px);
 }
 
 .dashboard-page .pitch-tile__advice {
-  padding: 12px var(--card-pad) var(--card-pad);
+  padding: var(--card-stack) var(--dash-tile-pad) var(--dash-tile-pad);
 }
 
 .dashboard-page .pitch-tile__footer {
-  padding: 0 var(--card-pad) var(--card-pad);
+  padding: 0 var(--dash-tile-pad) var(--dash-tile-pad);
 }
 
 
@@ -3852,7 +4177,7 @@ a:hover { color: var(--photon); }
 
 .tiptraq-upload__drop--active {
   border-color: var(--eggplant);
-  background: var(--dash-surface-muted);
+  background: var(--dash-tile-fill-muted);
 }
 
 .tiptraq-upload__title {
@@ -4007,32 +4332,38 @@ a:hover { color: var(--photon); }
 }
 
 @media (max-width: 720px) {
+  .dashboard-shell {
+    --dash-panel-pad: 12px;
+    --dash-tile-pad: 10px;
+    --dash-tile-gap: 8px;
+  }
+
   .shop-page__grid,
+  .dash-panel__tiles--cols-3:not(.phos-dashboard__summary),
+  .dash-panel__tiles--cols-2:not(.phos-dashboard__metrics-pair),
   .dashboard-status-panels,
   .org-dashboard__grid {
     grid-template-columns: 1fr;
   }
 
   .phos-dashboard__summary {
-    gap: var(--stack-sm);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .phos-dashboard__stat {
-    padding: 12px 8px;
+  .phos-dashboard__summary .dash-card__label {
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
   }
 
   .phos-dashboard__summary .dash-card__metric,
   .phos-dashboard__summary .dash-card__metric--lg,
   .phos-dashboard__summary .dash-card__metric--xl {
-    font-size: clamp(26px, 7.5vw, 40px);
+    font-size: clamp(22px, 6.5vw, 40px);
   }
 
-  .phos-dashboard__grid {
-    gap: var(--stack-sm);
-  }
-
-  .phos-dashboard__metric {
-    padding: 12px 8px;
+  .phos-dashboard__stat--centre .dash-card__metric {
+    font-size: clamp(26px, 7.5vw, 44px);
   }
 
   .phos-dashboard__metric .dash-card__metric {
@@ -4051,7 +4382,7 @@ a:hover { color: var(--photon); }
   grid-template-columns: 1fr 1fr;
   gap: 0;
   align-items: stretch;
-  background: var(--dash-surface);
+  background: transparent;
 }
 
 .calc__inputs {
@@ -4060,14 +4391,14 @@ a:hover { color: var(--photon); }
   flex-direction: column;
   gap: 24px;
   border-right: 1px solid var(--dash-border);
-  background: var(--dash-surface);
+  background: transparent;
 }
 
 .calc__result {
   padding: 24px;
   display: flex;
   align-items: stretch;
-  background: var(--dash-surface);
+  background: var(--dash-tile-fill-muted);
 }
 
 .calc__field {

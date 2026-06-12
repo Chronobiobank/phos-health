@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 
 import { ChronobiobankOptInPanel } from '@/components/chronobiobank/ChronobiobankOptInPanel'
+import { DashboardPanel, DashboardPanelTiles } from '@/components/dashboard/DashboardPanel'
 import { loadChronobiobankState } from '@/lib/chronobiobank/consent'
 import type { ChronobiobankMemberState } from '@/lib/chronobiobank/types'
 import { isSupabaseConfigured } from '@/lib/phos/build-snapshot'
@@ -43,36 +44,38 @@ export default async function ChronobiobankPage() {
   return (
     <section className="dashboard-page chronobiobank-page">
       <div className="container dashboard-page__content">
-        <p className="eyebrow">Research commons</p>
-        <h1 className="section-title dashboard-page__title">Chronobiobank</h1>
-        <p className="lede chronobiobank-page__lede">
-          Member-owned light health commons, held by charity, never sold to anyone.
-        </p>
+        <div className="phos-dashboard">
+          <DashboardPanel
+            eyebrow="Research commons"
+            title="Chronobiobank"
+            lede="Member-owned light health commons, held by charity, never sold to anyone."
+          >
+            <DashboardPanelTiles columns={3} className="chronobiobank-page__blocks">
+              <article className="dash-card dash-tile chronobiobank-page__block">
+                <h2 className="display-md">What it is</h2>
+                <p className="support">
+                  Researchers license findings inside a controlled vault. Your records never leave.
+                </p>
+              </article>
 
-        <div className="chronobiobank-page__blocks">
-          <article className="dash-card chronobiobank-page__block">
-            <h2 className="display-md">What it is</h2>
-            <p className="support">
-              Researchers license findings inside a controlled vault. Your records never leave.
-            </p>
-          </article>
+              <article className="dash-card dash-tile chronobiobank-page__block">
+                <h2 className="display-md">What you contribute</h2>
+                <p className="support">
+                  De-identified Photonic Age metrics only. Never your name or employer.
+                </p>
+              </article>
 
-          <article className="dash-card chronobiobank-page__block">
-            <h2 className="display-md">What you contribute</h2>
-            <p className="support">
-              De-identified Photonic Age metrics only. Never your name or employer.
-            </p>
-          </article>
+              <article className="dash-card dash-tile chronobiobank-page__block">
+                <h2 className="display-md">Why it matters</h2>
+                <p className="support">
+                  Licence revenue funds free access. Your data stays charity-side, never corporate.
+                </p>
+              </article>
+            </DashboardPanelTiles>
 
-          <article className="dash-card chronobiobank-page__block">
-            <h2 className="display-md">Why it matters</h2>
-            <p className="support">
-              Licence revenue funds free access. Your data stays charity-side, never corporate.
-            </p>
-          </article>
+            <ChronobiobankOptInPanel state={state} signedIn={signedIn} />
+          </DashboardPanel>
         </div>
-
-        <ChronobiobankOptInPanel state={state} signedIn={signedIn} />
       </div>
     </section>
   )

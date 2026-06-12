@@ -73,7 +73,7 @@ export function TipTraqUploadPanel() {
     <div className="tiptraq-upload" data-tiptraq-upload="signed-flow-v3">
       {state.status === 'idle' && (
         <div
-          className={`tiptraq-upload__drop dash-card${isDragging ? ' tiptraq-upload__drop--active' : ''}`}
+          className={`tiptraq-upload__drop dash-card dash-tile${isDragging ? ' tiptraq-upload__drop--active' : ''}`}
           onDragOver={(e) => {
             e.preventDefault()
             setIsDragging(true)
@@ -97,7 +97,7 @@ export function TipTraqUploadPanel() {
       )}
 
       {['uploading', 'processing'].includes(state.status) && (
-        <div className="tiptraq-upload__progress dash-card">
+        <div className="tiptraq-upload__progress dash-card dash-tile">
           <p className="tiptraq-upload__status">{STATUS_MESSAGES[state.status]}</p>
           <div className="tiptraq-upload__bar" aria-hidden="true">
             <div className="tiptraq-upload__bar-fill" style={{ width: `${state.progress}%` }} />
@@ -106,7 +106,7 @@ export function TipTraqUploadPanel() {
       )}
 
       {state.status === 'complete' && state.result && (
-        <div className="tiptraq-upload__result dash-card dash-card--featured">
+        <div className="tiptraq-upload__result dash-card dash-tile dash-card--featured">
           <p className="dash-card__label">
             Night {state.result.rolling.nights_count} · {state.result.night.date}
           </p>
@@ -127,7 +127,7 @@ export function TipTraqUploadPanel() {
       )}
 
       {state.status === 'error' && (
-        <div className="tiptraq-upload__error dash-card">
+        <div className="tiptraq-upload__error dash-card dash-tile">
           <p className="tiptraq-upload__error-copy">{state.error}</p>
           <button type="button" className="btn btn--primary" onClick={reset}>
             Try again

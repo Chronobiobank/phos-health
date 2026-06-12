@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 
+import { DashboardPanel } from '@/components/dashboard/DashboardPanel'
 import { OrgDashboardView } from '@/components/org/OrgDashboardView'
 import { loadOrgDashboardForUser, tryCreateAdminClient } from '@/lib/org/load-org-dashboard'
 import { isSupabaseConfigured } from '@/lib/phos/build-snapshot'
@@ -19,9 +20,14 @@ export default async function OrgPage() {
     return (
       <section className="dashboard-page org-page">
         <div className="container dashboard-page__content">
-          <h1 className="section-title dashboard-page__title">Employer cohort</h1>
-          <p className="support">Add Supabase env vars to enable the employer dashboard.</p>
-          <OrgDashboardView snapshot={DEMO_ORG_AGGREGATE} role="viewer" />
+          <div className="phos-dashboard">
+            <DashboardPanel
+              title="Employer cohort"
+              lede="Add Supabase env vars to enable the employer dashboard."
+            >
+              <OrgDashboardView snapshot={DEMO_ORG_AGGREGATE} role="viewer" />
+            </DashboardPanel>
+          </div>
         </div>
       </section>
     )
@@ -42,12 +48,15 @@ export default async function OrgPage() {
   return (
     <section className="dashboard-page org-page">
       <div className="container dashboard-page__content">
-        <p className="eyebrow">Employer dashboard</p>
-        <h1 className="section-title dashboard-page__title">{snapshot.organisationName}</h1>
-        <p className="support dashboard-page__lede">
-          Participation, cohort Photonic Age shift, and savings. Aggregate only.
-        </p>
-        <OrgDashboardView snapshot={snapshot} role={role} inviteCode={inviteCode} />
+        <div className="phos-dashboard">
+          <DashboardPanel
+            eyebrow="Employer dashboard"
+            title={snapshot.organisationName}
+            lede="Participation, cohort Photonic Age shift, and savings. Aggregate only."
+          >
+            <OrgDashboardView snapshot={snapshot} role={role} inviteCode={inviteCode} />
+          </DashboardPanel>
+        </div>
       </div>
     </section>
   )

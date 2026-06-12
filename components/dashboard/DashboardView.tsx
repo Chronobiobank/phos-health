@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation'
 import { Suspense, useEffect, useState } from 'react'
 
 import { AssessmentStatusPanels } from '@/components/dashboard/AssessmentStatusPanels'
+import { DashboardPanel } from '@/components/dashboard/DashboardPanel'
 import { PhosDashboardView } from '@/components/dashboard/PhosDashboardView'
 import { TipTraqDashboardView } from '@/components/dashboard/TipTraqDashboardView'
 import {
@@ -15,54 +16,131 @@ import {
 } from '@/lib/assessments/session'
 import type { PhosSnapshot } from '@/lib/phos/types'
 
-type DashboardMode = 'assessment' | 'tiptraq' | 'empty' | 'unauthenticated'
+type DashboardMode = 'assessment' | 'live' | 'empty' | 'unauthenticated'
 
-function hasTipTraqSnapshot(snapshot: PhosSnapshot): boolean {
-  return !snapshot.isSample && snapshot.nightsCount > 0
+type DashboardViewProps = {
+  signedIn: boolean
+  initialSnapshot: PhosSnapshot | null
+  assessmentId: string | null
 }
 
-function DashboardContent() {
+function isRenderableSnapshot(snapshot: PhosSnapshot | null | undefined): snapshot is PhosSnapshot {
+  return snapshot != null && typeof snapshot.photonicAge === 'number'
+}
+
+function LoadingPanel() {
+  return (
+    <div className="phos-dashboard">
+      <DashboardPanel title="Your Photonic Age" lede="Loading your dashboard..." />
+    </div>
+  )
+}
+
+function LiveDashboard({ snapshot, signedIn }: { snapshot: PhosSnapshot; signedIn: boolean }) {
+  const nightsLine =
+    snapshot.nightsCount > 0
+      ? `${snapshot.nightsCount} sleep study nights processed.`
+      : snapshot.isSample
+        ? 'Preview dashboard. Sign in for your live TipTraQ score.'
+        : 'Phone data synced. Upload nights or upgrade for tighter confidence.'
+
+  return (
+    <div className="phos-dashboard">
+      <TipTraqDashboardView snapshot={snapshot} lede={nightsLine} />
+      {!signedIn ? (
+        <DashboardPanel
+          title="Your account"
+          lede="Sign in to load your nights and save your score."
+          footer={
+            <Link href="/auth/signin?next=/dashboard" className="btn btn--primary">
+              Sign in →
+            </Link>
+          }
+        />
+      ) : (
+        <AssessmentStatusPanels tipTraqNights={snapshot.nightsCount} />
+      )}
+    </div>
+  )
+}
+
+function AssessmentDashboard({ assessment }: { assessment: AssessmentSessionPayload }) {
+  return (
+    <div className="phos-dashboard">
+      <PhosDashboardView
+        assessment={assessment}
+        lede={`Diagnostic score · ${assessment.confidenceLabel} confidence · risk ${assessment.riskLevel}`}
+      />
+      <AssessmentStatusPanels assessment={assessment} />
+      <DashboardPanel
+        title="Your protocol"
+        lede="View your plan or start supplements from the shop."
+        footer={
+          <>
+            <Link href={`/protocol?id=${assessment.assessmentId}`} className="btn btn--outline">
+              View protocol
+            </Link>
+            <Link href="/shop#protocol" className="btn btn--primary">
+              Start your protocol →
+            </Link>
+          </>
+        }
+      />
+    </div>
+  )
+}
+
+function DashboardContent({ signedIn, initialSnapshot, assessmentId }: DashboardViewProps) {
   const searchParams = useSearchParams()
-  const [mode, setMode] = useState<DashboardMode>('empty')
-  const [assessment, setAssessment] = useState<AssessmentSessionPayload | null>(null)
-  const [snapshot, setSnapshot] = useState<PhosSnapshot | null>(null)
-  const [loading, setLoading] = useState(true)
+  const resolvedAssessmentId = assessmentId ?? searchParams.get('id')
+
+  const [mode, setMode] = useState<DashboardMode>(() => {
+    if (isRenderableSnapshot(initialSnapshot)) return 'live'
+    if (resolvedAssessmentId) return 'empty'
+    const session = loadAssessmentSession()
+    if (session) return 'assessment'
+    return 'unauthenticated'
+  })
+
+  const [snapshot, setSnapshot] = useState<PhosSnapshot | null>(
+    isRenderableSnapshot(initialSnapshot) ? initialSnapshot : null,
+  )
+  const [assessment, setAssessment] = useState<AssessmentSessionPayload | null>(() => {
+    if (isRenderableSnapshot(initialSnapshot) || resolvedAssessmentId) return null
+    return loadAssessmentSession()
+  })
+
+  const needsClientLoad =
+    signedIn && !isRenderableSnapshot(initialSnapshot) && Boolean(resolvedAssessmentId || signedIn)
+  const [loading, setLoading] = useState(needsClientLoad)
 
   useEffect(() => {
+    if (isRenderableSnapshot(initialSnapshot)) return
+
     let cancelled = false
 
     async function loadDashboard() {
-      const assessmentId = searchParams.get('id')
-
-      try {
-        const snapshotResponse = await fetch('/api/dashboard/snapshot')
-
-        if (snapshotResponse.status === 401) {
-          if (!cancelled) {
-            setMode('unauthenticated')
-            setLoading(false)
+      if (signedIn) {
+        try {
+          const snapshotResponse = await fetch('/api/dashboard/snapshot')
+          if (snapshotResponse.ok) {
+            const liveSnapshot = (await snapshotResponse.json()) as PhosSnapshot
+            if (!cancelled && isRenderableSnapshot(liveSnapshot)) {
+              clearAssessmentSession()
+              setSnapshot(liveSnapshot)
+              setAssessment(null)
+              setMode('live')
+              return
+            }
           }
-          return
+        } catch {
+          // Fall through.
         }
-
-        if (snapshotResponse.ok) {
-          const liveSnapshot = (await snapshotResponse.json()) as PhosSnapshot
-          if (!cancelled && hasTipTraqSnapshot(liveSnapshot)) {
-            clearAssessmentSession()
-            setSnapshot(liveSnapshot)
-            setAssessment(null)
-            setMode('tiptraq')
-            setLoading(false)
-            return
-          }
-        }
-      } catch {
-        // Fall through to assessment paths.
       }
 
-      if (assessmentId) {
+      if (resolvedAssessmentId) {
         try {
-          const response = await fetch(`/api/assessments/${assessmentId}`)
+          const response = await fetch(`/api/assessments/${resolvedAssessmentId}`)
           if (response.ok) {
             const payload = (await response.json()) as AssessmentSessionPayload
             if (!cancelled) {
@@ -70,114 +148,93 @@ function DashboardContent() {
               setAssessment(payload)
               setSnapshot(null)
               setMode('assessment')
-              setLoading(false)
             }
             return
           }
         } catch {
-          if (!cancelled) setLoading(false)
-          return
+          // Fall through.
         }
       }
 
-      const session = loadAssessmentSession()
       if (!cancelled) {
+        const session = loadAssessmentSession()
         if (session) {
           setAssessment(session)
           setSnapshot(null)
           setMode('assessment')
+        } else if (!signedIn) {
+          setMode('unauthenticated')
         } else {
           setMode('empty')
         }
-        setLoading(false)
       }
     }
 
-    void loadDashboard()
+    void loadDashboard().finally(() => {
+      if (!cancelled) setLoading(false)
+    })
 
     return () => {
       cancelled = true
     }
-  }, [searchParams])
+  }, [initialSnapshot, resolvedAssessmentId, signedIn])
 
   if (loading) {
-    return <p className="support">Loading your dashboard...</p>
+    return <LoadingPanel />
   }
 
   if (mode === 'unauthenticated') {
     return (
-      <>
-        <h1 className="section-title dashboard-page__title">Your Photonic Age</h1>
-        <p className="support dashboard-page__lede">Sign in to load your TipTraQ nights and score.</p>
-        <div className="copy-actions dashboard-page__actions">
-          <Link href="/auth/signin?next=/dashboard" className="btn btn--primary">
-            Sign in →
-          </Link>
-        </div>
-      </>
+      <div className="phos-dashboard">
+        <DashboardPanel
+          title="Your Photonic Age"
+          lede="Sign in to load your TipTraQ nights and score."
+          footer={
+            <Link href="/auth/signin?next=/dashboard" className="btn btn--primary">
+              Sign in →
+            </Link>
+          }
+        />
+      </div>
     )
   }
 
   if (mode === 'empty') {
     return (
-      <>
-        <h1 className="section-title dashboard-page__title">Your Photonic Age</h1>
-        <p className="support dashboard-page__lede">
-          Sign in to see TipTraQ nights, or complete the diagnostic for your score.
-        </p>
-        <div className="copy-actions dashboard-page__actions">
-          <Link href="/auth/signin?next=/dashboard" className="btn btn--outline">
-            Sign in
-          </Link>
-          <Link href="/score" className="btn btn--primary">
-            Start diagnostic
-          </Link>
-        </div>
-      </>
+      <div className="phos-dashboard">
+        <DashboardPanel
+          title="Your Photonic Age"
+          lede="Sign in to see TipTraQ nights, or complete the diagnostic for your score."
+          footer={
+            <>
+              <Link href="/auth/signin?next=/dashboard" className="btn btn--outline">
+                Sign in
+              </Link>
+              <Link href="/score" className="btn btn--primary">
+                Start diagnostic
+              </Link>
+            </>
+          }
+        />
+      </div>
     )
   }
 
-  if (mode === 'tiptraq' && snapshot) {
-    return (
-      <>
-        <h1 className="section-title dashboard-page__title">Your Photonic Age</h1>
-        <p className="support dashboard-page__lede">
-          {snapshot.nightsCount} sleep study nights processed.
-        </p>
-        <TipTraqDashboardView snapshot={snapshot} />
-        <AssessmentStatusPanels tipTraqNights={snapshot.nightsCount} />
-      </>
-    )
+  if (mode === 'live' && snapshot) {
+    return <LiveDashboard snapshot={snapshot} signedIn={signedIn} />
   }
 
   if (mode === 'assessment' && assessment) {
-    return (
-      <>
-        <h1 className="section-title dashboard-page__title">Your Photonic Age</h1>
-        <p className="support dashboard-page__lede">
-          Diagnostic score · {assessment.confidenceLabel} confidence · risk {assessment.riskLevel}
-        </p>
-        <PhosDashboardView assessment={assessment} />
-        <AssessmentStatusPanels assessment={assessment} />
-        <div className="copy-actions dashboard-page__actions">
-          <Link href={`/protocol?id=${assessment.assessmentId}`} className="btn btn--outline">
-            View protocol
-          </Link>
-          <Link href="/shop#protocol" className="btn btn--primary">
-            Start your protocol →
-          </Link>
-        </div>
-      </>
-    )
+    return <AssessmentDashboard assessment={assessment} />
   }
 
   return null
 }
 
-export function DashboardView() {
+export function DashboardView(props: DashboardViewProps) {
   return (
-    <Suspense fallback={<p className="support">Loading your dashboard...</p>}>
-      <DashboardContent />
+    <Suspense fallback={<LoadingPanel />}>
+      <DashboardContent {...props} />
     </Suspense>
   )
 }

@@ -1,13 +1,12 @@
 'use client'
 
 import Link from 'next/link'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import { Suspense, useState } from 'react'
 
 import { createClient } from '@/lib/supabase/client'
 
 function SignInFields() {
-  const router = useRouter()
   const searchParams = useSearchParams()
   const next = searchParams.get('next') ?? '/onboarding'
   const [email, setEmail] = useState('')
@@ -43,8 +42,8 @@ function SignInFields() {
       return
     }
 
-    router.push(next)
-    router.refresh()
+    // Full navigation so the server picks up the new auth cookies.
+    window.location.assign(next)
   }
 
   return (

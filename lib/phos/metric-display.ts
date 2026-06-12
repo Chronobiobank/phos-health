@@ -22,19 +22,6 @@ export function tipTraqSleepEfficiencyMetric(nights: number, avgEfficiency: numb
   }
 }
 
-export function tipTraqTotalSleepMetric(avgTstMinutes: number): PhosMetric {
-  const hours = Math.floor(avgTstMinutes / 60)
-  const minutes = avgTstMinutes % 60
-
-  return {
-    label: 'Total sleep',
-    labelLines: ['Total', 'sleep'],
-    value: `${hours}h ${minutes}m`,
-    note: 'Per night',
-    noteLines: ['Every', 'night'],
-  }
-}
-
 export function tipTraqBodyClockMetric(
   phaseTime: string | null,
   chronotype: string | null,

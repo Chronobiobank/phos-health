@@ -3,46 +3,66 @@ import Link from 'next/link'
 import { DailyCueTimeline } from '@/components/DailyCueTimeline'
 import { PhotonDepletionArc } from '@/components/PhotonDepletionArc'
 import { DashboardMetricTile } from '@/components/dashboard/DashboardMetricTile'
+import { DashboardPanel, DashboardPanelTiles } from '@/components/dashboard/DashboardPanel'
+import { PhotonicAgeSummaryRow } from '@/components/dashboard/PhotonicAgeSummaryRow'
 import { PhotonicRiskSpectrum } from '@/components/dashboard/PhotonicRiskSpectrum'
 import type { PhosSnapshot } from '@/lib/phos/types'
 
 type TipTraqDashboardViewProps = {
   snapshot: PhosSnapshot
+  title?: string
+  lede?: string
 }
 
 /** Retired metric tiles — data lives in the hero tile or page lede instead. */
-const HIDDEN_DASHBOARD_METRICS = new Set(['Confidence', 'Sun window', 'Nights uploaded'])
+const HIDDEN_DASHBOARD_METRICS = new Set(['Confidence', 'Sun window', 'Nights uploaded', 'Total sleep'])
 
-export function TipTraqDashboardView({ snapshot }: TipTraqDashboardViewProps) {
+export function TipTraqDashboardView({
+  snapshot,
+  title = 'Your Photonic Age',
+  lede,
+}: TipTraqDashboardViewProps) {
   const greeting = `Hey, ${snapshot.subjectName}`
   const metrics = snapshot.metrics.filter((metric) => !HIDDEN_DASHBOARD_METRICS.has(metric.label))
 
+  const confidenceLine =
+    snapshot.confidenceScore != null
+      ? `${snapshot.confidenceLabel} confidence (${snapshot.confidenceScore}%)` +
+        (snapshot.confidenceBandMinutes != null ? ` · ±${snapshot.confidenceBandMinutes} min` : '') +
+        (snapshot.tier === 'free' ? ' · Free tier' : snapshot.tier === 'premium' ? ' · Premium' : '')
+      : undefined
+
+  const panelLede = [lede, confidenceLine].filter(Boolean).join(' · ')
+
   return (
-    <div className="phos-dashboard">
-      <div className="phos-dashboard__summary">
-        <div className="phos-dashboard__stat dash-card">
-          <p className="dash-card__metric">{snapshot.calendarAge}</p>
-          <p className="dash-card__label">Calendar age</p>
-        </div>
-        <div className="phos-dashboard__stat dash-card dash-card--featured">
-          <p className="dash-card__metric">{snapshot.photonicAge}</p>
-          <p className="dash-card__label">Photonic age</p>
-        </div>
-        <div className="phos-dashboard__stat dash-card phos-dashboard__stat--accent">
-          <p className="dash-card__metric">{snapshot.lostLightYears}</p>
-          <p className="dash-card__label">Lost light years</p>
-        </div>
-      </div>
+    <DashboardPanel
+      title={title}
+      lede={panelLede || undefined}
+      footer={
+        snapshot.canUpload ? (
+          <>
+            <Link href="/dashboard/streams" className="btn btn--primary">
+              Upload nights →
+            </Link>
+            {snapshot.tier !== 'premium' ? (
+              <Link href="/shop" className="btn btn--outline">
+                Upgrade measurement →
+              </Link>
+            ) : null}
+            <Link href="/daily-cue" className="btn btn--outline">
+              Open Daily Cue →
+            </Link>
+          </>
+        ) : undefined
+      }
+    >
+      <PhotonicAgeSummaryRow
+        calendarAge={snapshot.calendarAge}
+        photonicAge={snapshot.photonicAge}
+        lostLightYears={snapshot.lostLightYears}
+      />
 
-      {snapshot.confidenceScore != null ? (
-        <p className="support phos-dashboard__confidence">
-          {snapshot.confidenceLabel} confidence ({snapshot.confidenceScore}%)
-          {snapshot.confidenceBandMinutes != null ? ` · ±${snapshot.confidenceBandMinutes} min` : null}
-          {snapshot.tier === 'free' ? ' · Free tier' : snapshot.tier === 'premium' ? ' · Premium' : null}
-        </p>
-      ) : null}
-
-      <article className="pitch-tile dash-card dash-card--featured phos-dashboard__tile">
+      <article className="pitch-tile dash-card dash-tile dash-card--featured phos-dashboard__tile">
         <header className="pitch-tile__header">
           <div className="pitch-tile__intro pitch-tile__intro--no-avatar">
             <p className="pitch-tile__greeting">{greeting}</p>
@@ -80,37 +100,19 @@ export function TipTraqDashboardView({ snapshot }: TipTraqDashboardViewProps) {
         </div>
       </article>
 
-      <article className="dash-card phos-dashboard__risk-spectrum">
+      <article className="dash-card dash-tile phos-dashboard__risk-spectrum">
         <p className="eyebrow">UK Biobank evidence</p>
         <h2 className="display-md">Your light-dark risk mild left, chronic right in 89k.</h2>
         <PhotonicRiskSpectrum nodes={snapshot.riskSpectrum} />
       </article>
 
       {metrics.length > 0 ? (
-        <div className="phos-dashboard__grid">
+        <DashboardPanelTiles columns={2} className="phos-dashboard__metrics-pair">
           {metrics.map((metric) => (
             <DashboardMetricTile key={metric.label} metric={metric} />
           ))}
-        </div>
+        </DashboardPanelTiles>
       ) : null}
-
-      <div className="phos-dashboard__actions">
-        {snapshot.canUpload ? (
-          <Link href="/dashboard/streams" className="btn btn--primary">
-            Upload nights →
-          </Link>
-        ) : null}
-        {snapshot.canUpload && snapshot.tier !== 'premium' ? (
-          <Link href="/shop" className="btn btn--outline">
-            Upgrade measurement →
-          </Link>
-        ) : null}
-        {snapshot.canUpload ? (
-          <Link href="/daily-cue" className="btn btn--outline">
-            Open Daily Cue →
-          </Link>
-        ) : null}
-      </div>
-    </div>
+    </DashboardPanel>
   )
 }

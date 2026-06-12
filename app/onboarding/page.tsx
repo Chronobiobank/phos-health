@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 
+import { DashboardPanel } from '@/components/dashboard/DashboardPanel'
 import { HealthConnectPanel } from '@/components/onboarding/HealthConnectPanel'
 import { isSupabaseConfigured } from '@/lib/phos/build-snapshot'
 import { createClient } from '@/lib/supabase/server'
@@ -17,8 +18,12 @@ export default async function OnboardingPage() {
     return (
       <section className="dashboard-page onboarding-page">
         <div className="container dashboard-page__content">
-          <h1 className="section-title dashboard-page__title">Connect your health app</h1>
-          <p className="support">Add Supabase env vars to enable onboarding and live sync.</p>
+          <div className="phos-dashboard">
+            <DashboardPanel
+              title="Connect your health app"
+              lede="Add Supabase env vars to enable onboarding and live sync."
+            />
+          </div>
         </div>
       </section>
     )
@@ -46,9 +51,15 @@ export default async function OnboardingPage() {
   return (
     <section className="dashboard-page onboarding-page">
       <div className="container dashboard-page__content">
-        <p className="eyebrow">Free tier</p>
-        <h1 className="section-title dashboard-page__title">Connect your health app</h1>
-        <HealthConnectPanel />
+        <div className="phos-dashboard">
+          <DashboardPanel
+            eyebrow="Free tier"
+            title="Connect your health app"
+            lede="Connect your phone health app for an instant Photonic Age score."
+          >
+            <HealthConnectPanel />
+          </DashboardPanel>
+        </div>
       </div>
     </section>
   )

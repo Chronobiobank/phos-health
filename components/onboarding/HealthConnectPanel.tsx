@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
+import { DashboardPanelTiles } from '@/components/dashboard/DashboardPanel'
+
 type ConnectSource = 'demo' | 'apple_healthkit' | 'google_health_connect'
 
 const SOURCES: Array<{ id: ConnectSource; label: string; note: string }> = [
@@ -56,17 +58,13 @@ export function HealthConnectPanel() {
   }
 
   return (
-    <div className="onboarding-connect">
-      <p className="lede onboarding-connect__lede">
-        Connect your phone health app for an instant Photonic Age score.
-      </p>
-
-      <div className="onboarding-connect__options">
+    <>
+      <DashboardPanelTiles columns={1} className="onboarding-connect__options">
         {SOURCES.map((source) => (
           <button
             key={source.id}
             type="button"
-            className="dash-card onboarding-connect__option"
+            className="dash-card dash-tile onboarding-connect__option"
             onClick={() => connect(source.id)}
             disabled={loading != null}
           >
@@ -77,19 +75,26 @@ export function HealthConnectPanel() {
             </span>
           </button>
         ))}
-      </div>
+      </DashboardPanelTiles>
 
-      {error ? <p className="support onboarding-connect__error">{error}</p> : null}
+      {error ? (
+        <article className="dash-card dash-tile">
+          <p className="support onboarding-connect__error">{error}</p>
+        </article>
+      ) : null}
 
-      <p className="support onboarding-connect__footnote">
-        Native HealthKit and Health Connect sync ships in the mobile app. Web uses demo data until then.
-      </p>
+      <article className="dash-card dash-tile">
+        <p className="support onboarding-connect__footnote">
+          Native HealthKit and Health Connect sync ships in the mobile app. Web uses demo data until
+          then.
+        </p>
+      </article>
 
-      <div className="copy-actions">
+      <div className="dash-panel__footer copy-actions">
         <Link href="/dashboard" className="btn btn--outline">
           Skip to dashboard
         </Link>
       </div>
-    </div>
+    </>
   )
 }

@@ -1,5 +1,7 @@
 import { DailyCueTimeline } from '@/components/DailyCueTimeline'
 import { PhotonDepletionArc } from '@/components/PhotonDepletionArc'
+import { DashboardPanel, DashboardPanelTiles } from '@/components/dashboard/DashboardPanel'
+import { PhotonicAgeSummaryRow } from '@/components/dashboard/PhotonicAgeSummaryRow'
 import type { AssessmentSessionPayload } from '@/lib/assessments/session'
 
 const FOCUS_LABELS: Record<string, string> = {
@@ -11,35 +13,29 @@ const FOCUS_LABELS: Record<string, string> = {
 
 type PhosDashboardViewProps = {
   assessment: AssessmentSessionPayload
+  title?: string
+  lede?: string
 }
 
-export function PhosDashboardView({ assessment }: PhosDashboardViewProps) {
+export function PhosDashboardView({
+  assessment,
+  title = 'Your Photonic Age',
+  lede,
+}: PhosDashboardViewProps) {
   const focusLabel = FOCUS_LABELS[assessment.protocolFocus] ?? assessment.protocolFocus
 
+  const confidenceLine = `${assessment.confidenceLabel} confidence (${assessment.confidenceScore}%) · ±${assessment.confidenceBandMinutes} min · Diagnostic tier`
+  const panelLede = [lede, confidenceLine].filter(Boolean).join(' · ')
+
   return (
-    <div className="phos-dashboard">
-      <div className="phos-dashboard__summary">
-        <div className="phos-dashboard__stat dash-card">
-          <p className="dash-card__metric">{assessment.calendarAge}</p>
-          <p className="dash-card__label">Calendar age</p>
-        </div>
-        <div className="phos-dashboard__stat dash-card dash-card--featured">
-          <p className="dash-card__metric">{assessment.photonicAge}</p>
-          <p className="dash-card__label">Photonic age</p>
-        </div>
-        <div className="phos-dashboard__stat dash-card phos-dashboard__stat--accent">
-          <p className="dash-card__metric">{assessment.lostLightYears}</p>
-          <p className="dash-card__label">Lost light years</p>
-        </div>
-      </div>
+    <DashboardPanel title={title} lede={panelLede || undefined}>
+      <PhotonicAgeSummaryRow
+        calendarAge={assessment.calendarAge}
+        photonicAge={assessment.photonicAge}
+        lostLightYears={assessment.lostLightYears}
+      />
 
-      <p className="support phos-dashboard__confidence">
-        {assessment.confidenceLabel} confidence ({assessment.confidenceScore}%)
-        {` · ±${assessment.confidenceBandMinutes} min`}
-        {` · Diagnostic tier`}
-      </p>
-
-      <article className="pitch-tile dash-card dash-card--featured phos-dashboard__tile">
+      <article className="pitch-tile dash-card dash-tile dash-card--featured phos-dashboard__tile">
         <header className="pitch-tile__header">
           <div className="pitch-tile__intro pitch-tile__intro--no-avatar">
             <p className="pitch-tile__greeting">{assessment.protocolHeadline}</p>
@@ -76,9 +72,9 @@ export function PhosDashboardView({ assessment }: PhosDashboardViewProps) {
         </div>
       </article>
 
-      <div className="phos-dashboard__grid">
+      <DashboardPanelTiles columns={3} className="phos-dashboard__grid">
         {assessment.domains.map((domain) => (
-          <div key={domain.key} className="phos-dashboard__metric dash-card">
+          <div key={domain.key} className="phos-dashboard__metric dash-card dash-tile">
             <p className="dash-card__metric">
               {domain.value}
               {domain.unit ? ` ${domain.unit}` : ''}
@@ -87,7 +83,7 @@ export function PhosDashboardView({ assessment }: PhosDashboardViewProps) {
             <p className="dash-card__support">{domain.lostLightYearsContribution} lost light years</p>
           </div>
         ))}
-      </div>
-    </div>
+      </DashboardPanelTiles>
+    </DashboardPanel>
   )
 }

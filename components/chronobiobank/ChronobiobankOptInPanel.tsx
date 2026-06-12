@@ -67,8 +67,8 @@ export function ChronobiobankOptInPanel({ state, signedIn }: ChronobiobankOptInP
   const isActive = state.consent.granted && state.contribution.active
 
   return (
-    <div className="chronobiobank-optin">
-      <article className="dash-card chronobiobank-optin__status">
+    <>
+      <article className="dash-card dash-tile chronobiobank-optin__status">
         <p className="dash-card__label">Your status</p>
         <p className="display-md">{isActive ? 'Contributing' : 'Not contributing'}</p>
         {state.contribution.pseudonymId ? (
@@ -79,38 +79,46 @@ export function ChronobiobankOptInPanel({ state, signedIn }: ChronobiobankOptInP
       </article>
 
       {!signedIn ? (
-        <p className="support">
-          <a href="/auth/signin?next=/chronobiobank">Sign in</a> to join or manage your contribution.
-        </p>
-      ) : isActive ? (
-        <div className="copy-actions">
-          <button
-            type="button"
-            className="btn btn--outline"
-            onClick={revoke}
-            disabled={loading != null}
-          >
-            {loading === 'revoke' ? 'Revoking…' : 'Revoke and withdraw →'}
-          </button>
-        </div>
+        <article className="dash-card dash-tile">
+          <p className="support">
+            <a href="/auth/signin?next=/chronobiobank">Sign in</a> to join or manage your contribution.
+          </p>
+        </article>
       ) : (
-        <div className="copy-actions">
-          <button
-            type="button"
-            className="btn btn--primary"
-            onClick={optIn}
-            disabled={loading != null}
-          >
-            {loading === 'opt-in' ? 'Joining…' : 'Join Chronobiobank →'}
-          </button>
+        <div className="dash-panel__footer copy-actions">
+          {isActive ? (
+            <button
+              type="button"
+              className="btn btn--outline"
+              onClick={revoke}
+              disabled={loading != null}
+            >
+              {loading === 'revoke' ? 'Revoking…' : 'Revoke and withdraw →'}
+            </button>
+          ) : (
+            <button
+              type="button"
+              className="btn btn--primary"
+              onClick={optIn}
+              disabled={loading != null}
+            >
+              {loading === 'opt-in' ? 'Joining…' : 'Join Chronobiobank →'}
+            </button>
+          )}
         </div>
       )}
 
-      {message ? <p className="support chronobiobank-optin__message">{message}</p> : null}
+      {message ? (
+        <article className="dash-card dash-tile">
+          <p className="support chronobiobank-optin__message">{message}</p>
+        </article>
+      ) : null}
 
-      <p className="support chronobiobank-optin__note">
-        This choice is separate from your employer programme and from PHOS service terms.
-      </p>
-    </div>
+      <article className="dash-card dash-tile">
+        <p className="support chronobiobank-optin__note">
+          This choice is separate from your employer programme and from PHOS service terms.
+        </p>
+      </article>
+    </>
   )
 }
