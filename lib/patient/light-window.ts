@@ -1,13 +1,11 @@
-import {
-  ZEITGEber_LIGHT_END_OFFSET,
-  ZEITGEber_LIGHT_START_OFFSET,
-  normalizeMinutesFromMidnight,
-} from '@/lib/mlux'
 import { formatMinutesAsClock, parseClockToMinutes } from '@/lib/phos/engine/time'
 import { approximateEarliestOutdoorLightMinutes } from '@/lib/patient/timezone'
 
-const DEFAULT_WINDOW_MINUTES =
-  ZEITGEber_LIGHT_END_OFFSET - ZEITGEber_LIGHT_START_OFFSET
+const DEFAULT_WINDOW_MINUTES = 120
+
+function normalizeMinutesFromMidnight(minutes: number): number {
+  return ((minutes % 1440) + 1440) % 1440
+}
 
 /** Clamp morning light window so anchor is never before local outdoor light is available. */
 export function adjustLightWindowForLocation(

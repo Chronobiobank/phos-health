@@ -165,8 +165,7 @@ async function buildFromTipTraq(
   userId: string,
   canUpload: boolean,
 ): Promise<PhosSnapshot | null> {
-  const [{ data: profile }, { data: patient }, { data: member }, { data: mlux }, nightsResult }] =
-    await Promise.all([
+  const [profileResult, patientResult, memberResult, mluxResult, nightsResult] = await Promise.all([
       supabase.from('profiles').select('full_name').eq('id', userId).maybeSingle(),
       supabase
         .from('patient_profiles')
@@ -185,6 +184,11 @@ async function buildFromTipTraq(
         .eq('patient_id', userId)
         .order('report_date', { ascending: false }),
     ])
+
+  const { data: profile } = profileResult
+  const { data: patient } = patientResult
+  const { data: member } = memberResult
+  const { data: mlux } = mluxResult
 
   const { data: nights, error: nightsError } = nightsResult
   if (nightsError) {
