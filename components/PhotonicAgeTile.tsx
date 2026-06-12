@@ -4,8 +4,6 @@ import { PhotonDepletionArc } from '@/components/PhotonDepletionArc'
 import { formatGbp } from '@/lib/format-gbp'
 
 const ANNUAL_COST_PER_PERSON = 18_000
-const FIRM_HEADCOUNT = 150
-const FIRM_ANNUAL_COST = ANNUAL_COST_PER_PERSON * FIRM_HEADCOUNT
 
 type PhotonicAgeTileProps = {
   ctaHref?: string
@@ -25,7 +23,6 @@ export function PhotonicAgeTile({
   )
 
   const annualCost = formatGbp(ANNUAL_COST_PER_PERSON)
-  const firmAnnualCost = formatGbp(FIRM_ANNUAL_COST)
 
   return (
     <div
@@ -33,7 +30,7 @@ export function PhotonicAgeTile({
     >
       <article
         className={`impact-card impact-card--worked impact-card--evidence dash-card dash-card--featured${ctaOutside ? '' : ' impact-card--embedded'}`}
-        aria-label={`Night-shift A&E registrar in London, age 43. 4.2 lost light years, 276 working hours lost, ${annualCost} annual cost per person. ${FIRM_HEADCOUNT} professionals, ${firmAnnualCost} per year.`}
+        aria-label={`Night-shift A&E registrar in London, age 43. 4.2 lost light years, 276 working hours lost, ${annualCost} annual cost per person.`}
       >
         <header className="impact-card__header impact-card__header--evidence">
           <span className="impact-card__subject">Night-shift A&E registrar</span>
@@ -62,10 +59,6 @@ export function PhotonicAgeTile({
             </div>
           </div>
         </div>
-
-        <p className="impact-card__firm-stats impact-card__firm-stats--evidence">
-          {FIRM_HEADCOUNT} professionals · {firmAnnualCost} p/a
-        </p>
       </article>
 
       {ctaOutside && <div className="impact-card__cta-outside">{cta}</div>}

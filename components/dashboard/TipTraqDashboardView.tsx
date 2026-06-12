@@ -6,6 +6,7 @@ import { DashboardMetricTile } from '@/components/dashboard/DashboardMetricTile'
 import { DashboardPanel, DashboardPanelTiles } from '@/components/dashboard/DashboardPanel'
 import { PhotonicAgeSummaryRow } from '@/components/dashboard/PhotonicAgeSummaryRow'
 import { PhotonicRiskSpectrum } from '@/components/dashboard/PhotonicRiskSpectrum'
+import { pathwayHref, pathwayLaneFromTier } from '@/lib/pathway/lanes'
 import type { PhosSnapshot } from '@/lib/phos/types'
 
 type TipTraqDashboardViewProps = {
@@ -33,6 +34,7 @@ export function TipTraqDashboardView({
       : undefined
 
   const panelLede = [lede, confidenceLine].filter(Boolean).join(' · ')
+  const pathwayLane = pathwayLaneFromTier(snapshot.tier)
 
   return (
     <DashboardPanel
@@ -104,6 +106,9 @@ export function TipTraqDashboardView({
         <p className="eyebrow">UK Biobank evidence</p>
         <h2 className="display-md">Your light-dark risk mild left, chronic right in 89k.</h2>
         <PhotonicRiskSpectrum nodes={snapshot.riskSpectrum} />
+        <Link href={pathwayHref(pathwayLane)} className="btn btn--outline phos-dashboard__pathway-cta">
+          See what to do next →
+        </Link>
       </article>
 
       {metrics.length > 0 ? (

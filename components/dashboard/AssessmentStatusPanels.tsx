@@ -26,8 +26,7 @@ export function AssessmentStatusPanels({ assessment, tipTraqNights = 0 }: Assess
 
   return (
     <DashboardPanel
-      title="Tighten your confidence band"
-      lede="Optional upgrades for blood panel, sleep study, and research."
+      title="Optional upgrades tighten your confidence band"
       titleAs="h2"
     >
       <DashboardPanelTiles columns={3} className="dashboard-status-panels">

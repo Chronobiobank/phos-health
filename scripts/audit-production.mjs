@@ -15,8 +15,9 @@ const PUBLIC_ROUTES = [
   '/shop#protocol',
   '/shop#photonic-panel',
   '/shop#photonic-sleep-study',
+  '/pathway',
+  '/pathway?lane=sleep',
   '/research/photonic-age',
-  '/evidence',
   '/protocol',
   '/onboarding',
   '/chronobiobank',
@@ -32,7 +33,6 @@ const PUBLIC_ROUTES = [
   '/org',
   '/org/join',
   '/biology',
-  '/loss-in-light-years',
   '/tiptraq',
 ]
 

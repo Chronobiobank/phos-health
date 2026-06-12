@@ -23,8 +23,8 @@ export default function BiologyPage() {
           <BiologyFacts />
 
           <div className="detail-page__actions">
-            <Link href="/loss-in-light-years" className="btn btn--primary">
-              See the cost →
+            <Link href="/research/photonic-age" className="btn btn--primary">
+              Read the science →
             </Link>
             <Link href="/" className="btn btn--outline">
               Back to home
