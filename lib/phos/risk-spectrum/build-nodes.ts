@@ -1,3 +1,4 @@
+import { labelLinesForNode, RISK_SPECTRUM_LABELS } from '@/lib/phos/risk-spectrum/labels'
 import { UK_BIOBANK_COHORT } from '@/lib/phos/risk-spectrum/uk-biobank'
 import {
   scoreForSeverity,
@@ -77,7 +78,8 @@ export function buildPhotonicRiskSpectrum(input: BuildPhotonicRiskSpectrumInput)
   const nodes: Omit<SpectrumNode, 'score'>[] = [
     {
       id: 'sleep-rhythm',
-      label: 'Fatigue and jet lag',
+      label: RISK_SPECTRUM_LABELS['sleep-rhythm'].full,
+      labelLines: labelLinesForNode('sleep-rhythm'),
       severity: sleepRhythmSeverity,
       reason:
         sleepRhythmSeverity === 'weak'
@@ -90,7 +92,8 @@ export function buildPhotonicRiskSpectrum(input: BuildPhotonicRiskSpectrumInput)
     },
     {
       id: 'sleep-apnoea',
-      label: 'Sleep apnoea',
+      label: RISK_SPECTRUM_LABELS['sleep-apnoea'].full,
+      labelLines: labelLinesForNode('sleep-apnoea'),
       severity: sleepApnoeaSeverity,
       reason: apnoeaReason(
         sleepApnoeaSeverity,
@@ -108,7 +111,8 @@ export function buildPhotonicRiskSpectrum(input: BuildPhotonicRiskSpectrumInput)
     },
     {
       id: 'immune-system',
-      label: 'Vitamin D and immune',
+      label: RISK_SPECTRUM_LABELS['immune-system'].full,
+      labelLines: labelLinesForNode('immune-system'),
       severity: immuneSeverity,
       reason:
         input.hasBloodPanel && input.vitaminDLow
@@ -123,7 +127,8 @@ export function buildPhotonicRiskSpectrum(input: BuildPhotonicRiskSpectrumInput)
     },
     {
       id: 'blood-sugar',
-      label: 'Diabetes risk',
+      label: RISK_SPECTRUM_LABELS['blood-sugar'].full,
+      labelLines: labelLinesForNode('blood-sugar'),
       severity: bloodSugarSeverity,
       reason:
         bloodSugarSeverity === 'moderate'
@@ -138,7 +143,8 @@ export function buildPhotonicRiskSpectrum(input: BuildPhotonicRiskSpectrumInput)
     },
     {
       id: 'blood-pressure',
-      label: 'Heart disease risk',
+      label: RISK_SPECTRUM_LABELS['blood-pressure'].full,
+      labelLines: labelLinesForNode('blood-pressure'),
       severity: bloodPressureSeverity,
       reason:
         bloodPressureSeverity === 'moderate'
@@ -155,7 +161,8 @@ export function buildPhotonicRiskSpectrum(input: BuildPhotonicRiskSpectrumInput)
     },
     {
       id: 'brain-health',
-      label: 'Brain health',
+      label: RISK_SPECTRUM_LABELS['brain-health'].full,
+      labelLines: labelLinesForNode('brain-health'),
       severity: brainSeverity,
       reason:
         brainSeverity === 'mild'
@@ -168,7 +175,8 @@ export function buildPhotonicRiskSpectrum(input: BuildPhotonicRiskSpectrumInput)
     },
     {
       id: 'cancer-risk',
-      label: 'Cancer risk',
+      label: RISK_SPECTRUM_LABELS['cancer-risk'].full,
+      labelLines: labelLinesForNode('cancer-risk'),
       severity: cancerSeverity,
       reason:
         cancerSeverity === 'moderate'

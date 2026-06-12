@@ -103,7 +103,14 @@ export function PhotonicRiskSpectrum({ nodes }: PhotonicRiskSpectrumProps) {
               isElevatedSeverity(node.severity) ? ' photonic-risk-spectrum__label-btn--concern' : ''
             }`}
           >
-            {node.label}
+            <span className="photonic-risk-spectrum__label-stack">
+              <span className="photonic-risk-spectrum__label-line photonic-risk-spectrum__label-line--primary">
+                {node.labelLines[0]}
+              </span>
+              <span className="photonic-risk-spectrum__label-line photonic-risk-spectrum__label-line--secondary">
+                {node.labelLines[1]}
+              </span>
+            </span>
           </button>
         ))}
       </div>

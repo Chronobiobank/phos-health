@@ -33,7 +33,10 @@ describe('buildPhotonicRiskSpectrum', () => {
       'cancer-risk',
     ])
     expect(nodes[0].label).toBe('Fatigue and jet lag')
+    expect(nodes[0].labelLines).toEqual(['Fatigue', 'jet lag'])
+    expect(nodes[1].labelLines).toEqual(['Snoring', 'apnoea'])
     expect(nodes[3].label).toBe('Diabetes risk')
+    expect(nodes[3].labelLines).toEqual(['Glucose', 'insulin'])
   })
 
   it('cites UK Biobank in diabetes node when elevated', () => {

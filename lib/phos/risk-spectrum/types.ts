@@ -12,6 +12,7 @@ export type SpectrumNodeId =
 export type SpectrumNode = {
   id: SpectrumNodeId
   label: string
+  labelLines: readonly [string, string]
   score: number
   severity: SpectrumSeverity
   reason: string
