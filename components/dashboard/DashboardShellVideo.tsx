@@ -1,18 +1,14 @@
-/** Full-viewport loop behind dashboard shell tiles and nav. */
+/** Dia-style flowing gradient blobs behind dashboard shell tiles and nav. */
 export function DashboardShellVideo() {
   return (
     <div className="dashboard-shell__backdrop" aria-hidden="true">
-      <video
-        className="dashboard-shell__video"
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        aria-hidden="true"
-      >
-        <source src="/first-light.mp4" type="video/mp4" />
-      </video>
+      <div className="dashboard-shell__video dashboard-shell__ambient" aria-hidden="true">
+        <div className="dashboard-shell__ambient-blob dashboard-shell__ambient-blob--teal" />
+        <div className="dashboard-shell__ambient-blob dashboard-shell__ambient-blob--blue" />
+        <div className="dashboard-shell__ambient-blob dashboard-shell__ambient-blob--violet" />
+        <div className="dashboard-shell__ambient-blob dashboard-shell__ambient-blob--magenta" />
+        <div className="dashboard-shell__ambient-blob dashboard-shell__ambient-blob--amber" />
+      </div>
     </div>
   )
 }
